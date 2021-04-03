@@ -1,0 +1,42 @@
+@extends('vendor.app')
+
+@section('title','Please verify your email')
+
+@section('content')
+
+
+    
+    <section>
+		<div class="container">
+			<div class="row">
+
+                <div class="col-md-12">
+                    <br>
+                    <h2>{{ __('Please Verify Your Email Address') }}</h2>
+
+                    <div class="verify-text">
+                        @if (session('resent'))
+                            <div class="alert alert-success" role="alert">
+                                {{ __('A fresh verification link has been sent to your email address.') }}
+                            </div>
+                        @endif
+
+                        {{ __('Before proceeding, please check your email for a verification link.') }}
+                        {{ __('If you did not receive the email') }},
+                        <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+	@include('parts.banner')
+
+
+
+
+@endsection

@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Listeners;
+
+use App\Events\ProductViewed;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+
+use App\Includes\CookieHelper;
+
+class AddViewedCookie
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  ProductViewed  $event
+     * @return void
+     */
+    public function handle(ProductViewed $event)
+    {
+        $id = $event->productId;
+        CookieHelper::updateArrayCookie('watched',$id,60*24,true);
+
+    }
+}
