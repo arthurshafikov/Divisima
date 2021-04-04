@@ -10,10 +10,10 @@ class SliderViewComposer
 
     public function compose(View $view)
     {
-        $slider = \Cache::remember('HomeSlider', env("CACHE_TIME",0),function(){
+        $slider = \Cache::remember('HomeSlider', env("CACHE_TIME", 0), function () {
             return  Slide::with('image')->get();
         });
-        $view->with('slider',$slider);
+        $view->with('slider', $slider);
     }
 
     

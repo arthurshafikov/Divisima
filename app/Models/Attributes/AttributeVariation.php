@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributeVariation extends Model
 {
-    
     use SluggableTrait;
     
     public $timestamps = false;
@@ -22,6 +21,6 @@ class AttributeVariation extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product','product_variations','variation_id',null);
+        return $this->belongsToMany('App\Models\Product', 'product_variations', 'variation_id', null);
     }
 }

@@ -18,8 +18,15 @@ class Select extends Component
      *
      * @return void
      */
-    public function __construct($name, $array, $compared, $label = '', $default = false, $field = 'id', $labelField = 'name')
-    {
+    public function __construct(
+        $name, 
+        $array, 
+        $compared, 
+        $label = '', 
+        $default = false, 
+        $field = 'id', 
+        $labelField = 'name'
+    ) {
         $this->name = $name;
         $this->array = $array;
         $this->compared = $compared;
@@ -41,7 +48,7 @@ class Select extends Component
 
     public function echoSelectedIfEquals($option)
     {
-        if($option == $this->compared)
+        if ($option == $this->compared) 
             return 'selected';
         return '';
     }   

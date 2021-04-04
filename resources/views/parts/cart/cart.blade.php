@@ -1,11 +1,10 @@
 @include('parts.flashes')
 <div class="row">
-    @if(count($items) < 1) 
+    @if (count($items) < 1) 
         Your cart is empty! 
     @else 
     <div class="col-lg-8">
         <div class="cart-table">
-            
             
             <div class="preloader">
                 <div class="loader"></div>
@@ -24,47 +23,47 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($items as $item)
-                        <tr class="cart-product" data-id="{{ $item->id }}" >
-                            <td class="product-col" data-price="{{ $item->price }}">
-                                <img src="{{ $item->img() }}" alt="">
-                                <div class="pc-title">
-                                    <h4><a href="{{ route('product',$item->slug)}}">{{ $item->name }}</a></h4>
-                                    <p>{{ $item->formatted_price }}</p>
-                                </div>
-                            </td>
-                            <td class="quy-col">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="{{ $cart[$item->id]['qty'] }}">
+                        @foreach ($items as $item)
+                            <tr class="cart-product" data-id="{{ $item->id }}" >
+                                <td class="product-col" data-price="{{ $item->price }}">
+                                    <img src="{{ $item->img() }}" alt="">
+                                    <div class="pc-title">
+                                        <h4><a href="{{ route('product',$item->slug)}}">{{ $item->name }}</a></h4>
+                                        <p>{{ $item->formatted_price }}</p>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="size-col">
-                                
-                                <select name="size">
-                                    @forelse(getProductAttribute('size',$item->id) as $attr)
-                                        <option value="{{ $attr->name }}" {{ $attr->name == $item->size ? 'selected' : ''}}><h4>{{ $attr->name }}</h4></option>
-                                    @empty 
-                                        123
-                                    @endforelse 
-                                </select>
-                            </td>
-                            <td class="color-col">
+                                </td>
+                                <td class="quy-col">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="{{ $cart[$item->id]['qty'] }}">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="size-col">
+                                    
+                                    <select name="size">
+                                        @forelse (getProductAttribute('size',$item->id) as $attr)
+                                            <option value="{{ $attr->name }}" {{ $attr->name == $item->size ? 'selected' : ''}}><h4>{{ $attr->name }}</h4></option>
+                                        @empty 
+                                            123
+                                        @endforelse 
+                                    </select>
+                                </td>
+                                <td class="color-col">
 
-                                <select name="color" class="color-select" data-color="{{ $item->color }}-color">
-                                    @forelse(getProductAttribute('color',$item->id) as $attr)
-                                        <option value="{{ $attr->name }}" class="{{ $attr->name }}-color" {{ $attr->name == $item->color ? 'selected' : ''}}>
-                                        </option>
-                                    @empty 
-                                        123
-                                    @endforelse 
-                                </select>
-                            </td>
-                            <td class="total-col">
-                                <h4>${{ $item->total }}</h4>
-                            </td>
-                        </tr>
+                                    <select name="color" class="color-select" data-color="{{ $item->color }}-color">
+                                        @forelse (getProductAttribute('color',$item->id) as $attr)
+                                            <option value="{{ $attr->name }}" class="{{ $attr->name }}-color" {{ $attr->name == $item->color ? 'selected' : ''}}>
+                                            </option>
+                                        @empty 
+                                            123
+                                        @endforelse 
+                                    </select>
+                                </td>
+                                <td class="total-col">
+                                    <h4>${{ $item->total }}</h4>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -73,7 +72,7 @@
             <div class="total-cost">
                 <table class="table table-sm">
                     <tbody>
-                        @if($promocode)
+                        @if ($promocode)
                             <tr>
                                 <td><h6>Promocode applied</h6></td>
                                 <td><h6><span>{{ $promocode }}%</span></h6></td>

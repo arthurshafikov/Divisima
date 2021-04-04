@@ -10,12 +10,11 @@ use Illuminate\Support\Carbon;
 
 class Post extends Model
 {
-    use HasFactory, SluggableTrait;
-    use HasImage;
+    use HasFactory, SluggableTrait, HasImage;
     
     protected $fillable = ['title','content','img'];
 
-    public function sluggable(): array
+    public function sluggable() : array
     {
         return [
             'slug' => [

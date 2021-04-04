@@ -8,9 +8,8 @@ class MediaComposer
 {
     public function compose(View $view)
     {
-        $images = \App\Models\Image::orderBy('created_at','desc')->paginate(20);
-        $view->with('images',$images);
+        $images = \App\Models\Image::orderBy('created_at', 'desc')->paginate(20);
+        $view->with('images', $images);
     }
 
-    
 }

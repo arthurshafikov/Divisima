@@ -64,7 +64,7 @@ class AccountTest extends TestCase
             'phone' => '89999999999',
         ];
         $response = $this->actingAs($user)
-                            ->post(route('change-profile'),$profile_info);
+                            ->post(route('change-profile'), $profile_info);
 
         $response->assertOk();
     }

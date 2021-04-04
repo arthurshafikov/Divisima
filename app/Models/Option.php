@@ -12,12 +12,12 @@ class Option extends Model
 
     public function name()
     {
-        return ucwords(str_replace('_',' ',$this->key));
+        return ucwords(str_replace('_', ' ', $this->key));
     }
 
     public function setValueAttribute($val)
     {
-        if(is_array($val)){
+        if (is_array($val)) {
             $val = serialize($val);
         }
         $this->attributes['value'] = $val;
@@ -25,7 +25,7 @@ class Option extends Model
 
     public function getValueAttribute($val)
     {
-        if(preg_match('/^a:\d+:{/',$val)){
+        if (preg_match('/^a:\d+:{/', $val)) {
             // this is serialized array
             $val = unserialize($val);
         }

@@ -22,7 +22,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            'img' => 'images/'.$this->faker->numberBetween(1,19).'.jpg',
+            'img' => 'images/'.$this->faker->numberBetween(1, 19).'.jpg',
         ];
     }
 }

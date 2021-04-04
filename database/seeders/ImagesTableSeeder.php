@@ -19,7 +19,7 @@ class ImagesTableSeeder extends Seeder
         Image::factory()->count(100)->create();
 
         // slider big images
-        for($i = 1; $i <= 2; $i++){
+        for ($i = 1; $i <= 2; $i++) {
             Image::create([
                 'img' => 'images/'.$i.'.jpeg',
             ]);

@@ -19,8 +19,8 @@
 
         <div class="gallery-wrapper">
             <div class="gallery">
-                @if(old('gallery'))
-                    @foreach(\App\Models\Image::whereIn('id',explode(',',old('gallery')))->get() as $img)
+                @if (old('gallery'))
+                    @foreach (\App\Models\Image::whereIn('id',explode(',',old('gallery')))->get() as $img)
                         @include('admin.parts.gallery-image')
                     @endforeach
                 @endif
@@ -40,11 +40,11 @@
         <label class="small mb-1">Attributes</label>
         <div class="attributes-wrapper">
             <ul>
-                @foreach(getAllAttributes() as $attribute)
+                @foreach (getAllAttributes() as $attribute)
                     <li class="attribute-name">{{ $attribute->name }}</li>
-                    @if(count($attribute->variations) > 0 )
+                    @if (count($attribute->variations) > 0 )
                     <ul class="sub-menu">
-                        @foreach($attribute->variations as $var)
+                        @foreach ($attribute->variations as $var)
                         <li><input type="checkbox" name="attributes[]" id="var_{{ $var->id }}" value="{{ $var->id }}" {{ echoCheckedIfOldHas($var->id,'attributes') }}> <label for="var_{{ $var->id }}">{{ $var->name }}</label> </li>
                         @endforeach
                     </ul>
@@ -59,13 +59,13 @@
         <label class="small mb-1">Categories</label>
         <div class="attributes-wrapper">
             <ul>
-                @foreach(getAllParentCategories() as $category)
+                @foreach (getAllParentCategories() as $category)
                 <li class="attribute-name"><input type="checkbox" name="category[]" id="cat_{{ $category->id }}" value="{{ $category->id }}" {{ echoCheckedIfOldHas($category->id,'category') }} >
                  <label for="cat_{{ $category->id }}">{{ $category->name }}</label>
                 </li>
-                @if(count($category->childs) > 0 )
+                @if (count($category->childs) > 0 )
                 <ul class="sub-menu">
-                    @foreach($category->childs as $cat)
+                    @foreach ($category->childs as $cat)
                     <li><input type="checkbox" name="category[]" id="cat_{{ $cat->id }}" value="{{ $cat->id }}" {{ echoCheckedIfOldHas($cat->id,'category') }}> <label for="cat_{{ $cat->id }}">{{ $cat->name }}</label> </li>
                     @endforeach
                 </ul>

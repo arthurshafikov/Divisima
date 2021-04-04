@@ -6,8 +6,6 @@
 
 	@include('parts.page-info')
 
-
-
 	<!-- checkout section  -->
 	<section class="checkout-section spad">
 		<div class="container">
@@ -17,7 +15,7 @@
 						@csrf
 
 
-						@if($errors->any())
+						@if ($errors->any())
 							<div class="error-wrapper col-md-12">
 								{!! implode('', $errors->all('<p>:message</p>')) !!}
 							</div>
@@ -79,11 +77,10 @@
 								@endguest
 							</div>
 
-						@if($delivery)
+						@if ($delivery)
 							<div class="cf-title">Delievery Info</div>
 							<div class="row shipping-btns">
-								@foreach($delivery as $id => $del)
-									
+								@foreach ($delivery as $id => $del)
 									<div class="col-12">
 										<div class="cf-radio-btns">
 											<div class="cfr-item">
@@ -127,7 +124,7 @@
 					<div class="checkout-cart">
 						<h3>Your Cart</h3>
 						<ul class="product-list">
-                            @foreach($items as $product)
+                            @foreach ($items as $product)
                                 <li>
                                     <div class="pl-thumb"><img src="{{ $product->img() }}" alt=""></div>
                                     <h6>{{ $product->name }}</h6>

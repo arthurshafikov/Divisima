@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
@@ -22,20 +23,18 @@ class AuthTest extends TestCase
 
     public function  testRegistration()
     {
-        Notification::fake();
         $user = User::factory()->make();
-        $newUser_arr = array_merge($user->toArray(),[
+        $newUser_arr = array_merge($user->toArray(), [
             'password' => '12345678',
             'password_confirmation' => '12345678',
         ]);
-        $response = $this->post(route('register'),$newUser_arr);
+        $response = $this->post(route('register'), $newUser_arr);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('users',[
+        $this->assertDatabaseHas('users', [
             'name' => $user->name,
         ]);
-        Notification::assertSentTo([$user],VerifyEmail::class);
     }
 
     public function testLogin()
@@ -46,14 +45,14 @@ class AuthTest extends TestCase
             'username' => $user->email,
             'password' => '123',
         ];
-        $response = $this->post(route('login'),$newUser_arr);
+        $response = $this->post(route('login'), $newUser_arr);
         $response->assertSessionHasNoErrors();
 
         $newUser_arr = [
             'username' => $user->name,
             'password' => '123',
         ];
-        $response = $this->post(route('login'),$newUser_arr);
+        $response = $this->post(route('login'), $newUser_arr);
         $response->assertSessionHasNoErrors();
     }
 

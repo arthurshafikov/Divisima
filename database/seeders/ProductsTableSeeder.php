@@ -18,8 +18,8 @@ class ProductsTableSeeder extends Seeder
         
         $category = \App\Models\Category::all();
         
-        Product::all()->each(function ($product) use ($category){
-            for($i = 0; $i < 2; $i++){
+        Product::all()->each( function ($product) use ($category) {
+            for ($i = 0; $i < 2; $i++) {
                 $product->category()->attach($category->random());
             }
         });

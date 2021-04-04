@@ -9,11 +9,12 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
     protected static $products_per_page;
     
     public function __construct()
     {
         self::$products_per_page = getOption('products_per_page');
     }
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

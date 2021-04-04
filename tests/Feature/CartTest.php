@@ -42,12 +42,12 @@ class CartTest extends TestCase
     public function testAddToCart()
     {
         $id = Product::inRandomOrder()->first()->id;
-        $response = $this->get(route('addToCart',[
+        $response = $this->get(route('addToCart', [
             'id' => $id,
         ]));
         $response->assertOk();
 
-        $response = $this->get(route('addToCart',[
+        $response = $this->get(route('addToCart', [
             'id' => $id,
             'size' => 'fasQ#J#!I@DSAF',
             'color' => '12fasQ#412J1#24!1I@124124DSAF',
@@ -62,7 +62,7 @@ class CartTest extends TestCase
         $cart = '{"1":{"qty":"2","size":"","color":""} }';
         $response = $this->withCookie('cart', $cart)->get(route('resetCart'));
 
-        $response->assertCookie('cart','[]');
+        $response->assertCookie('cart', '[]');
         $response->assertSessionHas('msg');
         // $response->assertRedirect();
     }
@@ -72,7 +72,7 @@ class CartTest extends TestCase
         $products = Product::inRandomOrder()->take(4)->get();
 
         $items = [];
-        foreach($products as $product){
+        foreach ($products as $product) {
             $items[] = [
                 'id' => $product->id,
                 'qty' => '1',
@@ -80,7 +80,7 @@ class CartTest extends TestCase
                 'color' => '',
             ];
         }
-        $response = $this->get(route('updateCart',[
+        $response = $this->get(route('updateCart', [
             'items' => $items,
         ]));
 

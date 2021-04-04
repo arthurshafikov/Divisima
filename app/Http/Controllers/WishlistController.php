@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Includes\CookieHelper;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
@@ -14,9 +13,8 @@ class WishlistController extends Controller
     public function wishlist()
     {
         $product_ids = $this->getWishlistCookie();
-
-        $products = Product::whereIn('id',$product_ids)->get();
-        return view('pages.wishlist',[
+        $products = Product::whereIn('id', $product_ids)->get();
+        return view('pages.wishlist', [
             'title' => 'Wishlist',
             'products' => $products,
         ]);
@@ -25,9 +23,7 @@ class WishlistController extends Controller
     public function addToWishlist($id)
     {
         Product::findOrFail($id);
-
-        CookieHelper::updateArrayCookie(self::$cookieName,$id,self::$cookieTime);
-        
+        CookieHelper::updateArrayCookie(self::$cookieName, $id, self::$cookieTime);
         return;
     }
 
@@ -35,20 +31,18 @@ class WishlistController extends Controller
     {
         $minutes = self::$cookieTime;
         $cookie = self::$cookieName;
-        $items = CookieHelper::getCookie($cookie,true);
+        $items = CookieHelper::getCookie($cookie, true);
 
-        if(!is_array($items)){
-            \Cookie::queue($cookie,json_encode([]),$minutes);
+        if (!is_array($items)) {
+            \Cookie::queue($cookie, json_encode([]), $minutes);
             return [];
         }
         return $items;
-
     }
 
     public function removeFromWishlist($id)
     {
-        CookieHelper::removeFromArrayCookie(self::$cookieName,$id,self::$cookieTime);
-        
+        CookieHelper::removeFromArrayCookie(self::$cookieName, $id, self::$cookieTime);
         return;
     }
 }

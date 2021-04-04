@@ -44,26 +44,25 @@ class AttributesTableSeeder extends Seeder
                 'Zara',
             ],
         ];
-        foreach($arr as $attribute => $variations):
+        foreach ($arr as $attribute => $variations) :
             $ans = Attribute::create([
                 'name' => $attribute,
             ]);
             $id = $ans->id;
             
-            foreach($variations as $var){
+            foreach ($variations as $var) {
                 AttributeVariation::create([
                     'attribute_id' => $id,
                     'name'         => $var,
                 ]);
             }
-
         endforeach;
 
         $products = Product::all();
 
         $attributes = AttributeVariation::all();
 
-        foreach($products as $product){
+        foreach ($products as $product) {
             $product->attributes()->attach($attributes->random(10)->pluck('id')->toArray());
         }
     }

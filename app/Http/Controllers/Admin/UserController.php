@@ -20,7 +20,7 @@ class UserController extends CRUDController
     public function edit($id)
     {
         $user = $this->model::findOrFail($id);
-        return view('admin.edit.'.$this->essense,[
+        return view('admin.edit.'.$this->essense, [
             'user' => $user,
         ]);
     }
@@ -35,31 +35,30 @@ class UserController extends CRUDController
 
         $data = $request->only('name');
 
-        if($request->password != false){
+        if ($request->password != false) {
             $data['password'] = $request->password;
         }
-        if($request->email !== $user->email){
+        if ($request->email !== $user->email) {
             $data['email'] = $request->email;
             $verify = null;
             $user->notify(new EmailChangedUserNotification($user));
         }
 
-        if($request->verify == "1"){
+        if ($request->verify == "1") {
             $verify = now();
         }
 
         $user->update($data);
 
-        if($verify !== false){
+        if ($verify !== false) {
             $user->email_verified_at = $verify;
             $user->save();
-            if($verify === null){
+            if ($verify === null) {
                 $user->sendEmailVerificationNotification();
             }
         }
         return redirect()->back()->with('message',$this->oneText . ' has been updated successfully!');
     }
-
 
     protected function myValidate(Request $request)
     {

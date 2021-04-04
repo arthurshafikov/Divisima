@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
 use Illuminate\Http\Request;
 
-class CRUDController extends Controller
+abstract class CRUDController extends Controller
 {
     protected $model;
     protected $essense;
@@ -23,7 +22,7 @@ class CRUDController extends Controller
     {
         $posts = $this->model::orderBy('id','desc')->paginate(10);
         
-        return view('admin.table',[
+        return view('admin.table', [
             'posts' => $posts,
             'title' => ucfirst($this->essense) . ' Table',
             'th' => $this->th,
@@ -45,10 +44,9 @@ class CRUDController extends Controller
     public function store(Request $request)
     {
         $this->myValidate($request);
-            
         $post = $this->model::create($request->all());
-
-        return redirect()->route($this->essense.'.edit',$post->id)->with('message',$this->oneText.' has been created successfully!');
+        return redirect()->route($this->essense.'.edit',$post->id)
+                            ->with('message',$this->oneText.' has been created successfully!');
     }
 
     public function show()
@@ -59,7 +57,7 @@ class CRUDController extends Controller
     public function edit($id)
     {
         $post = $this->model::findOrFail($id);
-        return view('admin.edit.'.$this->essense,[
+        return view('admin.edit.'.$this->essense, [
             'post' => $post,
         ]);
     }
@@ -67,7 +65,6 @@ class CRUDController extends Controller
     public function update(Request $request, $id)
     {
         $this->myValidate($request);
-
         $post = $this->model::findOrFail($id);
         $post->update($request->all());
         return redirect()->back()->with('message',$this->oneText . ' has been updated successfully!');
@@ -83,13 +80,12 @@ class CRUDController extends Controller
     {
         $this->model::destroy($id);
         
-        return redirect()->route($this->essense.'.index')->with('message',$this->oneText.' has been deleted successfully!');
+        return redirect()->route($this->essense.'.index')
+                            ->with('message',$this->oneText.' has been deleted successfully!');
     }
-
 
     protected function myValidate(Request $request)
     {
         return $request->validate([]);
     }
-    
 }

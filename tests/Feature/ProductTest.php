@@ -18,9 +18,7 @@ class ProductTest extends TestCase
 
     public function testShow(){
         $product = Product::factory()->create();
-
-        $response = $this->get(route('product',$product->slug));
-
+        $response = $this->get(route('product', $product->slug));
         $response->assertOk();
     }
 
@@ -35,13 +33,13 @@ class ProductTest extends TestCase
 
         $product = Product::factory()->make();
         $response = $this->actingAs($admin)
-                            ->post(route('products.store'),$product->toArray());
+                            ->post(route('products.store'), $product->toArray());
 
         // $response->dump();
         // $response->dumpSession();
         $response->assertStatus(302);
         $response->assertSessionHas('message');
-        $this->assertDatabaseHas('products',[
+        $this->assertDatabaseHas('products', [
             'name' => $product->name,
         ]);
     }
@@ -52,13 +50,13 @@ class ProductTest extends TestCase
 
         $product = Product::inRandomOrder()->first();
         $response = $this->actingAs($admin)
-                            ->get(route('products.edit',$product->id));
+                            ->get(route('products.edit', $product->id));
         $response->assertOk();
 
         $product->name = 'New Name';
 
         $response = $this->actingAs($admin)
-                            ->patch(route('products.update',$product->id),$product->toArray());
+                            ->patch(route('products.update', $product->id), $product->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -70,7 +68,7 @@ class ProductTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('products.destroy',$product->id));
+                            ->delete(route('products.destroy', $product->id));
 
         $response->assertSessionHas('message');
         $this->assertSoftDeleted($product);
@@ -90,7 +88,7 @@ class ProductTest extends TestCase
 
 
         $response = $this->actingAs($admin)
-                            ->get(route('products.restore',$product->id));
+                            ->get(route('products.restore', $product->id));
 
         $response->assertSessionHas('message');
 
@@ -104,10 +102,10 @@ class ProductTest extends TestCase
         $product->delete();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('products.forceDelete',$product->id));
+                            ->delete(route('products.forceDelete', $product->id));
         
         $response->assertSessionHas('message');
-        $this->assertDatabaseMissing('products',[
+        $this->assertDatabaseMissing('products', [
             'name' => $product->name,
         ]);
     }

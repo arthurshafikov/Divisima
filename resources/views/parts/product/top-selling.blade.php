@@ -9,7 +9,7 @@
         </div>
         <ul class="product-filter-menu">
             <li class="category-select"><a href="#" class="active">All</a></li>
-            @foreach($categories as $category)
+            @foreach ($categories as $category)
                 <li class="category-select"><a href="#" data-cat-id="{{ $category->id }}">{{ $category->name }}</a></li>
             @endforeach
         </ul>

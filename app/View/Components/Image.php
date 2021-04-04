@@ -19,8 +19,15 @@ class Image extends Component
      *
      * @return void
      */
-    public function __construct($label = 'Image',$name = 'img',$input_id = 'featured_img',$value = '',$selectText = 'Select Images',$src = '',$img_id = 'featured_preview')
-    {
+    public function __construct(
+        $label = 'Image',
+        $name = 'img',
+        $input_id = 'featured_img',
+        $value = '',
+        $selectText = 'Select Images',
+        $src = '',
+        $img_id = 'featured_preview'
+    ) {
         $this->label = $label;
         $this->name = $name;
         $this->input_id = $input_id;

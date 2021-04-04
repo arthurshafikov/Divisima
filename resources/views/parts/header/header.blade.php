@@ -1,9 +1,9 @@
 @auth
-<div class="admin-bar-wrapper">
-    <div class="admin-bar">
-        <a href="{{ route('admin') }}">Dashboard</a>
+    <div class="admin-bar-wrapper">
+        <div class="admin-bar">
+            <a href="{{ route('admin') }}">Dashboard</a>
+        </div>
     </div>
-</div>
 @endauth
 <!-- Header section -->
 <header class="header-section">
@@ -26,17 +26,17 @@
                     <div class="user-panel">
                         <div class="up-item">
                             @auth
-                            <i class="flaticon-profile"></i>
-                            <a href="{{ route('account') }}">My account</a>
-                            <form action="{{ route('logout') }}" method="POST" class="logoutForm" >
-                                @csrf
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                <button type="submit" dusk="logout-button">Log out</button>
-                            </form>
+                                <i class="flaticon-profile"></i>
+                                <a href="{{ route('account') }}">My account</a>
+                                <form action="{{ route('logout') }}" method="POST" class="logoutForm" >
+                                    @csrf
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    <button type="submit" dusk="logout-button">Log out</button>
+                                </form>
                             @endauth
 
                             @guest
-                            <a href="{{ route('login') }}">Sign In</a> or <a href="{{ route('register') }}">Create Account</a>
+                                <a href="{{ route('login') }}">Sign In</a> or <a href="{{ route('register') }}">Create Account</a>
                             @endguest
                             <div class="shopping-card">
                                 <i class="flaticon-bag"></i>
@@ -56,8 +56,8 @@
         <div class="container">
             <!-- menu -->
             <ul class="main-menu">
-                @foreach($menu->items as $item)
-                <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
+                @foreach ($menu->items as $item)
+                    <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
                 @endforeach
                 <!-- <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('shop') }}">Shop</a></li>

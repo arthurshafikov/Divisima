@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Attributes\Attribute;
 use App\Models\Attributes\AttributeVariation;
 
 class AttributeController extends CRUDController
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->model = Attribute::class;
         $this->essense = 'attributes';
         $this->td = ['id','name','slug'];
@@ -25,10 +24,10 @@ class AttributeController extends CRUDController
         
         $attr = Attribute::create(['name' => $name]);
 
-        foreach($request->variation as $varname){
+        foreach ($request->variation as $varname) {
             AttributeVariation::updateOrCreate(
                 ['name' => $varname],
-                ['attribute_id' => $attr->id,],
+                ['attribute_id' => $attr->id],
             );
         }
         return redirect()->route('attributes.edit',$attr->id)->with('message','Attribute has been created successfully!');
@@ -46,10 +45,10 @@ class AttributeController extends CRUDController
         $new_vars = $request->variation;
 
         AttributeVariation::where([
-            ['attribute_id','=',$id],
+            ['attribute_id','=',$id]
         ])->whereNotIn('name',$new_vars)->delete();
 
-        foreach($new_vars as $varname){
+        foreach ($new_vars as $varname) {
             AttributeVariation::updateOrCreate(
                 ['attribute_id' => $attr->id,'name' => $varname],
             );

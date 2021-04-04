@@ -4,7 +4,6 @@
 
 @section('content')
 
-    
     <section class="contact-section">
 		<div class="container">
 			<div class="row">
@@ -17,8 +16,6 @@
         </div>  
     </section>
 
-
 	@include('parts.product.recently-viewed')
-
 
 @endsection

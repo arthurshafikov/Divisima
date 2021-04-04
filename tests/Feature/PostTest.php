@@ -19,7 +19,7 @@ class PostTest extends TestCase
     public function testShow()
     {
         $post = Post::factory()->create();
-        $response = $this->get(route('post',$post->slug));
+        $response = $this->get(route('post', $post->slug));
         $response->assertOk();
     }
 
@@ -34,7 +34,7 @@ class PostTest extends TestCase
 
         $post = Post::factory()->make();
         $response = $this->actingAs($admin)
-                            ->post(route('posts.store'),$post->toArray());
+                            ->post(route('posts.store'), $post->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -46,13 +46,13 @@ class PostTest extends TestCase
 
         $post = Post::inRandomOrder()->first();
         $response = $this->actingAs($admin)
-                            ->get(route('posts.edit',$post->id));
+                            ->get(route('posts.edit', $post->id));
         $response->assertOk();
 
         $post->title = 'New title';
 
         $response = $this->actingAs($admin)
-                            ->patch(route('posts.update',$post->id),$post->toArray());
+                            ->patch(route('posts.update', $post->id), $post->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -64,7 +64,7 @@ class PostTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('posts.destroy',$post->id));
+                            ->delete(route('posts.destroy', $post->id));
 
         $response->assertSessionHas('message');
     }

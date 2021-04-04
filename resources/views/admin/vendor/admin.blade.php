@@ -12,11 +12,11 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        @foreach($admin_menu as $header => $array)
+                        @foreach ($admin_menu as $header => $array)
                             <div class="sb-sidenav-menu-heading">{{$header}}</div>
 
-                                @foreach($array as $el)
-                                    @if(!is_array($el['link']))
+                                @foreach ($array as $el)
+                                    @if (!is_array($el['link']))
                                         <a class="nav-link" href="{{ route($el['link']) }}">
                                             <div class="sb-nav-link-icon"><i class="fas {{$el['icon'] ?? ''}}"></i></div>
                                             {{$el['text']}}
@@ -29,7 +29,7 @@
                                         </a>
                                         <div class="collapse" id="{{$el['text']}}" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                             <nav class="sb-sidenav-menu-nested nav">
-                                                    @foreach($el['link'] as $route => $title)
+                                                    @foreach ($el['link'] as $route => $title)
                                                         <a class="nav-link" href="{{ route($route)}}">{{$title}}</a>
                                                     @endforeach
                                             </nav>

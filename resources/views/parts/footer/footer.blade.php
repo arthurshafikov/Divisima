@@ -16,8 +16,8 @@
                 <div class="footer-widget about-widget">
                     <h2>Questions</h2>
                     <ul>
-                        @foreach($menu->items as $item)
-                        <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
+                        @foreach ($menu->items as $item)
+                            <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="footer-widget about-widget">
                     <h2>Blog</h2>
                     <div class="fw-latest-post-widget">
-                        @foreach($posts as $post)
+                        @foreach ($posts as $post)
                             <div class="lp-item">
                                 <div class="lp-thumb set-bg" data-setbg="{{ $post->img() }}"></div>
                                 <div class="lp-content">

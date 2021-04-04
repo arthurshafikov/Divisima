@@ -320,7 +320,7 @@
 					    <th width="20%" style="text-align:right; padding: 0 2.5em; color: #000; padding-bottom: 20px">Price</th>
             </tr>
             
-            @foreach($order->products as $product)
+            @foreach ($order->products as $product)
               <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
                 <td valign="middle" width="70%" style="text-align:left; padding: 0 2.5em;">
                   <div class="product-entry">

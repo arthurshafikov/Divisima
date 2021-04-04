@@ -23,12 +23,12 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'first_name'       => $this->faker->firstName,
+            'first_name'  => $this->faker->firstName,
             'surname'     => $this->faker->lastName,
             'address'     => $this->faker->address,
             'country'     => $this->faker->country,
-            'zip'     => $this->faker->postcode,
-            'phone'     => $this->faker->phoneNumber,
+            'zip'         => $this->faker->postcode,
+            'phone'       => $this->faker->phoneNumber,
         ];
     }
 }

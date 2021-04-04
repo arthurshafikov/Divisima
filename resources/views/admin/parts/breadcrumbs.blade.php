@@ -1,5 +1,5 @@
 <ol class="breadcrumb mb-4">
-    @foreach($breadcrumbs as $link => $name)
+    @foreach ($breadcrumbs as $link => $name)
         @if ($loop->last)
             <li class="breadcrumb-item active">{{$name}}</li>
             @continue

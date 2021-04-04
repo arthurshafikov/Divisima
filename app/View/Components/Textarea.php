@@ -16,8 +16,13 @@ class Textarea extends Component
      *
      * @return void
      */
-    public function __construct($id = '',$name = 'content',$label = '',$placeholder = '',$value = '')
-    {
+    public function __construct(
+        $id = '',
+        $name = 'content',
+        $label = '',
+        $placeholder = '',
+        $value = ''
+    ) {
         $this->name = $name;
         $this->label = $label;
         $this->placeholder = $placeholder;

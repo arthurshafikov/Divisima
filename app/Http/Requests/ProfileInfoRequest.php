@@ -13,7 +13,7 @@ class ProfileInfoRequest extends FormRequest
      */
     public function authorize()
     {
-        if(!\Auth::user()){
+        if (!\Auth::user()) {
             return false;
         }
         return true;

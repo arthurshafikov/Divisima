@@ -20,7 +20,7 @@
         
         <div class="gallery-wrapper">
             <div class="gallery">
-                @foreach($post->images as $img)
+                @foreach ($post->images as $img)
                     @include('admin.parts.gallery-image')
                 @endforeach
             </div>
@@ -38,11 +38,11 @@
         <label class="small mb-1">Attributes</label>
         <div class="attributes-wrapper">
             <ul>
-            @foreach(getAllAttributes() as $attribute)
+            @foreach (getAllAttributes() as $attribute)
                 <li class="attribute-name">{{ $attribute->name }}</li>
-                @if(count($attribute->variations) > 0 )
+                @if (count($attribute->variations) > 0 )
                     <ul class="sub-menu">
-                        @foreach($attribute->variations as $var)
+                        @foreach ($attribute->variations as $var)
                             <li><input type="checkbox" name="attributes[]" id="var_{{ $var->id }}" value="{{ $var->id }}" {{ echoCheckedIfModelHas($var->id,$post,'attributes') }}> <label for="var_{{ $var->id }}">{{ $var->name }}</label>  </li>
                         @endforeach
                     </ul>
@@ -56,11 +56,11 @@
         <label class="small mb-1">Categories</label>
         <div class="attributes-wrapper">
             <ul>
-            @foreach(getAllParentCategories() as $category)
+            @foreach (getAllParentCategories() as $category)
                 <li class="attribute-name"><input type="checkbox" name="category[]" id="cat_{{ $category->id }}" value="{{ $category->id }}" {{ echoCheckedIfModelHas($category->id,$post,'category') }}> <label for="cat_{{ $category->id }}">{{ $category->name }}</label></li>
-                @if(count($category->childs) > 0 )
+                @if (count($category->childs) > 0 )
                     <ul class="sub-menu">
-                        @foreach($category->childs as $cat)
+                        @foreach ($category->childs as $cat)
                             <li><input type="checkbox" name="category[]" id="cat_{{ $cat->id }}" value="{{ $cat->id }}" {{ echoCheckedIfModelHas($cat->id,$post,'category') }}> <label for="cat_{{ $cat->id }}">{{ $cat->name }}</label>  </li>
                         @endforeach
                     </ul>
@@ -71,7 +71,6 @@
     </div>
 
     <x-select name="stock" label="Stock" :array="getOptions('stock_status')" :compared="$post->stock"/>
-
 
     @include('admin.parts.form.button')
 </form>

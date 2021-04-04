@@ -21,18 +21,18 @@ class UserTest extends TestCase
 
         $user = User::where('name', '!=' , 'admin')->first();
         $response = $this->actingAs($admin)
-                            ->get(route('users.edit',$user->id));
+                            ->get(route('users.edit', $user->id));
         $response->assertOk();
 
         $user->email = $this->faker->safeEmail;
 
         $response = $this->actingAs($admin)
-                            ->patch(route('users.update',$user->id),$user->toArray());
+                            ->patch(route('users.update', $user->id), $user->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
-        Notification::assertSentTo([$user],VerifyEmail::class);
-        Notification::assertSentTo([$user],EmailChangedUserNotification::class);
+        Notification::assertSentTo([$user], VerifyEmail::class);
+        Notification::assertSentTo([$user], EmailChangedUserNotification::class);
     }
 
     public function testDestroy()
@@ -41,10 +41,10 @@ class UserTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('users.destroy',$user->id));
+                            ->delete(route('users.destroy', $user->id));
 
         $response->assertSessionHas('message');
-        $this->assertDeleted('users',[
+        $this->assertDeleted('users', [
             'name' => $user->name,
         ]);
     }

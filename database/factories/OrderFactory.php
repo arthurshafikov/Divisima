@@ -25,13 +25,13 @@ class OrderFactory extends Factory
     {
         return [
             'user_id'    => User::inRandomOrder()->first(),
-            'status'       => mt_rand(0,3),
+            'status'       => mt_rand(0, 3),
             'address'     => $this->faker->address,
             'country'     => $this->faker->country,
             'zip'     => $this->faker->postcode,
             'phone'     => $this->faker->phoneNumber,
-            'subtotal'     => mt_rand(1000,9999),
-            'total'     => mt_rand(1000,9999),
+            'subtotal'     => mt_rand(1000, 9999),
+            'total'     => mt_rand(1000, 9999),
             'delivery' => $this->faker->word,
             'created_at' => $this->faker->dateTimeThisMonth(),
         ];
@@ -39,13 +39,13 @@ class OrderFactory extends Factory
 
     public function configure()
     {
-        return $this->afterCreating(function (Order $order) {
-            for($i = 0; $i < 4; $i++){
-                $order->products()->attach(Product::inRandomOrder()->first(), [
-                    'qty' => $this->faker->numberBetween(1,20),
+        return $this->afterCreating( function (Order $order) {
+            for ($i = 0; $i < 4; $i++) {
+                $order->products()->attach( Product::inRandomOrder()->first(), [
+                    'qty' => $this->faker->numberBetween(1, 20),
                     'size' => 'M',
                     'color' => 'black',
-                    'subtotal' => $this->faker->numberBetween(1,9999),
+                    'subtotal' => $this->faker->numberBetween(1, 9999),
                 ]);
             }
         });

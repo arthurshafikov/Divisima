@@ -6,7 +6,6 @@
 
 	@include('parts.page-info')
 
-
 	<!-- Contact section -->
 	<section class="contact-section">
 		<div class="container">

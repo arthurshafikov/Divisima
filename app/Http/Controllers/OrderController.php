@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\OrderPlaced;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\CartController;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
@@ -17,16 +15,16 @@ class OrderController extends Controller
     public function checkout()
     {
         $profile = null;
-        if(\Auth::user() != null){
+        if (\Auth::user() != null) {
             $profile = \Auth::user()->profile;
         }
         extract(CartController::getCartData());
 
-        if(count($items) < 1){
-            return redirect()->route('cart')->with('err','You have no products in your cart!');
+        if (count($items) < 1) {
+            return redirect()->route('cart')->with('err', 'You have no products in your cart!');
         }
 
-        return view('checkout',[
+        return view('checkout', [
             'title' => 'Checkout',
             'items' => $items,
             'cart'  => $cart,
@@ -42,23 +40,20 @@ class OrderController extends Controller
     {
         $data = $request->only('address','zip','phone','country','delivery','additional');
 
-        if(\Auth::id() === null){
+        if (\Auth::id() === null) {
             $userData = $request->only('email','name','password');
             $user = User::create($userData);
-
             \Auth::attempt($request->only('email','password'));
-
         } else {
             $user = \Auth::user();
         }
         $data['user_id'] = $user->id;
         
 
-        $profileData = array_merge($request->only('first_name','surname','address','country','zip','phone'),[
+        $profileData = array_merge($request->only('first_name','surname','address','country','zip','phone'), [
             'user_id' => $data['user_id'],
         ]);
         $user->profile()->updateOrCreate($profileData);
-
 
         extract(CartController::getCartData());
         
@@ -67,20 +62,18 @@ class OrderController extends Controller
         $data['total'] = $numeric_total;
         $ids = $items->pluck('id')->toArray();
         
-        
-        Product::whereIn('id',$ids)->each(function($product) use ($items){
-            $product->total_sales += $items->where('id',$product->id)->first()['qty'];
+        Product::whereIn('id', $ids)->each( function ($product) use ($items) {
+            $product->total_sales += $items->where('id', $product->id)->first()['qty'];
             $product->save();
         });
 
         $order = Order::create($data);
 
-        $items->each(function($item) use ($order,$cart){
-            $order->products()->attach($item->id,[
+        $items->each( function ($item) use ($order) {
+            $order->products()->attach($item->id, [
                 'qty' => $item['qty'],
                 'size' => $item['size'],
                 'color' => $item['color'],
-
                 'subtotal' => $item['number_subtotal'],
             ]);
         });
@@ -88,13 +81,13 @@ class OrderController extends Controller
         CartController::resetCart();
         event(new OrderPlaced($order));
 
-        return redirect()->route('thank-you',$order->id);
+        return redirect()->route('thank-you', $order->id);
     }
 
     public function thank($id)
     {
         $this->checkOrderOwner($id);
-        return view('pages.thank-you',[
+        return view('pages.thank-you', [
             'title' => 'Thank you for the order!',
             'id' => $id,
         ]);
@@ -104,7 +97,6 @@ class OrderController extends Controller
     {
         $order = $this->checkOrderOwner($id);
         
-
         $details = [
             'country' => $order->country,
             'address' => $order->address,
@@ -119,7 +111,7 @@ class OrderController extends Controller
         ];
         $products = $order->products;
 
-        return view('pages.order',[
+        return view('pages.order', [
             'title' => 'Your Order:',
             'order' => $order,
             'details' => $details,
@@ -130,7 +122,7 @@ class OrderController extends Controller
     protected function checkOrderOwner($id) : Order
     {
         $order = Order::findOrFail($id);
-        if(\Auth::id() !== $order->user->id){
+        if (\Auth::id() !== $order->user->id) {
             abort(404);
         }
         return $order;

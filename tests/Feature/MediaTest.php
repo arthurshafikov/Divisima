@@ -49,7 +49,7 @@ class MediaTest extends TestCase
         $user = User::admin();
         
         $response = $this->actingAs($user)
-                            ->delete(route('deleteImages'),[
+                            ->delete(route('deleteImages'), [
                                 'ids' => [$image->id],
                             ]);
         
@@ -62,7 +62,7 @@ class MediaTest extends TestCase
         $user = User::admin();
         
         $response = $this->actingAs($user)
-                            ->get(route('loadGallery',[
+                            ->get(route('loadGallery', [
                                 'gallery' => $gallery,
                             ]));
 

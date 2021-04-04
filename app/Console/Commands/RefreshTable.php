@@ -40,7 +40,7 @@ class RefreshTable extends Command
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $table = $this->argument('table');
-        if(!\Schema::hasTable($table)){
+        if (!\Schema::hasTable($table)) {
             $this->error('Table ' . $table . ' does not exists!');
             return 0;
         }
@@ -50,8 +50,6 @@ class RefreshTable extends Command
         \DB::table($table)->truncate();
         $this->info('Table '. $table .' had been cleared...');
         $this->call('db:seed', ['--class' => $seederName]);
-            
-
         return 0;
     }
 }

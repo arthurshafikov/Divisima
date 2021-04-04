@@ -28,7 +28,7 @@ class ReviewFactory extends Factory
             'product_id' => Product::inRandomOrder()->first(),
             'user_id'    => User::inRandomOrder()->first(),
             'text'       => $this->faker->realText(100),
-            'rating'     => $this->faker->numberBetween(1,5),
+            'rating'     => $this->faker->numberBetween(1, 5),
             'created_at' => $this->faker->dateTimeThisMonth(),
         ];
     }

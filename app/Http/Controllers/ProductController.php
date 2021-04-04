@@ -13,7 +13,7 @@ class ProductController extends Controller
     
     public function one(string $slug)
     {
-        $product = Product::where('slug',$slug)->with('images')->firstOrFail();
+        $product = Product::where('slug', $slug)->with('images')->firstOrFail();
 
         event(new ProductViewed($product->id));
 
@@ -23,15 +23,14 @@ class ProductController extends Controller
             $query->whereIn('id', $category);
         })->limit(10)->get();
 
-        $rating = Review::where('product_id',$product->id)->pluck('rating');
+        $rating = Review::where('product_id', $product->id)->pluck('rating');
         $ratingCount = count($rating);
         $rating = round($rating->avg());
         
-        $sizes = getProductAttribute('size',$product->id);
-        $colors = getProductAttribute('color',$product->id);
-        $brands = getProductAttribute('brand',$product->id);
+        $sizes = getProductAttribute('size', $product->id);
+        $colors = getProductAttribute('color', $product->id);
+        $brands = getProductAttribute('brand', $product->id);
 
-        
         return view('one')->with([
             'title'   => $product->name,
             'product' => $product,
@@ -42,14 +41,12 @@ class ProductController extends Controller
             'sizes' => $sizes,
             'colors' => $colors,
             'brands' => $brands,
-
         ]);
     }
 
     public function shop(ProductFilter $filters)
     {
         $products = Product::filter($filters)->with('image')->paginate(self::$products_per_page)->appends(request()->input());
-
 
         return view('shop')->with([
             'title'   =>  'Shop page',
@@ -63,15 +60,15 @@ class ProductController extends Controller
     public function getTopSellingProducts(Request $request)
     {
         $category = $request->get('category');
-        if($category === null){
-            $products = Product::orderBy('total_sales','DESC')->paginate(8);
+        if ($category === null) {
+            $products = Product::orderBy('total_sales', 'DESC')->paginate(8);
         } else {
-            $products = Product::whereHas('category',function ($query) use ($category) {
-                $query->where('id',$category);
-            })->orderBy('total_sales','DESC')->paginate(8);
+            $products = Product::whereHas('category', function ($query) use ($category) {
+                $query->where('id', $category);
+            })->orderBy('total_sales', 'DESC')->paginate(8);
         }
 
-        return view('parts.product.product-loop',[
+        return view('parts.product.product-loop', [
             'products' => $products,
         ])->render();
     }

@@ -9,12 +9,11 @@ class PromocodeController extends Controller
 {
     public function acceptPromocode(Request $request)
     {
-        $promocode = Promocode::where('promocode',$request->promocode)->first();
-        if($promocode && $promocode->expired_at->isFuture()){
+        $promocode = Promocode::where('promocode', $request->promocode)->first();
+        if ($promocode && $promocode->expired_at->isFuture()) {
             session(['promocode' => $promocode->discount]);
             return redirect()->back()->with('msg','Promocode was applied!');
         } 
-
         return redirect()->back()->with('err','Wrong promocode');
     }
 

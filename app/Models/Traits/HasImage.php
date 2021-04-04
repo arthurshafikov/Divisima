@@ -7,12 +7,12 @@ trait HasImage
 {
     public function image()
     {
-        return $this->hasOne(Image::class, 'id','img'); 
+        return $this->hasOne(Image::class, 'id', 'img'); 
     }
 
     public function img()
     {
-        if(!is_object($this->image))
+        if (!is_object($this->image))
             return '';
         return $this->image->img;
     }

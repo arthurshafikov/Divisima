@@ -15,7 +15,7 @@ class PromocodeTest extends TestCase
     {
         $promocode = Promocode::first();
 
-        $response = $this->post(route('acceptPromocode'),[
+        $response = $this->post(route('acceptPromocode'), [
                 'promocode' => $promocode->promocode
             ]);
 
@@ -50,7 +50,7 @@ class PromocodeTest extends TestCase
 
         $promocode = Promocode::factory()->make();
         $response = $this->actingAs($admin)
-                            ->post(route('promocodes.store'),$promocode->toArray());
+                            ->post(route('promocodes.store'), $promocode->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -62,13 +62,13 @@ class PromocodeTest extends TestCase
 
         $promocode = Promocode::inRandomOrder()->first();
         $response = $this->actingAs($admin)
-                            ->get(route('promocodes.edit',$promocode->id));
+                            ->get(route('promocodes.edit', $promocode->id));
         $response->assertOk();
 
         $promocode->promocode = 'New title';
 
         $response = $this->actingAs($admin)
-                            ->patch(route('promocodes.update',$promocode->id),$promocode->toArray());
+                            ->patch(route('promocodes.update', $promocode->id), $promocode->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -80,7 +80,7 @@ class PromocodeTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('promocodes.destroy',$promocode->id));
+                            ->delete(route('promocodes.destroy', $promocode->id));
 
         $response->assertSessionHas('message');
     }

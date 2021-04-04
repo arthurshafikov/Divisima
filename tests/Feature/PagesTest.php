@@ -9,9 +9,8 @@ class PagesTest extends TestCase
 
     public function testPages()
     {
-
         $pages = ['contact','shop','home','wishlist','cart'];
-        foreach($pages as $route){
+        foreach ($pages as $route) {
             $response = $this->get(route($route));
             $response->assertOk();
         }

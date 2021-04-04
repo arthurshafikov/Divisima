@@ -4,7 +4,6 @@
 
 @section('content')
 
-
     <section class="error-page">
         <div class="container">
             <div class="row">
@@ -14,8 +13,6 @@
         </div>
     </section>
 
-
     @include('parts.product.recently-viewed')
-
 
 @endsection

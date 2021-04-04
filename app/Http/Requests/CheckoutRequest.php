@@ -30,8 +30,8 @@ class CheckoutRequest extends FormRequest
             "phone" => "required",
             "delivery" => "required",
         ];
-        if(\Auth::id() === null){
-            $rules = array_merge($rules,[
+        if (\Auth::id() === null) {
+            $rules = array_merge($rules, [
                 "first_name" => "required",
                 "surname" => "required",
                 "email" => "required|email|unique:users",

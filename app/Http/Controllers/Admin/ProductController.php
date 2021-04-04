@@ -9,7 +9,6 @@ use App\Models\Product;
 
 class ProductController extends CRUDController
 {
-    
     public function __construct()
     {
         $this->model = Product::class;
@@ -24,12 +23,13 @@ class ProductController extends CRUDController
         $this->myValidate($request);
         $product = $this->model::create($request->all());
 
-        if($gallery = $request->gallery){
-            $product->images()->sync(explode(',',$gallery));
+        if ($gallery = $request->gallery) {
+            $product->images()->sync(explode(',', $gallery));
         }
         $product->attributes()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
-        return redirect()->route($this->essense.'.edit',$product->id)->with('message',$this->oneText.' has been created successfully!');
+        return redirect()->route($this->essense.'.edit',$product->id)
+                            ->with('message',$this->oneText.' has been created successfully!');
     }
 
     public function update(Request $request, $id)
@@ -38,8 +38,8 @@ class ProductController extends CRUDController
         $product = $this->model::findOrFail($id);
         $product->update($request->all());
         
-        if($gallery = $request->gallery){
-            $product->images()->sync(explode(',',$gallery));
+        if ($gallery = $request->gallery) {
+            $product->images()->sync(explode(',', $gallery));
         }
         $product->attributes()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
@@ -50,7 +50,7 @@ class ProductController extends CRUDController
     {
         $products = Product::onlyTrashed()->orderBy('deleted_at','DESC')->paginate(10);
 
-        return view('admin.trash',[
+        return view('admin.trash', [
             'posts' => $products,
             'title' => ucfirst($this->essense) . ' Table',
             'th' => $this->th,

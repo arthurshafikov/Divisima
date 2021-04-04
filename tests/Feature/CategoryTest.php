@@ -13,7 +13,7 @@ class CategoryTest extends TestCase
     public function testShow()
     {
         $category = Category::factory()->create();
-        $response = $this->get(route('category',$category->slug));
+        $response = $this->get(route('category', $category->slug));
         $response->assertOk();
     }
 
@@ -28,7 +28,7 @@ class CategoryTest extends TestCase
 
         $category = Category::factory()->make();
         $response = $this->actingAs($admin)
-                            ->post(route('categories.store'),$category->toArray());
+                            ->post(route('categories.store'), $category->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -40,13 +40,13 @@ class CategoryTest extends TestCase
 
         $category = Category::inRandomOrder()->first();
         $response = $this->actingAs($admin)
-                            ->get(route('categories.edit',$category->id));
+                            ->get(route('categories.edit', $category->id));
         $response->assertOk();
 
         $category->name = 'New Name';
 
         $response = $this->actingAs($admin)
-                            ->patch(route('categories.update',$category->id),$category->toArray());
+                            ->patch(route('categories.update', $category->id), $category->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -58,7 +58,7 @@ class CategoryTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('categories.destroy',$category->id));
+                            ->delete(route('categories.destroy', $category->id));
 
         $response->assertSessionHas('message');
     }

@@ -31,14 +31,14 @@ class UserFactory extends Factory
 
     public function configure()
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating( function (User $user) {
             Profile::factory()->for($user)->create();
         });
     }
 
     public function admin()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state( function (array $attributes) {
             return [
                 'name' => 'admin',
                 'email' => 'wolf-front@yandex.ru',

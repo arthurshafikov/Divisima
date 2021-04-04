@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    @if(\Route::has($essence . '.create'))
+    @if (\Route::has($essence . '.create'))
         <a href="{{ route($essence . '.create')}}" class="btn btn-primary">
             New {{ ucfirst($essence) }}
         </a>
@@ -28,8 +28,8 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            @foreach($th as $label)
-                            <th>{{ $label }}</th>
+                            @foreach ($th as $label)
+                                <th>{{ $label }}</th>
                             @endforeach
                             <th>Restore</th>
                             <th>Delete Permanently</th>
@@ -37,18 +37,18 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            @foreach($th as $label)
-                            <th>{{ $label }}</th>
+                            @foreach ($th as $label)
+                                <th>{{ $label }}</th>
                             @endforeach
                             <th>Restore</th>
                             <th>Delete Permanently</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($posts as $post)
+                        @foreach ($posts as $post)
                             <tr>
-                                @foreach($td as $col)
-                                <td>{!! $post->$col !!}</td>
+                                @foreach ($td as $col)
+                                    <td>{!! $post->$col !!}</td>
                                 @endforeach 
                                 <td><a href="{{ route($essence . '.restore',$post->id) }}" class="btn btn-primary">Restore</a></td>
                                 <td>

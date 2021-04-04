@@ -4,7 +4,6 @@
 
 @section('content')
 
-    
     <section class="contact-section">
 		<div class="container">
 			<div class="row">
@@ -34,7 +33,7 @@
                     
                 </div>
                 
-                @if($orders != false)
+                @if ($orders != false)
                     <table class="table">
                         <thead>
                             <tr>
@@ -47,7 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($orders as $order)
+                            @foreach ($orders as $order)
                                 <tr>
                                     <th scope="row">{{$order->id}}</th>
                                     <td>{{$order->status_text}}</td>
@@ -59,7 +58,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
                 @else 
                     <h2>No orders!</h2>
                 @endif

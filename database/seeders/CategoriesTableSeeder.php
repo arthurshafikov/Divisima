@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
 
-use function GuzzleHttp\json_decode;
-
 class CategoriesTableSeeder extends Seeder
 {
     /**
@@ -43,13 +41,13 @@ class CategoriesTableSeeder extends Seeder
                 'flip flops',
             ],
         ];
-        foreach($categories as $parent => $childs){
+        foreach ($categories as $parent => $childs) {
             $ans = Category::create([
                 'name' => $parent,
             ]);
-            if(is_array($childs)){
+            if (is_array($childs)) {
                 $id = $ans->id;
-                foreach($childs as $name){
+                foreach ($childs as $name) {
                     Category::create([
                         'parent_id' => $id,
                         'name' => $name,

@@ -4,9 +4,7 @@
 
 @section('content')
 
-
 	@include('parts.page-info')
-
 
 	<!-- product section -->
 	<section class="product-section">
@@ -22,7 +20,7 @@
                     
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
-							@foreach($product->images as $img)
+							@foreach ($product->images as $img)
 								<div class="pt" data-imgbigurl="{{ $img->img }}"><img src="{{ $img->img }}" alt=""></div>
 							@endforeach
 						</div>
@@ -32,7 +30,7 @@
 				<div class="col-lg-6 product-details">
 					<h3>Category: </h3>
 					<p>
-						@foreach($product->category as $category)
+						@foreach ($product->category as $category)
 							{{ $category->name }}
 						@endforeach
 					</p>
@@ -40,7 +38,7 @@
 					<h3 class="p-price">{{ $product->formatted_price }}</h3>
 					<h4 class="p-stock">Available: <span>{{ $product->stock_status }}</span></h4>
 					<div class="p-rating">
-						@for($i = 1; $i <= 5; $i++)
+						@for ($i = 1; $i <= 5; $i++)
 							@if($i > $rating)
 								<i class="fa fa-star-o fa-fade"></i>
 							@else 
@@ -49,47 +47,43 @@
 						@endfor
 					</div>
 					<div class="p-review">
-					
 						<a data-src="#reviews" href="{{ route('getReviews',$id) }}" onclick="return false" class="reviews-load">{{ $ratingCount }} reviews</a>|<a data-fancybox data-src="#add-review" href="javascript:;"> Add your review</a>
                     </div>
 					
 					
-					@if($sizes->count() > 0)
-					<div class="fw-size-choose choose-radio">
+					@if ($sizes->count() > 0)
+						<div class="fw-size-choose choose-radio">
 
-						<p>Size</p>
-						@foreach($sizes as $size)
-							<div class="sc-item choose-item">
-								<input type="radio" name="size" id="{{ $size->name }}-size" value="{{ $size->name }}">
-								<label for="{{ $size->name }}-size">{{ $size->name }}</label>
-							</div>
-						@endforeach
-						
-
-					</div>
-					@endif
-					
-					@if($colors->count() > 0)
-					<div class="fw-color-choose choose-radio">
-
-						<p>Colors</p>
-						@foreach($colors as $color)
-							<div class="cs-item choose-item">
-								<input type="radio" name="color" id="{{ $color->name }}-color" value="{{ $color->name }}">
-								<label for="{{ $color->name }}-color" class="{{ $color->name }}-color"></label>
-							</div>
-						@endforeach
-						
-					</div>
-					@endif
-
-					@if($brands->count() > 0)
-						<div class="product-brands">
-
-							<p>Brands: </p>
-							{{ $brands->implode('name',', ') }}
+							<p>Size</p>
+							@foreach ($sizes as $size)
+								<div class="sc-item choose-item">
+									<input type="radio" name="size" id="{{ $size->name }}-size" value="{{ $size->name }}">
+									<label for="{{ $size->name }}-size">{{ $size->name }}</label>
+								</div>
+							@endforeach
 							
 
+						</div>
+					@endif
+					
+					@if ($colors->count() > 0)
+						<div class="fw-color-choose choose-radio">
+
+							<p>Colors</p>
+							@foreach ($colors as $color)
+								<div class="cs-item choose-item">
+									<input type="radio" name="color" id="{{ $color->name }}-color" value="{{ $color->name }}">
+									<label for="{{ $color->name }}-color" class="{{ $color->name }}-color"></label>
+								</div>
+							@endforeach
+							
+						</div>
+					@endif
+
+					@if ($brands->count() > 0)
+						<div class="product-brands">
+							<p>Brands: </p>
+							{{ $brands->implode('name',', ') }}
 						</div>
 					@endif
 					<br>
@@ -149,7 +143,7 @@
 	<!-- product section end -->
 
 
-	@if(count($related) > 0)
+	@if (count($related) > 0)
 		<!-- RELATED PRODUCTS section -->
 		<section class="related-product-section">
 			<div class="container">

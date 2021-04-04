@@ -22,7 +22,7 @@ class SlideTest extends TestCase
 
         $slide = Slide::factory()->make();
         $response = $this->actingAs($admin)
-                            ->post(route('slider.store'),$slide->toArray());
+                            ->post(route('slider.store'), $slide->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -34,13 +34,13 @@ class SlideTest extends TestCase
 
         $slide = Slide::inRandomOrder()->first();
         $response = $this->actingAs($admin)
-                            ->get(route('slider.edit',$slide->id));
+                            ->get(route('slider.edit', $slide->id));
         $response->assertOk();
 
         $slide->title = 'New Name';
 
         $response = $this->actingAs($admin)
-                            ->patch(route('slider.update',$slide->id),$slide->toArray());
+                            ->patch(route('slider.update', $slide->id), $slide->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -52,7 +52,7 @@ class SlideTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('slider.destroy',$slide->id));
+                            ->delete(route('slider.destroy', $slide->id));
 
         $response->assertSessionHas('message');
     }

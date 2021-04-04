@@ -13,7 +13,7 @@ class OptionController extends Controller
     public function index()
     {
         $options = Option::all();
-        return view('admin.options',[
+        return view('admin.options', [
             'options' => $options,
         ]);
     }

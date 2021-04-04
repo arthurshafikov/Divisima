@@ -15,6 +15,6 @@ class Promocode extends Model
 
     public function getPureDateAttribute()
     {
-        return trim(str_replace('00:00:00','',$this->expired_at));
+        return trim(str_replace('00:00:00', '', $this->expired_at));
     }
 }

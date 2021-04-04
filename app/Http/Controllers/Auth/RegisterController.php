@@ -76,7 +76,8 @@ class RegisterController extends Controller
         return $user;
     }
 
-    public function showRegistrationForm(){
+    public function showRegistrationForm()
+    {
         return view('auth.register')->with([
             'title' => 'Register Page',
         ]);

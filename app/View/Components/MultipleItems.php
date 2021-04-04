@@ -16,13 +16,12 @@ class MultipleItems extends Component
      *
      * @return void
      */
-    public function __construct($name,$post,$iterable,$pholder,$columns = false)
+    public function __construct($name, $post, $iterable, $pholder, $columns = false)
     {
         $this->name = $name;
         $this->post = $post;
         $this->iterable = $iterable;
         $this->placeholder = $pholder;
-
         $this->columns = $columns;
     }
 

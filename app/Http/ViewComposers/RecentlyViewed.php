@@ -12,13 +12,13 @@ class RecentlyViewed
 
     public function compose(View $view)
     {
-        $viewedCookie = CookieHelper::getCookie('watched',true);
-        if($viewedCookie == false){
+        $viewedCookie = CookieHelper::getCookie('watched', true);
+        if ($viewedCookie == false) {
             $viewedCookie = [];
         }
-        $viewed = Product::with('image')->whereIn('id',$viewedCookie)->get();
+        $viewed = Product::with('image')->whereIn('id', $viewedCookie)->get();
         
-        $view->with('viewed',$viewed);
+        $view->with('viewed', $viewed);
     }
 
     

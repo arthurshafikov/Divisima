@@ -15,7 +15,7 @@ class ReviewTest extends TestCase
     {
         $product = Product::whereHas('reviews')->first();
 
-        $response = $this->get(route('getReviews',$product->id));
+        $response = $this->get(route('getReviews', $product->id));
         
         $response->assertStatus(200);
         $response->assertSee('Load more');
@@ -30,18 +30,18 @@ class ReviewTest extends TestCase
         ]);
 
         // redirect because user is not authenticated
-        $response = $this->post(route('add-review',$product->id),$review->toArray());
+        $response = $this->post(route('add-review', $product->id), $review->toArray());
 
         $response->assertStatus(302);
 
 
         $response = $this->actingAs($user)
-                            ->post(route('add-review',$product->id),$review->toArray());
+                            ->post(route('add-review', $product->id), $review->toArray());
         
         $response->assertSee('1');
 
         $response = $this->actingAs($user)
-                            ->post(route('add-review',$product->id),$review->toArray());
+                            ->post(route('add-review', $product->id), $review->toArray());
         
         $response->assertSee('You already have a review here');
     }
@@ -52,7 +52,7 @@ class ReviewTest extends TestCase
         $user = $review->user;
 
         $response = $this->actingAs($user)
-                            ->post(route('delete-review',$review->id));
+                            ->post(route('delete-review', $review->id));
 
         $response->assertSee('1');
         $response->assertOk();
@@ -63,12 +63,12 @@ class ReviewTest extends TestCase
         $review = Review::factory()->create();
         $random_user = User::factory()->create();
 
-        $response = $this->post(route('delete-review',$review->id));
+        $response = $this->post(route('delete-review', $review->id));
 
         $response->assertRedirect();
 
         $response = $this->actingAs($random_user)
-                            ->post(route('delete-review',$review->id));
+                            ->post(route('delete-review', $review->id));
 
         $response->assertSee('You are not allowed to delete this review!');
     }

@@ -45,7 +45,7 @@ Route::get('/account','ProfileController@account')->middleware(['auth','verified
 Auth::routes(['verify' => true]);
 
 // Ajax
-Route::middleware(['ajax'])->group(function (){
+Route::middleware(['ajax'])->group( function () {
     Route::get('/getReviews/{id}', 'ReviewController@getProductReviews')->name('getReviews');
     Route::post('/add-review/{id}', 'ReviewController@addReview')->name('add-review')->middleware('auth');
     Route::post('/delete-review/{id}', 'ReviewController@deleteReview')->name('delete-review')->middleware('auth');
@@ -71,7 +71,7 @@ $group = [
     'prefix'    => 'dashboard',
     'middleware' => 'admin',
 ];
-Route::group($group,function(){
+Route::group($group, function() {
 
     Route::get('/','DashboardController@index')->name('admin');
     Route::get('/chart','DashboardController@chart')->name('chart');
@@ -103,7 +103,7 @@ Route::group($group,function(){
     Route::post('options','OptionController@save')->name('options.update');
 
 
-    Route::middleware(['ajax'])->group(function (){
+    Route::middleware(['ajax'])->group( function () {
         Route::get('/gallery/load','MediaController@loadGallery')->name('loadGallery');
         Route::get('/gallery/get','MediaController@loadMediaImages')->name('loadMediaImages');
         Route::delete('/gallery/delete','MediaController@deleteImages')->name('deleteImages');

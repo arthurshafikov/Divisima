@@ -27,7 +27,7 @@ class AttributeTest extends TestCase
             ],  
         ];
         $response = $this->actingAs($admin)
-                            ->post(route('attributes.store'),$new_attr);
+                            ->post(route('attributes.store'), $new_attr);
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -41,7 +41,7 @@ class AttributeTest extends TestCase
             'name' => 'test_update',
         ]);
         $response = $this->actingAs($admin)
-                            ->get(route('attributes.edit',$attribute->id));
+                            ->get(route('attributes.edit', $attribute->id));
         $response->assertOk();
 
         $update_attr = [
@@ -52,7 +52,7 @@ class AttributeTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-                            ->patch(route('attributes.update',$attribute->id),$update_attr);
+                            ->patch(route('attributes.update', $attribute->id), $update_attr);
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -66,7 +66,7 @@ class AttributeTest extends TestCase
         $admin = User::admin();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('attributes.destroy',$attribute->id));
+                            ->delete(route('attributes.destroy', $attribute->id));
 
         $response->assertSessionHas('message');
     }

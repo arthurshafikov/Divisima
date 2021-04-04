@@ -11,10 +11,10 @@ class TopSellingViewComposer
 
     public function compose(View $view)
     {
-        $categories = \Cache::remember('TopSellingCategories', env("CACHE_TIME",0),function(){
+        $categories = \Cache::remember('TopSellingCategories', env("CACHE_TIME", 0), function () {
             return  Category::take(12)->get();
         });
-        $view->with('categories',$categories);
+        $view->with('categories', $categories);
     }
 
     

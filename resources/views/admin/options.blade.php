@@ -16,8 +16,8 @@
         <form method="POST" action="{{ route('options.update') }}">
             @csrf
 
-            @foreach($options as $option)
-                @if(!is_array($option->value))
+            @foreach ($options as $option)
+                @if (!is_array($option->value))
                     <div class="form-group">
                         <label class="small mb-1">{{ $option->name() }}</label>
                         <input class="form-control py-4" type="text" name="{{ $option->key }}" value="{{ $option->value }}"/>

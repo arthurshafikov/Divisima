@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImageRequest;
 use App\Http\Requests\ProfileInfoRequest;
 use App\Models\Image;
-use App\Models\Profile;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {

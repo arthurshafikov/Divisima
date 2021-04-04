@@ -58,8 +58,7 @@ class OptionsTableSeeder extends Seeder
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>',
             
         ];
-        foreach($options as $key => $value){
-            
+        foreach ($options as $key => $value) {
             Option::create([
                 'key' => $key,
                 'value' => $value,

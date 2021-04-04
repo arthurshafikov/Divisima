@@ -25,7 +25,7 @@ class MenusTableSeeder extends Seeder
                 'location' => 'footer',
             ],
         ];
-        foreach($menus as $menu){
+        foreach ($menus as $menu) {
             Menu::create($menu);
         }
 
@@ -103,7 +103,7 @@ class MenusTableSeeder extends Seeder
             // End Footer Menu
         ];
 
-        foreach($items as $item){
+        foreach ($items as $item) {
             MenuItems::create($item);
         }
     }

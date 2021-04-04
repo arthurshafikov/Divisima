@@ -39,8 +39,8 @@ class HelloCommand extends Command
      */
     public function handle()
     {
-        if($this->adminname === ''){
-            $this->adminname = $this->ask('What is your name?','Admin');
+        if ($this->adminname === '') {
+            $this->adminname = $this->ask('What is your name?', 'Admin');
             $this->info('Hello '. $this->adminname);
         } else {
             $this->info('Hello '. $this->adminname);

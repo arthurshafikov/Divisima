@@ -81,5 +81,4 @@ class AdminMenuComposer
         $view->with('admin_menu',$admin_menu);
     }
 
-    
 }

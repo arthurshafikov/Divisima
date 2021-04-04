@@ -39,11 +39,11 @@ class TruncateTables extends Command
     {
         \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        if($this->option('table') && \Schema::hasTable($this->option('table')) ){
+        if ($this->option('table') && \Schema::hasTable($this->option('table'))) {
             \DB::table($this->option('table'))->truncate();
             $this->info('Successfully truncated table '. $this->option('table'));
             return 0;
-        } elseif($this->option('table')) {
+        } elseif ($this->option('table')) {
             $this->error('Table ' . $this->option('table') . ' does not exists!');
             return 0;
         }
@@ -54,7 +54,7 @@ class TruncateTables extends Command
 
         $bar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s% %memory:6s%');
 
-        foreach($tables as $table){
+        foreach ($tables as $table) {
             $bar->advance();
             if($table->Tables_in_divisima === 'migrations'){
                 continue;

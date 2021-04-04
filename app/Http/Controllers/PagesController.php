@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\TestEmailJob;
-use Illuminate\Http\Request;
-
 class PagesController extends Controller
 {
 

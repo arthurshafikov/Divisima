@@ -24,18 +24,18 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->realText(30),
-            'img'  => Image::where('img','NOT LIKE','%jpeg%')->inRandomOrder()->first()->id,
-            'price' => $this->faker->numberBetween(1000,9999),
-            'stock' => mt_rand(0,2),
+            'img'  => Image::where('img', 'NOT LIKE', '%jpeg%')->inRandomOrder()->first()->id,
+            'price' => $this->faker->numberBetween(1000, 9999),
+            'stock' => mt_rand(0, 2),
             'description' => $this->faker->realText(250),
             'details' => $this->faker->realText(100),
-            'total_sales' => $this->faker->numberBetween(1,9999),
+            'total_sales' => $this->faker->numberBetween(1, 9999),
         ];
     }
 
     public function configure()
     {
-        return $this->afterCreating(function (Product $product) {
+        return $this->afterCreating( function (Product $product) {
             $product->images()->sync(Image::inRandomOrder()->take(3)->pluck('id')->toArray());
         });
     }
