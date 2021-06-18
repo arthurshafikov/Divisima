@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:1.17
+    ports:
+      - "8100:80"
+    volumes:
+      - ./:/src
+      - ./docker/local.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+      context: .
+      dockerfile:  Dockerfile
+      args:
+        GITHUB_API_TOKEN: ${GITHUB_API_TOKEN}
+    depends_on:
+      - divisima-mysql
+      - redis
+    volumes:
+      - ./public:/src/public
+      - ./app:/src/app
+      - ./start-php-fpm.sh:/app/src/start-php-fpm.sh
+      - ./bootstrap/app.php:/src/bootstrap/app.php
+      - ./config:/src/config
+      - ./database:/src/database
+      - ./resources:/src/resources
+      - ./routes:/src/routes
+      - ./tests:/src/tests
+      - ./storage:/src/storage
+      - ./composer.json:/src/composer.json
+      - ./composer.lock:/src/composer.lock
+      - ./.env:/src/.env
+      - ./.env.testing:/src/.env.testing
+      - ./phpunit.xml:/src/phpunit.xml
+    command: ["./start-php-fpm.sh"]
+  redis:
+    image: redis:4
+  divisima-mysql:
+    image: "mysql:5"
+    ports:
+      - "33069:3306"
+    environment:
+      MYSQL_DATABASE: divisima
+      MYSQL_USER: wolf
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: supersecret
+    volumes:
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init-testing-db.sql

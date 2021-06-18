@@ -1,0 +1,7 @@
+Dockerfile
+docker-compose.yml
+/vendor
+/node_modules
+.env
+.git
+bootstrap/cache/*

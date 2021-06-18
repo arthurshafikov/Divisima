@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS divisima;
+GRANT ALL ON divisima.* TO 'wolf'@'%';
+FLUSH PRIVILEGES;
