@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Cookie;
 
 class WishlistController extends Controller
 {
-    protected static $cookieTime = 60 * 24;
-    protected static $cookieName = 'wishlist';
+    protected const WISHLIST_COOKIE_TIME = 60 * 24;
+    protected const WISHLIST_COOKIE_NAME = 'wishlist';
 
     public function wishlist()
     {
@@ -24,14 +24,20 @@ class WishlistController extends Controller
     public function addToWishlist($id)
     {
         Product::findOrFail($id);
-        CookieHelper::updateArrayCookie(self::$cookieName, $id, self::$cookieTime);
+        CookieHelper::updateArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
         return;
     }
 
-    public function getWishlistCookie(): array
+    public function removeFromWishlist($id)
     {
-        $minutes = self::$cookieTime;
-        $cookie = self::$cookieName;
+        CookieHelper::removeFromArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
+        return;
+    }
+
+    private function getWishlistCookie(): array
+    {
+        $minutes = self::WISHLIST_COOKIE_TIME;
+        $cookie = self::WISHLIST_COOKIE_NAME;
         $items = CookieHelper::getCookie($cookie, true);
 
         if (!is_array($items)) {
@@ -39,11 +45,5 @@ class WishlistController extends Controller
             return [];
         }
         return $items;
-    }
-
-    public function removeFromWishlist($id)
-    {
-        CookieHelper::removeFromArrayCookie(self::$cookieName, $id, self::$cookieTime);
-        return;
     }
 }
