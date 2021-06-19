@@ -1,42 +1,24 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class ProductTest extends TestCase
+class ProductControllerTest extends TestCase
 {
-    public function testShop()
-    {
-        $response = $this->get(route('shop'));
-        $response->assertOk();
-    }
+    use DatabaseTransactions;
 
-    public function testShow(){
-        $product = Product::factory()->create();
-        $response = $this->get(route('product', $product->slug));
-        $response->assertOk();
-    }
-
-    public function testCreate()
+    public function testStore()
     {
         $admin = User::admin();
-
-        $response = $this->actingAs($admin)
-                            ->get(route('products.create'));
-        $response->assertOk();
-
-
         $product = Product::factory()->make();
-        $response = $this->actingAs($admin)
-                            ->post(route('products.store'), $product->toArray());
 
-        // $response->dump();
-        // $response->dumpSession();
+        $response = $this->actingAs($admin)
+            ->post(route('products.store'), $product->toArray());
+
         $response->assertStatus(302);
         $response->assertSessionHas('message');
         $this->assertDatabaseHas('products', [
@@ -47,16 +29,11 @@ class ProductTest extends TestCase
     public function testUpdate()
     {
         $admin = User::admin();
-
-        $product = Product::inRandomOrder()->first();
-        $response = $this->actingAs($admin)
-                            ->get(route('products.edit', $product->id));
-        $response->assertOk();
-
+        $product = Product::factory()->create();
         $product->name = 'New Name';
 
         $response = $this->actingAs($admin)
-                            ->patch(route('products.update', $product->id), $product->toArray());
+            ->patch(route('products.update', $product->id), $product->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -64,45 +41,48 @@ class ProductTest extends TestCase
 
     public function testDestroy()
     {
-        $product = Product::factory()->create();
         $admin = User::admin();
+        $product = Product::factory()->create();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('products.destroy', $product->id));
+            ->delete(route('products.destroy', $product->id));
 
         $response->assertSessionHas('message');
         $this->assertSoftDeleted($product);
     }
 
-    public function testRestore()
+    public function testTrash()
     {
         $admin = User::admin();
-
         $product = Product::factory()->create();
         $product->delete();
 
         $response = $this->actingAs($admin)
-                            ->get(route('products.trash'));
+            ->get(route('products.trash'));
 
         $response->assertSee($product->id);
+    }
 
+    public function testRestore()
+    {
+        $admin = User::admin();
+        $product = Product::factory()->create();
+        $product->delete();
 
         $response = $this->actingAs($admin)
-                            ->get(route('products.restore', $product->id));
+            ->get(route('products.restore', $product->id));
 
         $response->assertSessionHas('message');
-
     }
 
     public function testForceDelete()
     {
         $admin = User::admin();
-        
         $product = Product::factory()->create();
         $product->delete();
 
         $response = $this->actingAs($admin)
-                            ->delete(route('products.forceDelete', $product->id));
+            ->delete(route('products.forceDelete', $product->id));
         
         $response->assertSessionHas('message');
         $this->assertDatabaseMissing('products', [

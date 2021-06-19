@@ -1,54 +1,70 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class CartTest extends TestCase
+class CartControllerTest extends TestCase
 {
-    // use WithoutMiddleware;
+    use DatabaseTransactions;
 
-    public function testGetCart()
+    public function testGetEmptyCart()
     {
         $response = $this->withCookie('cart', '[]')->get(route('cart'));
 
         $response->assertSee('Your cart is empty!');
         $response->assertStatus(200);
-        
-        
-        $response = $this->withCookie('cart', '124!@#1[]{7929asfjHSKFAL:SFKAK:WYRAI_@$&^QWIE#YQWPOUERTIHNFAS')->get(route('cart'));
-        
+    }
+
+    public function testGetWrongCart()
+    {
+        $response = $this->withCookie(
+            'cart',
+            '124!@#1[]{7929asfjHSKFAL:SFKAK:WYRAI_@$&^QWIE#YQWPOUERTIHNFAS'
+        )->get(route('cart'));
+
         $response->assertSee('Your cart is empty!');
         $response->assertStatus(200);
+    }
 
+    public function testGetCartWithWrongItems()
+    {
+        //todo wtf???
         $cart = '{"241241214":{"1fa":"1","2312":"","color":""},"1":{"qty":"1","size":"","color":""} }';
         $response = $this->withCookie('cart', $cart)->get(route('cart'));
-        
+
         $response->assertSee('Your cart is empty!');
         $response->assertStatus(200);
-        
-        $id = Product::inRandomOrder()->first()->id;
-        $cart = '{"'.$id.'":{"qty":"2","size":"","color":""} }';
+    }
+
+    public function testGetCart()
+    {
+        $product = Product::factory()->create();
+        $cart = '{"'.$product->id.'":{"qty":"2","size":"","color":""} }';
+
         $response = $this->withCookie('cart', $cart)->get(route('cart'));
-        
+
         $response->assertSee('Total');
         $response->assertStatus(200);
     }
 
     public function testAddToCart()
     {
-        $id = Product::inRandomOrder()->first()->id;
+        $product = Product::factory()->create();
         $response = $this->get(route('addToCart', [
-            'id' => $id,
+            'id' => $product->id,
         ]));
         $response->assertOk();
+    }
+
+    public function testWrongAddToCart()
+    {
+        $product = Product::factory()->create();
 
         $response = $this->get(route('addToCart', [
-            'id' => $id,
+            'id' => $product->id,
             'size' => 'fasQ#J#!I@DSAF',
             'color' => '12fasQ#412J1#24!1I@124124DSAF',
         ]));
@@ -58,19 +74,17 @@ class CartTest extends TestCase
 
     public function testResetCart()
     {
-        
         $cart = '{"1":{"qty":"2","size":"","color":""} }';
+
         $response = $this->withCookie('cart', $cart)->get(route('resetCart'));
 
         $response->assertCookie('cart', '[]');
         $response->assertSessionHas('msg');
-        // $response->assertRedirect();
     }
 
     public function testUpdateCart()
     {
-        $products = Product::inRandomOrder()->take(4)->get();
-
+        $products = Product::factory()->count(4)->create();
         $items = [];
         foreach ($products as $product) {
             $items[] = [
@@ -80,6 +94,7 @@ class CartTest extends TestCase
                 'color' => '',
             ];
         }
+
         $response = $this->get(route('updateCart', [
             'items' => $items,
         ]));
