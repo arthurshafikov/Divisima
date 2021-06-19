@@ -6,6 +6,8 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class MediaControllerTest extends TestCase
@@ -13,31 +15,22 @@ class MediaControllerTest extends TestCase
     use WithoutMiddleware;
     use DatabaseTransactions;
 
-//    public function testUploadImage()
-//    {
-//        Storage::fake('images');
-//
-//        $file = UploadedFile::fake()->image('image.jpg');
-//
-//        $images = [
-//            $file,
-//        ];
-//
-//        $response = $this->post(route('upload-image'), [
-//            'image' => $images,
-//        ]);
-//
-//        $response->assertStatus(401);
-//
-//        $user = User::admin();
-//
-//        $response = $this->actingAs($user)
-//                            ->post(route('upload-image'), [
-//                                'image' => $images,
-//                            ]);
-//
-//        $response->assertOk();
-//    }
+    public function testUploadImage()
+    {
+        Storage::fake('images');
+        $file = UploadedFile::fake()->image('image.png');
+        $images = [
+            $file,
+        ];
+        $user = User::admin();
+
+        $response = $this->actingAs($user)
+            ->post(route('upload-image'), [
+                'image' => $images,
+            ]);
+
+        $response->assertOk();
+    }
 
     public function testDeleteImages()
     {

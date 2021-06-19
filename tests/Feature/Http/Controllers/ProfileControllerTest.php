@@ -4,6 +4,8 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
@@ -33,27 +35,19 @@ class ProfileControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-//    public function testUploadAvatar()
-//    {
-//        Storage::fake('avatars');
-//
-//        $file = UploadedFile::fake()->image('avatar.jpg');
-//
-//        $response = $this->post(route('upload-avatar'), [
-//            'avatar' => $file,
-//        ]);
-//
-//        $response->assertStatus(401);
-//
-//        $user = User::factory()->create();
-//
-//        $response = $this->actingAs($user)
-//                            ->post(route('upload-avatar'), [
-//                                'avatar' => $file,
-//                            ]);
-//
-//        $response->assertJsonCount(2);
-//    }
+    public function testUploadAvatar()
+    {
+        Storage::fake('avatars');
+        $file = UploadedFile::fake()->image('avatar.png');
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post(route('upload-avatar'), [
+                'avatar' => $file,
+            ]);
+
+        $response->assertJsonCount(2);
+    }
 
     public function testChangeProfile()
     {
