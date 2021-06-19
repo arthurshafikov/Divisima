@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasFactory;
+    use HasRoles;
 
     protected $fillable = [
         'name',
@@ -40,8 +42,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes['password'] = bcrypt($value);
     }
 
-    public function scopeAdmin($query)
+    public function scopeAdmin()
     {
-        return $query->where('name', 'admin')->first();
+        return $this->factory()->create()->assignRole('admin');
     }
 }

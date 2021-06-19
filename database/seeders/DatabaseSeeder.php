@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             ImagesTableSeeder::class,
             ProductsTableSeeder::class,
+            PermissionTableSeeder::class,
+            RoleTableSeeder::class,
             UsersTableSeeder::class,
             ReviewsTableSeeder::class,
             PostsTableSeeder::class,

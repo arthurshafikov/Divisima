@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        User::factory()->admin()->create();
+        User::factory()->admin()->create()->assignRole('admin');
         User::factory()->testUser()->create();
         User::factory()->count(10)->create();
     }

@@ -17,7 +17,7 @@ class AdminCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user() === null || Auth::user()->name !== 'admin') {
+        if (Auth::user() === null || Auth::user()->cant('admin_panel')) {
             abort(403);
         }
         return $next($request);
