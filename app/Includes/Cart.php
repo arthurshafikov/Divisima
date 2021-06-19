@@ -32,7 +32,8 @@ class Cart
                 $attributes = getProductAttributes(['size','color'], $id);
                 $variations = $attributes->pluck('name')->toArray();
 
-                if (( !in_array($size, $variations) && $size !== '-' )
+                if (
+                    ( !in_array($size, $variations) && $size !== '-' )
                     || ( !in_array($color, $variations) && $color !== '-' )
                 ) {
                     abort(500);
@@ -113,7 +114,8 @@ class Cart
 
         if (count($items) > 0) {
             foreach ($items as $id => $item) {
-                if (!is_array($item) ||
+                if (
+                    !is_array($item) ||
                     !array_key_exists('qty', $item) ||
                     !array_key_exists('size', $item) ||
                     !array_key_exists('color', $item)

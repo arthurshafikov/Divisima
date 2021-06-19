@@ -39,7 +39,7 @@ class WishlistControllerTest extends TestCase
     {
         $product = Product::factory()->create();
         $wishlist = [
-            $product->id
+            $product->id,
         ];
 
         $response = $this->withCookie('wishlist', json_encode($wishlist))->get(route('wishlist'));
