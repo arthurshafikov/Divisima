@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\OrderPlaced;
 use App\Http\Requests\CheckoutRequest;
+use App\Includes\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -15,7 +16,7 @@ class OrderController extends Controller
     {
         $profile = Auth::user() ? Auth::user()->profile : null;
 
-        extract(CartController::getCartData());
+        extract(Cart::getCartData());
 
         if (count($items) < 1) {
             return redirect()->route('cart')->with('err', 'You have no products in your cart!');
@@ -52,7 +53,7 @@ class OrderController extends Controller
         ]);
         $user->profile()->updateOrCreate($profileData);
 
-        extract(CartController::getCartData());
+        extract(Cart::getCartData());
 
         $data['subtotal'] = $subtotal;
         $data['discount'] = $discount;
@@ -75,7 +76,7 @@ class OrderController extends Controller
             ]);
         });
 
-        CartController::resetCart();
+        Cart::resetCart();
         event(new OrderPlaced($order));
 
         return redirect()->route('thank-you', $order->id);
