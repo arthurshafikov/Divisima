@@ -8,21 +8,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProfileFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Profile::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
+            'user_id'     => self::factoryForModel(User::class),
             'first_name'  => $this->faker->firstName,
             'surname'     => $this->faker->lastName,
             'address'     => $this->faker->address,

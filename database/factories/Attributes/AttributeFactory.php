@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Attributes;
 
-use App\Models\Category;
+use App\Models\Attributes\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategoryFactory extends Factory
+class AttributeFactory extends Factory
 {
-    protected $model = Category::class;
+    protected $model = Attribute::class;
 
     public function definition()
     {

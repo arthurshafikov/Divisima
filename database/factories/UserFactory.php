@@ -8,22 +8,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->userName,//$this->faker->regexify('^[a-z0-9_-]{3,50}$')
+            'name' => $this->faker->unique()->userName,
             'password' => '123',
             'email' => $this->faker->unique()->safeEmail,
         ];
@@ -31,14 +21,14 @@ class UserFactory extends Factory
 
     public function configure()
     {
-        return $this->afterCreating( function (User $user) {
+        return $this->afterCreating(function (User $user) {
             Profile::factory()->for($user)->create();
         });
     }
 
     public function admin()
     {
-        return $this->state( function (array $attributes) {
+        return $this->state(function (array $attributes) {
             return [
                 'name' => 'admin',
                 'email' => 'wolf-front@yandex.ru',
