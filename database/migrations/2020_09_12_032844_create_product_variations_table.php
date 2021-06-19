@@ -25,7 +25,6 @@ class CreateProductVariationsTable extends Migration
             $table->foreign('variation_id')
                 ->references('id')->on('attribute_variations')
                 ->onDelete('cascade');
-                
         });
     }
 

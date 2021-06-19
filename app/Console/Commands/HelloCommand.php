@@ -41,9 +41,9 @@ class HelloCommand extends Command
     {
         if ($this->adminname === '') {
             $this->adminname = $this->ask('What is your name?', 'Admin');
-            $this->info('Hello '. $this->adminname);
+            $this->info('Hello ' . $this->adminname);
         } else {
-            $this->info('Hello '. $this->adminname);
+            $this->info('Hello ' . $this->adminname);
         }
         return 0;
     }

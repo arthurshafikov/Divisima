@@ -12,7 +12,7 @@ class CategoriesTableSeeder extends Seeder
      *
      * @return void
      */
-    
+
     public function run()
     {
         $categories = [
@@ -55,7 +55,5 @@ class CategoriesTableSeeder extends Seeder
                 }
             }
         }
-        
     }
-
 }

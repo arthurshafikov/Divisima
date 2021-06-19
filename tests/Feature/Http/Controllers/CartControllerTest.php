@@ -42,7 +42,7 @@ class CartControllerTest extends TestCase
     public function testGetCart()
     {
         $product = Product::factory()->create();
-        $cart = '{"'.$product->id.'":{"qty":"2","size":"","color":""} }';
+        $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
 
         $response = $this->withCookie('cart', $cart)->get(route('cart'));
 

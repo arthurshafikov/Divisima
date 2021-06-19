@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use SluggableTrait,HasFactory;
-    
+    use SluggableTrait;
+    use HasFactory;
+
     public $timestamps = false;
 
     public $fillable = ['parent_id','name','slug'];
@@ -19,7 +20,7 @@ class Category extends Model
         return $this->belongsToMany('App\Models\Product')->using('App\Models\Pivots\CategoryProduct');
     }
 
-    public function childs() 
+    public function childs()
     {
         return $this->hasMany('App\Models\Category', 'parent_id', 'id') ;
     }
@@ -33,5 +34,4 @@ class Category extends Model
     {
         return ucwords($value);
     }
-
 }

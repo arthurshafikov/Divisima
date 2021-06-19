@@ -15,5 +15,4 @@ class ShopViewComposer
         });
         $view->with('menu', $menu);
     }
-
 }

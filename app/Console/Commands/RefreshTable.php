@@ -44,11 +44,11 @@ class RefreshTable extends Command
             $this->error('Table ' . $table . ' does not exists!');
             return 0;
         }
-        $this->info('Table '. $table .' was found...');
+        $this->info('Table ' . $table . ' was found...');
         $seederName = ucfirst($table) . 'TableSeeder';
 
         \DB::table($table)->truncate();
-        $this->info('Table '. $table .' had been cleared...');
+        $this->info('Table ' . $table . ' had been cleared...');
         $this->call('db:seed', ['--class' => $seederName]);
         return 0;
     }

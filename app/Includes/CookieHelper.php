@@ -1,12 +1,12 @@
-<?php 
+<?php
 
 namespace App\Includes;
 
-class CookieHelper 
+class CookieHelper
 {
-    protected static $defaultMin = 60*24;
+    protected static $defaultMin = 60 * 24;
     protected static $defaultVal = null;
-    
+
     public static function getCookie(string $cookieName, $json = false)
     {
         $cookie = request()->cookie($cookieName);
@@ -46,7 +46,7 @@ class CookieHelper
         $cookie[] = $value;
         self::setCookie($cookieName, $cookie, $minutes, true);
     }
-    
+
     public static function removeFromArrayCookie(string $cookieName, $value, $minutes = false)
     {
         $cookie = self::getCookie($cookieName, true);

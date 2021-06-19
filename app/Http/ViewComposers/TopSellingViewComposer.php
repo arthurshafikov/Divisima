@@ -5,7 +5,6 @@ namespace App\Http\ViewComposers;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 
-
 class TopSellingViewComposer
 {
 
@@ -16,6 +15,4 @@ class TopSellingViewComposer
         });
         $view->with('categories', $categories);
     }
-
-    
 }

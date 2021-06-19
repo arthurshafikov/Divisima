@@ -1,23 +1,23 @@
-<?php 
+<?php
 
 namespace App\Includes;
 
-class BreadCrumbs 
+class BreadCrumbs
 {
 
-    public static function getBreadCrumbs() : array
+    public static function getBreadCrumbs(): array
     {
         @$url = $_SERVER["REQUEST_URI"];
-        $arr = explode('/',ltrim($url,'/'));
-        
+        $arr = explode('/', ltrim($url, '/'));
+
         $links = [
-            '/' => 'Home'
+            '/' => 'Home',
         ];
         $link = '';
         foreach ($arr as $elem) {
-            $elem = explode('?',$elem)[0];
+            $elem = explode('?', $elem)[0];
             if ($elem === 'product') {
-                $link .= route('shop',[],false);
+                $link .= route('shop', [], false);
             } else {
                 $link .= '/' . $elem;
             }
@@ -26,9 +26,9 @@ class BreadCrumbs
         // "products.edit"
 
         $current = \Route::currentRouteName();
-        if (preg_match('/^.*?\.edit$/',$current)) {
+        if (preg_match('/^.*?\.edit$/', $current)) {
             foreach ($links as $link => $text) {
-                if(preg_match('#^/dashboard/.*?/\d+$#',$link)){
+                if (preg_match('#^/dashboard/.*?/\d+$#', $link)) {
                     unset($links[$link]);
                 }
             }

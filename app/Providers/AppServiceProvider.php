@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+
 // use \Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::defaultView('vendor.pagination.bootstrap-4');
 
         view()->share('defaultAvatar', '/img/default-avatar.png');
-        
+
         // shop composers
         view()->composer('parts.header.header', \App\Http\ViewComposers\HeaderViewComposer::class);
         view()->composer('parts.slider', \App\Http\ViewComposers\SliderViewComposer::class);
@@ -45,6 +46,5 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('admin.vendor.admin', \App\Http\ViewComposers\Admin\AdminMenuComposer::class);
         view()->composer('admin.parts.media', \App\Http\ViewComposers\Admin\MediaComposer::class);
         view()->composer('admin.parts.charts', \App\Http\ViewComposers\Admin\ChartsComposer::class);
-
     }
 }

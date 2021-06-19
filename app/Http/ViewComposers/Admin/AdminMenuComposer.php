@@ -13,7 +13,7 @@ class AdminMenuComposer
                 [
                     'link' => 'admin',
                     'text' => 'Dashboard',
-                    'icon' => 'fa-toolbox'
+                    'icon' => 'fa-toolbox',
                 ],
             ],
             'Interface' => [
@@ -78,7 +78,6 @@ class AdminMenuComposer
 
 
         ];
-        $view->with('admin_menu',$admin_menu);
+        $view->with('admin_menu', $admin_menu);
     }
-
 }

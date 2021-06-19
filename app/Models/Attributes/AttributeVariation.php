@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AttributeVariation extends Model
 {
     use SluggableTrait;
-    
+
     public $timestamps = false;
 
-    protected $fillable = ['name','attribute_id','active']; 
+    protected $fillable = ['name','attribute_id','active'];
     protected $appends = ['active']; // for shop filter (checked)
 
     public function attribute()

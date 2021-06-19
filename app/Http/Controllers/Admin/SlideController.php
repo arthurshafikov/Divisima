@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Models\Slide;
+use Illuminate\Http\Request;
 
 class SlideController extends CRUDController
 {
@@ -15,7 +15,7 @@ class SlideController extends CRUDController
         $this->th = ['ID','Title','Image'];
         $this->oneText = 'Slide';
     }
-    
+
     protected function myValidate(Request $request)
     {
         return $request->validate([

@@ -15,14 +15,13 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         Product::factory()->count(30)->create();
-        
+
         $category = \App\Models\Category::all();
-        
-        Product::all()->each( function ($product) use ($category) {
+
+        Product::all()->each(function ($product) use ($category) {
             for ($i = 0; $i < 2; $i++) {
                 $product->category()->attach($category->random());
             }
         });
-
     }
 }

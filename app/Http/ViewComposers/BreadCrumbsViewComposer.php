@@ -2,8 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\Contracts\View\View;
 use App\Includes\BreadCrumbs;
+use Illuminate\Contracts\View\View;
 
 class BreadCrumbsViewComposer
 {
@@ -13,5 +13,4 @@ class BreadCrumbsViewComposer
         $breadcrumbs = BreadCrumbs::getBreadCrumbs();
         $view->with('breadcrumbs', $breadcrumbs);
     }
-    
 }

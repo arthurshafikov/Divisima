@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Mail\ContactMail;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,7 +13,10 @@ use Illuminate\Support\Facades\Mail;
 
 class SendEmail implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $data;
     /**
@@ -34,7 +36,7 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to(config('mail.admin.address'))->send( new ContactMail($this->data) );
+        Mail::to(config('mail.admin.address'))->send(new ContactMail($this->data));
     }
 
     public function failed()

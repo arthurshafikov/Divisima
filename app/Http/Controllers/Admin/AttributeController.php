@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Models\Attributes\Attribute;
 use App\Models\Attributes\AttributeVariation;
+use Illuminate\Http\Request;
 
 class AttributeController extends CRUDController
 {
@@ -21,7 +21,7 @@ class AttributeController extends CRUDController
     {
         $this->myValidate($request);
         $name = $request->name;
-        
+
         $attr = Attribute::create(['name' => $name]);
 
         foreach ($request->variation as $varname) {
@@ -30,7 +30,7 @@ class AttributeController extends CRUDController
                 ['attribute_id' => $attr->id],
             );
         }
-        return redirect()->route('attributes.edit',$attr->id)->with('message','Attribute has been created successfully!');
+        return redirect()->route('attributes.edit', $attr->id)->with('message', 'Attribute has been created successfully!');
     }
 
 
@@ -45,8 +45,8 @@ class AttributeController extends CRUDController
         $new_vars = $request->variation;
 
         AttributeVariation::where([
-            ['attribute_id','=',$id]
-        ])->whereNotIn('name',$new_vars)->delete();
+            ['attribute_id','=',$id],
+        ])->whereNotIn('name', $new_vars)->delete();
 
         foreach ($new_vars as $varname) {
             AttributeVariation::updateOrCreate(
@@ -54,12 +54,12 @@ class AttributeController extends CRUDController
             );
         }
 
-        return redirect()->back()->with('message','Attribute has been updated successfully!');
+        return redirect()->back()->with('message', 'Attribute has been updated successfully!');
     }
 
     public function destroy($id)
     {
-        AttributeVariation::where('attribute_id',$id)->delete();
+        AttributeVariation::where('attribute_id', $id)->delete();
         return parent::destroy($id);
     }
 

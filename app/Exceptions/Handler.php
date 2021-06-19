@@ -58,7 +58,6 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof NotFoundHttpException || $exception instanceof ModelNotFoundException) {
-
             $sessionMiddleware = resolve(StartSession::class);
             $decrypter = resolve(EncryptCookies::class);
             $decrypter->handle(request(), fn() => $sessionMiddleware->handle(request(), fn() => response('')));
@@ -66,26 +65,26 @@ class Handler extends ExceptionHandler
 
             return response()->view('errors.default', [
                 'errorCode' => 404,
-                'errorMessage' => 'Page not found'
+                'errorMessage' => 'Page not found',
             ], 404);
         }
-        
-        
+
+
         if ($exception instanceof HttpException) {
             if ($exception->getStatusCode() == 403) {
                 return response()->view('errors.default', [
                     'errorCode' => 403,
-                    'errorMessage' => 'Access Denied'
+                    'errorMessage' => 'Access Denied',
                 ], 403);
-            } elseif($exception->getStatusCode() == 401) {
+            } elseif ($exception->getStatusCode() == 401) {
                 return response()->view('errors.default', [
                     'errorCode' => 401,
                     'errorMessage' => 'Unathorized',
                 ], 401);
-            } elseif($exception->getStatusCode() == 500) {
+            } elseif ($exception->getStatusCode() == 500) {
                 return response()->view('errors.default', [
                     'errorCode' => 500,
-                    'errorMessage' => 'Internal server error'
+                    'errorMessage' => 'Internal server error',
                 ], 500);
             }
         }
@@ -100,10 +99,10 @@ class Handler extends ExceptionHandler
         if ($exception instanceof Error) {
             return response()->view('errors.default', [
                 'errorCode' => 500,
-                'errorMessage' => 'Internal server error'
+                'errorMessage' => 'Internal server error',
             ], 500);
         }
-        
+
         return parent::render($request, $exception);
     }
 }

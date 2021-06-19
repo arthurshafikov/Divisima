@@ -19,7 +19,7 @@ class OrderController extends CRUDController
     public function edit($id)
     {
         $post = $this->model::findOrFail($id);
-        return view('admin.edit.'.$this->essense, [
+        return view('admin.edit.' . $this->essense, [
             'post' => $post,
         ]);
     }

@@ -15,7 +15,7 @@ class MediaController extends Controller
         $images = $request->get('gallery');
 
         ob_start();
-        $images = Image::whereIn('id',$images)->get();
+        $images = Image::whereIn('id', $images)->get();
         foreach ($images as $img) {
             echo view('admin.parts.gallery-image', [
                 'img' => $img,
@@ -25,7 +25,7 @@ class MediaController extends Controller
     }
 
     public function uploadImage(MediaRequest $request)
-    { 
+    {
         $files = $request->file('image');
 
         ob_start();
@@ -39,7 +39,7 @@ class MediaController extends Controller
             ])->render();
         }
         $res = ob_get_clean();
-        
+
         return response()->json($res);
     }
 
@@ -47,16 +47,16 @@ class MediaController extends Controller
     {
         $image_ids = $request->ids;
         $res = Image::destroy($image_ids);
-        
+
         return response()->json($res);
     }
 
     public function loadMediaImages()
     {
-        $images = Image::orderBy('created_at','desc')->paginate(20);
+        $images = Image::orderBy('created_at', 'desc')->paginate(20);
         ob_start();
         foreach ($images as $img) {
-            echo view('admin.parts.media-image', ['img'=>$img])->render();
+            echo view('admin.parts.media-image', ['img' => $img])->render();
         }
         return ob_get_clean();
     }

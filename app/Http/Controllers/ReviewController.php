@@ -7,13 +7,13 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
-    public function addReview(ReviewRequest $request, $id) : string
+    public function addReview(ReviewRequest $request, $id): string
     {
-        $data = $request->only('text','rating');
+        $data = $request->only('text', 'rating');
         $data['product_id'] = $id;
         $user_id = \Auth::id();
         $data['user_id'] = $user_id;
-        
+
         $reviews = Review::where([
             ['user_id','=',$user_id],
             ['product_id','=',$id],
@@ -35,14 +35,13 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function deleteReview($id) : string
+    public function deleteReview($id): string
     {
         $review = Review::findOrFail($id);
-        if($review->user->id === \Auth::id()){
+        if ($review->user->id === \Auth::id()) {
             $review->delete();
             return '1';
         }
         return 'You are not allowed to delete this review!';
-        
     }
 }

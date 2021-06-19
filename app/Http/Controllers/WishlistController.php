@@ -7,9 +7,9 @@ use App\Models\Product;
 
 class WishlistController extends Controller
 {
-    protected static $cookieTime = 60*24;
+    protected static $cookieTime = 60 * 24;
     protected static $cookieName = 'wishlist';
-    
+
     public function wishlist()
     {
         $product_ids = $this->getWishlistCookie();
@@ -27,7 +27,7 @@ class WishlistController extends Controller
         return;
     }
 
-    public function getWishlistCookie() : array
+    public function getWishlistCookie(): array
     {
         $minutes = self::$cookieTime;
         $cookie = self::$cookieName;

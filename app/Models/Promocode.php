@@ -9,9 +9,9 @@ class Promocode extends Model
 {
     use HasFactory;
 
-    protected $dates = ['expired_at'];
-
     public $fillable = ['promocode','discount','expired_at'];
+
+    protected $dates = ['expired_at'];
 
     public function getPureDateAttribute()
     {

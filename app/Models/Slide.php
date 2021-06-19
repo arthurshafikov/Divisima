@@ -10,9 +10,8 @@ class Slide extends Model
 {
     use HasFactory;
     use HasImage;
-    
+
     public $timestamps = false;
 
     protected $fillable = ['title','img','content'];
-
 }

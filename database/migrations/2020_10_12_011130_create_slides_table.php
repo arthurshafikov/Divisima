@@ -15,7 +15,7 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
-            
+
             $table->string('title');
             $table->text('content');
 
@@ -23,7 +23,6 @@ class CreateSlidesTable extends Migration
             $table->foreign('img')
                 ->references('id')->on('images')
                 ->onDelete('set null');
-
         });
     }
 

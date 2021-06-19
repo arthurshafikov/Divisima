@@ -20,8 +20,8 @@ class MenuController extends CRUDController
     public function store(Request $request)
     {
         $this->myValidate($request);
-        
-        $menu = Menu::create($request->only('name','location'));
+
+        $menu = Menu::create($request->only('name', 'location'));
 
         $item_names = $request->item_names;
         $item_links = $request->item_links;
@@ -34,8 +34,8 @@ class MenuController extends CRUDController
             ]);
         }
 
-        return redirect()->route($this->essense.'.edit',$menu->id)
-                            ->with('message',$this->oneText.' has been created successfully!');
+        return redirect()->route($this->essense . '.edit', $menu->id)
+                            ->with('message', $this->oneText . ' has been created successfully!');
     }
 
     public function update(Request $request, $id)
@@ -59,7 +59,7 @@ class MenuController extends CRUDController
             ]);
         }
 
-        return redirect()->back()->with('message',$this->oneText . ' has been updated successfully!');
+        return redirect()->back()->with('message', $this->oneText . ' has been updated successfully!');
     }
 
 

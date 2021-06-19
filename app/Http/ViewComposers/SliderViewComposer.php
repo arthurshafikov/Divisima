@@ -15,6 +15,4 @@ class SliderViewComposer
         });
         $view->with('slider', $slider);
     }
-
-    
 }

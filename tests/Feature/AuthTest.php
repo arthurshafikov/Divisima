@@ -52,5 +52,4 @@ class AuthTest extends TestCase
 
         $response->assertSessionHasNoErrors();
     }
-
 }

@@ -46,5 +46,4 @@ class CategoryControllerTest extends TestCase
 
         $response->assertSessionHas('message');
     }
-
 }

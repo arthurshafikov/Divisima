@@ -26,9 +26,9 @@ class ProfileController extends Controller
             'error' => false,
             'text'  => '',
         ];
-        
+
         $request->file('avatar');
-        $file = $request->avatar->store('avatars');	
+        $file = $request->avatar->store('avatars');
         $image = Image::create([
             'img' => $file,
         ]);

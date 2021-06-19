@@ -3,8 +3,8 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Menu;
-use Illuminate\Contracts\View\View;
 use App\Models\Post;
+use Illuminate\Contracts\View\View;
 
 class FooterViewComposer
 {
@@ -22,6 +22,4 @@ class FooterViewComposer
 
         $view->with('menu', $menu);
     }
-
-    
 }

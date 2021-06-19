@@ -9,9 +9,9 @@ use Illuminate\Support\Carbon;
 class Review extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['product_id','user_id','text','rating'];
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -21,7 +21,7 @@ class Review extends Model
     {
         return $this->belongsTo('App\Models\Product');
     }
-    
+
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('j F Y');

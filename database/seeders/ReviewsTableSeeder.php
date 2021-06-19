@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
 use App\Models\Review;
 use App\Models\Product;
 
@@ -17,6 +16,5 @@ class ReviewsTableSeeder extends Seeder
     public function run()
     {
         Review::factory()->count(36)->create();
-
     }
 }

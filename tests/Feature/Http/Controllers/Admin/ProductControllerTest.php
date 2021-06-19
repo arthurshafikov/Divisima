@@ -83,7 +83,7 @@ class ProductControllerTest extends TestCase
 
         $response = $this->actingAs($admin)
             ->delete(route('products.forceDelete', $product->id));
-        
+
         $response->assertSessionHas('message');
         $this->assertDatabaseMissing('products', [
             'name' => $product->name,

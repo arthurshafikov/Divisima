@@ -8,8 +8,8 @@ use App\Models\Product;
 
 class CategoryController extends Controller
 {
-    
-    public function category(ProductFilter $filters,$slug)
+
+    public function category(ProductFilter $filters, $slug)
     {
         $category = Category::where('slug', $slug)->with('products')->firstOrFail();
 

@@ -11,5 +11,4 @@ class MediaComposer
         $images = \App\Models\Image::orderBy('created_at', 'desc')->paginate(20);
         $view->with('images', $images);
     }
-
 }

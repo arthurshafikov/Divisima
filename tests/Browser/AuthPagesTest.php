@@ -3,7 +3,6 @@
 namespace Tests\Browser;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -13,7 +12,7 @@ class AuthPagesTest extends DuskTestCase
     public function testRegister()
     {
         $user = User::factory()->make();
-        $this->browse( function (Browser $browser) use ($user) {
+        $this->browse(function (Browser $browser) use ($user) {
             $browser->visitRoute('register')
                     ->type('name', $user->name)
                     ->type('email', $user->email)
@@ -22,14 +21,13 @@ class AuthPagesTest extends DuskTestCase
                     ->screenshot('register.png')
                     ->press('Submit')
                     ->assertAuthenticated();
-            
         });
     }
 
     public function testLogout()
     {
-        
-        $this->browse( function (Browser $browser) {
+
+        $this->browse(function (Browser $browser) {
             $browser->visitRoute('home')
                     ->screenshot('Logout.png')
                     ->click('@logout-button')
@@ -45,7 +43,7 @@ class AuthPagesTest extends DuskTestCase
     {
         $user = User::admin();
 
-        $this->browse( function (Browser $browser) use ($user) {
+        $this->browse(function (Browser $browser) use ($user) {
             $browser->visitRoute('login')
                     ->screenshot('login.png')
                     ->type('username', $user->email)
@@ -54,5 +52,4 @@ class AuthPagesTest extends DuskTestCase
                     ->assertAuthenticated();
         });
     }
-
 }

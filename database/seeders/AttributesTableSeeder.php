@@ -3,12 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
 use App\Models\Attributes\Attribute;
 use App\Models\Attributes\AttributeVariation;
-
 use App\Models\Product;
-
 
 class AttributesTableSeeder extends Seeder
 {
@@ -49,7 +46,7 @@ class AttributesTableSeeder extends Seeder
                 'name' => $attribute,
             ]);
             $id = $ans->id;
-            
+
             foreach ($variations as $var) {
                 AttributeVariation::create([
                     'attribute_id' => $id,

@@ -10,16 +10,18 @@ use Illuminate\Support\Carbon;
 
 class Post extends Model
 {
-    use HasFactory, SluggableTrait, HasImage;
-    
+    use HasFactory;
+    use SluggableTrait;
+    use HasImage;
+
     protected $fillable = ['title','content','img'];
 
-    public function sluggable() : array
+    public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
 
@@ -27,5 +29,4 @@ class Post extends Model
     {
         return Carbon::parse($value)->format('j F Y');
     }
-
 }

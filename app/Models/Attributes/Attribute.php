@@ -10,10 +10,10 @@ class Attribute extends Model
 {
     use SluggableTrait;
     use HasFactory;
-    
+
     public $timestamps = false;
     protected $fillable = ['name'];
-    
+
     public function variations()
     {
         return $this->hasMany(AttributeVariation::class);

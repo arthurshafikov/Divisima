@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\ProductViewed;
 use App\Filters\ProductFilter;
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Review;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    
+
     public function one(string $slug)
     {
         $product = Product::where('slug', $slug)->with('images')->firstOrFail();
@@ -18,7 +18,7 @@ class ProductController extends Controller
         event(new ProductViewed($product->id));
 
         $category = $product->category()->pluck('id')->toArray();
-        
+
         $related = Product::whereHas('category', function ($query) use ($category) {
             $query->whereIn('id', $category);
         })->limit(10)->get();
@@ -26,7 +26,7 @@ class ProductController extends Controller
         $rating = Review::where('product_id', $product->id)->pluck('rating');
         $ratingCount = count($rating);
         $rating = round($rating->avg());
-        
+
         $sizes = getProductAttribute('size', $product->id);
         $colors = getProductAttribute('color', $product->id);
         $brands = getProductAttribute('brand', $product->id);
@@ -72,5 +72,4 @@ class ProductController extends Controller
             'products' => $products,
         ])->render();
     }
-    
 }

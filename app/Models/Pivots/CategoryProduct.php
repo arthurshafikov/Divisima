@@ -12,7 +12,7 @@ class CategoryProduct extends Pivot
     {
         return $this->belongsTo('\App\Models\Category');
     }
-    
+
     public function product()
     {
         return $this->belongsTo('\App\Models\Product');

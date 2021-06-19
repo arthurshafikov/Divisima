@@ -17,7 +17,7 @@ class ReviewControllerTest extends TestCase
         $product = Product::factory()->hasReviews()->create();
 
         $response = $this->get(route('getReviews', $product->id));
-        
+
         $response->assertStatus(200);
         $response->assertSee('Load more');
     }
@@ -44,7 +44,7 @@ class ReviewControllerTest extends TestCase
             ->post(route('add-review', $product->id), $review->toArray());
         $response2 = $this->actingAs($user)
             ->post(route('add-review', $product->id), $review->toArray());
-        
+
         $response->assertSee('1');
         $response2->assertSee('You already have a review here');
     }

@@ -15,7 +15,7 @@ class PromocodeControllerTest extends TestCase
         $promocode = Promocode::factory()->create();
 
         $response = $this->post(route('acceptPromocode'), [
-                'promocode' => $promocode->promocode
+                'promocode' => $promocode->promocode,
             ]);
 
         $response->assertRedirect();

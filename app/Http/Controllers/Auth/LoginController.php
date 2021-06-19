@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -19,8 +17,9 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
+
+    public $username;
 
     /**
      * Where to redirect users after login.
@@ -28,8 +27,6 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo;
-
-    public $username;
 
 
     /**
@@ -48,8 +45,8 @@ class LoginController extends Controller
 
         $this->username = $this->findUsername();
     }
-    
- 
+
+
     /**
      * Get the login username to be used by the controller.
      *
@@ -74,5 +71,4 @@ class LoginController extends Controller
             'title' => 'Sign-in Page',
         ]);
     }
-
 }

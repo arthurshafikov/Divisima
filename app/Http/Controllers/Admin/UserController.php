@@ -20,7 +20,7 @@ class UserController extends CRUDController
     public function edit($id)
     {
         $user = $this->model::findOrFail($id);
-        return view('admin.edit.'.$this->essense, [
+        return view('admin.edit.' . $this->essense, [
             'user' => $user,
         ]);
     }
@@ -57,7 +57,7 @@ class UserController extends CRUDController
                 $user->sendEmailVerificationNotification();
             }
         }
-        return redirect()->back()->with('message',$this->oneText . ' has been updated successfully!');
+        return redirect()->back()->with('message', $this->oneText . ' has been updated successfully!');
     }
 
     protected function myValidate(Request $request)

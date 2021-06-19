@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Models\Traits;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 
-trait SluggableTrait 
+trait SluggableTrait
 {
     use Sluggable;
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -15,8 +17,8 @@ trait SluggableTrait
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 }

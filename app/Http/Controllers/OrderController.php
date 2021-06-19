@@ -38,38 +38,38 @@ class OrderController extends Controller
 
     public function submit(CheckoutRequest $request)
     {
-        $data = $request->only('address','zip','phone','country','delivery','additional');
+        $data = $request->only('address', 'zip', 'phone', 'country', 'delivery', 'additional');
 
         if (\Auth::id() === null) {
-            $userData = $request->only('email','name','password');
+            $userData = $request->only('email', 'name', 'password');
             $user = User::create($userData);
-            \Auth::attempt($request->only('email','password'));
+            \Auth::attempt($request->only('email', 'password'));
         } else {
             $user = \Auth::user();
         }
         $data['user_id'] = $user->id;
-        
 
-        $profileData = array_merge($request->only('first_name','surname','address','country','zip','phone'), [
+
+        $profileData = array_merge($request->only('first_name', 'surname', 'address', 'country', 'zip', 'phone'), [
             'user_id' => $data['user_id'],
         ]);
         $user->profile()->updateOrCreate($profileData);
 
         extract(CartController::getCartData());
-        
+
         $data['subtotal'] = $subtotal;
         $data['discount'] = $discount;
         $data['total'] = $numeric_total;
         $ids = $items->pluck('id')->toArray();
-        
-        Product::whereIn('id', $ids)->each( function ($product) use ($items) {
+
+        Product::whereIn('id', $ids)->each(function ($product) use ($items) {
             $product->total_sales += $items->where('id', $product->id)->first()['qty'];
             $product->save();
         });
 
         $order = Order::create($data);
 
-        $items->each( function ($item) use ($order) {
+        $items->each(function ($item) use ($order) {
             $order->products()->attach($item->id, [
                 'qty' => $item['qty'],
                 'size' => $item['size'],
@@ -96,7 +96,7 @@ class OrderController extends Controller
     public function order($id)
     {
         $order = $this->checkOrderOwner($id);
-        
+
         $details = [
             'country' => $order->country,
             'address' => $order->address,
@@ -119,7 +119,7 @@ class OrderController extends Controller
         ]);
     }
 
-    protected function checkOrderOwner($id) : Order
+    protected function checkOrderOwner($id): Order
     {
         $order = Order::findOrFail($id);
         if (\Auth::id() !== $order->user->id) {

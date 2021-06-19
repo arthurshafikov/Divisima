@@ -27,7 +27,7 @@ class OrderControllerTest extends TestCase
     public function testCheckout()
     {
         $product = Product::factory()->create();
-        $cart = '{"'.$product->id.'":{"qty":"2","size":"","color":""} }';
+        $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
 
         $response = $this->withCookie('cart', $cart)->get(route('checkout'));
 
@@ -38,7 +38,7 @@ class OrderControllerTest extends TestCase
     public function testSubmitWithWrongCart()
     {
         $product = Product::factory()->create();
-        $cart = '{"'.$product->id.'":{"qty":"2","size":"","color":""} }';
+        $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
 
         $response = $this->withCookie('cart', $cart)->post(route('checkout'));
 
@@ -49,7 +49,7 @@ class OrderControllerTest extends TestCase
     public function testSubmitWithoutNameAndEmail()
     {
         $product = Product::factory()->create();
-        $cart = '{"'.$product->id.'":{"qty":"2","size":"","color":""} }';
+        $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
         $order_info = [
             "address" => "testAddress",
             "country" => "testCountry",
@@ -70,7 +70,7 @@ class OrderControllerTest extends TestCase
     {
         Mail::fake();
         $product = Product::factory()->create();
-        $cart = '{"'.$product->id.'":{"qty":"2","size":"","color":""} }';
+        $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
         $user = User::factory()->make();
         $order_info = [
             "address" => "testAddress",
@@ -102,7 +102,7 @@ class OrderControllerTest extends TestCase
             ->patch(route('orders.update', $order->id), [
                 'status' => mt_rand(1, 3), // todo ???
             ]);
-        
+
         $response->assertRedirect();
         $response->assertSessionHas('message');
     }

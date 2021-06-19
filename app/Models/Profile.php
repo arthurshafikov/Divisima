@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
+
     protected $fillable = ['first_name','surname','address','country','zip','phone'];
 
     public function user()
@@ -19,5 +20,4 @@ class Profile extends Model
     {
         return $this->hasOne(Image::class, 'id', 'avatar');
     }
-
 }

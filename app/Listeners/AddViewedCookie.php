@@ -3,9 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ProductViewed;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-
 use App\Includes\CookieHelper;
 
 class AddViewedCookie
@@ -29,7 +26,6 @@ class AddViewedCookie
     public function handle(ProductViewed $event)
     {
         $id = $event->productId;
-        CookieHelper::updateArrayCookie('watched',$id,60*24,true);
-
+        CookieHelper::updateArrayCookie('watched', $id, 60 * 24, true);
     }
 }

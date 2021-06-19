@@ -4,39 +4,39 @@ namespace App\Filters;
 
 class ProductFilter extends QueryFilter
 {
-    
+
     public function price_min($val)
     {
         return $this->builder->where([
-            ['price', '>=', $val]
+            ['price', '>=', $val],
         ]);
     }
 
     public function price_max($val)
     {
         return $this->builder->where([
-            ['price', '<=', $val]
+            ['price', '<=', $val],
         ]);
     }
 
     public function brand($val)
     {
-        return $this->builder->whereHas('attributes', function($query) use ($val) {
-            $query->whereIn('slug', explode(',',$val));
+        return $this->builder->whereHas('attributes', function ($query) use ($val) {
+            $query->whereIn('slug', explode(',', $val));
         });
     }
-    
+
     public function size($val)
     {
-        return $this->builder->whereHas('attributes', function($query) use ($val) {
-            $query->whereIn('slug', explode(',',$val));
+        return $this->builder->whereHas('attributes', function ($query) use ($val) {
+            $query->whereIn('slug', explode(',', $val));
         });
     }
 
     public function color($val)
     {
         return $this->builder->whereHas('attributes', function ($query) use ($val) {
-            $query->whereIn('slug', explode(',',$val));
+            $query->whereIn('slug', explode(',', $val));
         });
     }
 

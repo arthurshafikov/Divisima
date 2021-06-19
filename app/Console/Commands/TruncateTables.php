@@ -41,7 +41,7 @@ class TruncateTables extends Command
 
         if ($this->option('table') && \Schema::hasTable($this->option('table'))) {
             \DB::table($this->option('table'))->truncate();
-            $this->info('Successfully truncated table '. $this->option('table'));
+            $this->info('Successfully truncated table ' . $this->option('table'));
             return 0;
         } elseif ($this->option('table')) {
             $this->error('Table ' . $this->option('table') . ' does not exists!');
@@ -56,7 +56,7 @@ class TruncateTables extends Command
 
         foreach ($tables as $table) {
             $bar->advance();
-            if($table->Tables_in_divisima === 'migrations'){
+            if ($table->Tables_in_divisima === 'migrations') {
                 continue;
             }
             \DB::table($table->Tables_in_divisima)->truncate();

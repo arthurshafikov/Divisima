@@ -2,10 +2,9 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\Contracts\View\View;
-
-use App\Models\Product;
 use App\Includes\CookieHelper;
+use App\Models\Product;
+use Illuminate\Contracts\View\View;
 
 class RecentlyViewed
 {
@@ -17,9 +16,7 @@ class RecentlyViewed
             $viewedCookie = [];
         }
         $viewed = Product::with('image')->whereIn('id', $viewedCookie)->get();
-        
+
         $view->with('viewed', $viewed);
     }
-
-    
 }

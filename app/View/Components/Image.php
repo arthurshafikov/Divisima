@@ -35,7 +35,6 @@ class Image extends Component
         $this->selectText = $selectText;
         $this->src = $src;
         $this->img_id = $img_id;
-
     }
 
     /**
