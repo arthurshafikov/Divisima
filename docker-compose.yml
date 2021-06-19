@@ -44,7 +44,7 @@ services:
       - "33069:3306"
     environment:
       MYSQL_DATABASE: divisima
-      MYSQL_USER: wolf
+      MYSQL_USER: homestead
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: supersecret
     volumes:

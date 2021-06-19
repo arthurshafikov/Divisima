@@ -5,6 +5,9 @@ RUN apt update --no-install-recommends && apt install -y \
     openssh-client \
     libzip-dev \
     zip \
+    libzip-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
     unzip && \
     rm -r /var/lib/apt/lists/*
 
@@ -12,7 +15,8 @@ RUN docker-php-ext-configure opcache --enable-opcache && \
     docker-php-ext-install pdo_mysql opcache && \
     docker-php-ext-enable opcache && \
     docker-php-ext-install zip && \
-    docker-php-ext-configure zip
+    docker-php-ext-configure zip && \
+    docker-php-ext-install gd
 
 WORKDIR /src
 

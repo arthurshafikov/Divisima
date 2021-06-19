@@ -1,3 +1,3 @@
-CREATE DATABASE IF NOT EXISTS divisima;
-GRANT ALL ON divisima.* TO 'wolf'@'%';
+CREATE DATABASE IF NOT EXISTS `homestead_testing`;
+GRANT ALL ON `homestead_testing`.* TO 'homestead'@'%';
 FLUSH PRIVILEGES;
