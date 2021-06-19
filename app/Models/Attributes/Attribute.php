@@ -12,15 +12,12 @@ class Attribute extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+    ];
 
     public function variations()
     {
         return $this->hasMany(AttributeVariation::class);
     }
-
-    // public function getNameAttribute($val)
-    // {
-    //     return ucfirst($val);
-    // }
 }

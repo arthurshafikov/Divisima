@@ -3,21 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Events\OrderPlaced;
-use App\Http\Controllers\CartController;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-
     public function checkout()
     {
-        $profile = null;
-        if (\Auth::user() != null) {
-            $profile = \Auth::user()->profile;
-        }
+        $profile = Auth::user() ? Auth::user()->profile : null;
+
         extract(CartController::getCartData());
 
         if (count($items) < 1) {
@@ -40,12 +37,12 @@ class OrderController extends Controller
     {
         $data = $request->only('address', 'zip', 'phone', 'country', 'delivery', 'additional');
 
-        if (\Auth::id() === null) {
+        if (Auth::id() === null) {
             $userData = $request->only('email', 'name', 'password');
             $user = User::create($userData);
-            \Auth::attempt($request->only('email', 'password'));
+            Auth::attempt($request->only('email', 'password'));
         } else {
-            $user = \Auth::user();
+            $user = Auth::user();
         }
         $data['user_id'] = $user->id;
 
@@ -122,7 +119,7 @@ class OrderController extends Controller
     protected function checkOrderOwner($id): Order
     {
         $order = Order::findOrFail($id);
-        if (\Auth::id() !== $order->user->id) {
+        if (Auth::id() !== $order->user->id) {
             abort(404);
         }
         return $order;

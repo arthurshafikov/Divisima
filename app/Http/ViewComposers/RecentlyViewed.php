@@ -8,7 +8,6 @@ use Illuminate\Contracts\View\View;
 
 class RecentlyViewed
 {
-
     public function compose(View $view)
     {
         $viewedCookie = CookieHelper::getCookie('watched', true);

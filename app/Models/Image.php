@@ -9,7 +9,9 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['img'];
+    protected $fillable = [
+        'img',
+    ];
 
     public function getImgAttribute($value)
     {

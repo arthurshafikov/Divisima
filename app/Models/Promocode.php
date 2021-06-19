@@ -9,7 +9,11 @@ class Promocode extends Model
 {
     use HasFactory;
 
-    public $fillable = ['promocode','discount','expired_at'];
+    public $fillable = [
+        'promocode',
+        'discount',
+        'expired_at',
+    ];
 
     protected $dates = ['expired_at'];
 

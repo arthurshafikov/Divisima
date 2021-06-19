@@ -13,25 +13,15 @@ class ContactMail extends Mailable
 
     public $data;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($data)
     {
         $this->data = $data;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->from(config('mail.admin.address'), 'Divisima')
-                    ->subject($this->data['subject'])
-                    ->view('emails.contact');
+            ->subject($this->data['subject'])
+            ->view('emails.contact');
     }
 }

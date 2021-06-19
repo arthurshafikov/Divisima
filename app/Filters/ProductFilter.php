@@ -4,7 +4,6 @@ namespace App\Filters;
 
 class ProductFilter extends QueryFilter
 {
-
     public function price_min($val)
     {
         return $this->builder->where([
@@ -44,7 +43,7 @@ class ProductFilter extends QueryFilter
     {
         $s = '%' . $search . '%';
         return $this->builder->where('name', 'LIKE', $s)
-                                ->orWhere('description', 'LIKE', $s)
-                                ->orWhere('details', 'LIKE', $s);
+            ->orWhere('description', 'LIKE', $s)
+            ->orWhere('details', 'LIKE', $s);
     }
 }

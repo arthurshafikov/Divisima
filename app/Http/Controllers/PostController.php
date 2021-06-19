@@ -17,8 +17,7 @@ class PostController extends Controller
 
     public function one(string $slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
-
+        $post = Post::whereSlug($slug)->firstOrFail();
         return view('blog.one', [
             'title' => $post->title,
             'post' => $post,

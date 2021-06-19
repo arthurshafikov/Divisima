@@ -6,19 +6,14 @@ use Illuminate\View\Component;
 
 class Image extends Component
 {
-    public $label;
-    public $name;
-    public $input_id;
-    public $value;
-    public $selectText;
-    public $src;
-    public $img_id;
+    public string $label;
+    public string $name;
+    public string $input_id;
+    public string $value;
+    public string $selectText;
+    public string $src;
+    public string $img_id;
 
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
     public function __construct(
         $label = 'Image',
         $name = 'img',
@@ -37,11 +32,6 @@ class Image extends Component
         $this->img_id = $img_id;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|string
-     */
     public function render()
     {
         return view('admin.components.image');

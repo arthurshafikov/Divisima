@@ -12,8 +12,11 @@ class Category extends Model
     use HasFactory;
 
     public $timestamps = false;
-
-    public $fillable = ['parent_id','name','slug'];
+    public $fillable = [
+        'parent_id',
+        'name',
+        'slug',
+    ];
 
     public function products()
     {

@@ -10,9 +10,14 @@ class AttributeVariation extends Model
     use SluggableTrait;
 
     public $timestamps = false;
-
-    protected $fillable = ['name','attribute_id','active'];
-    protected $appends = ['active']; // for shop filter (checked)
+    protected $fillable = [
+        'name',
+        'attribute_id',
+        'active',
+    ];
+    protected $appends = [
+        'active',
+    ];
 
     public function attribute()
     {

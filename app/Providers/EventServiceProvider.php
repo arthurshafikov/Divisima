@@ -2,38 +2,30 @@
 
 namespace App\Providers;
 
+use App\Events\OrderPlaced;
+use App\Events\ProductViewed;
+use App\Listeners\AddViewedCookie;
+use App\Listeners\SendEmails;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\ProductViewed' => [
-            'App\Listeners\AddViewedCookie',
+        ProductViewed::class => [
+            AddViewedCookie::class,
         ],
-        'App\Events\OrderPlaced' => [
-            'App\Listeners\SendEmails',
+        OrderPlaced::class => [
+            SendEmails::class,
         ],
     ];
 
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

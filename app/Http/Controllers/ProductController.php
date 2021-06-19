@@ -10,15 +10,13 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-
     public function one(string $slug)
     {
-        $product = Product::where('slug', $slug)->with('images')->firstOrFail();
+        $product = Product::whereSlug($slug)->with('images')->firstOrFail();
 
         event(new ProductViewed($product->id));
 
         $category = $product->category()->pluck('id')->toArray();
-
         $related = Product::whereHas('category', function ($query) use ($category) {
             $query->whereIn('id', $category);
         })->limit(10)->get();
@@ -46,7 +44,10 @@ class ProductController extends Controller
 
     public function shop(ProductFilter $filters)
     {
-        $products = Product::filter($filters)->with('image')->paginate(self::$products_per_page)->appends(request()->input());
+        $products = Product::filter($filters)
+            ->with('image')
+            ->paginate(self::$products_per_page)
+            ->appends(request()->input());
 
         return view('shop')->with([
             'title'   =>  'Shop page',

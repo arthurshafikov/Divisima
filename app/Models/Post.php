@@ -14,7 +14,11 @@ class Post extends Model
     use SluggableTrait;
     use HasImage;
 
-    protected $fillable = ['title','content','img'];
+    protected $fillable = [
+        'title',
+        'content',
+        'img',
+    ];
 
     public function sluggable(): array
     {

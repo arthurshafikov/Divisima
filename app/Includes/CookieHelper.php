@@ -2,6 +2,8 @@
 
 namespace App\Includes;
 
+use Illuminate\Support\Facades\Cookie;
+
 class CookieHelper
 {
     protected static $defaultMin = 60 * 24;
@@ -17,7 +19,7 @@ class CookieHelper
             try {
                 $json = json_decode($cookie, true);
             } catch (\Exception $e) {
-                \Cookie::queue($cookieName, json_encode(self::$defaultVal), 0);
+                Cookie::queue($cookieName, json_encode(self::$defaultVal), 0);
                 return null;
             }
             return $json;
@@ -31,7 +33,7 @@ class CookieHelper
         if ($json === true) {
             $value = json_encode($value);
         }
-        \Cookie::queue($cookieName, $value, $minutes);
+        Cookie::queue($cookieName, $value, $minutes);
     }
 
     public static function updateArrayCookie(string $cookieName, $value, $minutes = false, $unique = true)

@@ -7,11 +7,6 @@ use App\Models\Product;
 
 class ProductsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Product::factory()->count(30)->create();

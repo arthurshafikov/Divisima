@@ -7,7 +7,6 @@ use Illuminate\Contracts\View\View;
 
 class BreadCrumbsViewComposer
 {
-
     public function compose(View $view)
     {
         $breadcrumbs = BreadCrumbs::getBreadCrumbs();

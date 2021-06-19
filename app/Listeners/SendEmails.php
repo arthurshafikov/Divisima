@@ -8,22 +8,6 @@ use Illuminate\Support\Facades\Mail;
 
 class SendEmails
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Handle the event.
-     *
-     * @param  OrderPlaced  $event
-     * @return void
-     */
     public function handle(OrderPlaced $event)
     {
         $order = $event->order;

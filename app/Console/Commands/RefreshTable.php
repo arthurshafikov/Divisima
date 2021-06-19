@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class RefreshTable extends Command
 {
@@ -39,15 +40,16 @@ class RefreshTable extends Command
     public function handle()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         $table = $this->argument('table');
-        if (!\Schema::hasTable($table)) {
+        if (!Schema::hasTable($table)) {
             $this->error('Table ' . $table . ' does not exists!');
             return 0;
         }
         $this->info('Table ' . $table . ' was found...');
-        $seederName = ucfirst($table) . 'TableSeeder';
+        DB::table($table)->truncate();
 
-        \DB::table($table)->truncate();
+        $seederName = ucfirst($table) . 'TableSeeder';
         $this->info('Table ' . $table . ' had been cleared...');
         $this->call('db:seed', ['--class' => $seederName]);
         return 0;

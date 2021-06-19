@@ -8,7 +8,10 @@ class Option extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['key','value'];
+    protected $fillable = [
+        'key',
+        'value',
+    ];
 
     public function name()
     {
@@ -26,8 +29,8 @@ class Option extends Model
     public function getValueAttribute($val)
     {
         if (preg_match('/^a:\d+:{/', $val)) {
-            // this is serialized array
             $val = unserialize($val);
+            //todo make json
         }
         return $val;
     }

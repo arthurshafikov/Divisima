@@ -10,6 +10,7 @@ class AttributeController extends CRUDController
 {
     public function __construct()
     {
+        parent::__construct();
         $this->model = Attribute::class;
         $this->essense = 'attributes';
         $this->td = ['id','name','slug'];
@@ -20,9 +21,7 @@ class AttributeController extends CRUDController
     public function store(Request $request)
     {
         $this->myValidate($request);
-        $name = $request->name;
-
-        $attr = Attribute::create(['name' => $name]);
+        $attr = Attribute::create(['name' => $request->name]);
 
         foreach ($request->variation as $varname) {
             AttributeVariation::updateOrCreate(
@@ -30,7 +29,10 @@ class AttributeController extends CRUDController
                 ['attribute_id' => $attr->id],
             );
         }
-        return redirect()->route('attributes.edit', $attr->id)->with('message', 'Attribute has been created successfully!');
+
+        return redirect()
+            ->route('attributes.edit', $attr->id)
+            ->with('message', 'Attribute has been created successfully!');
     }
 
 

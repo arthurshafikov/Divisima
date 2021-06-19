@@ -13,5 +13,9 @@ class Slide extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['title','img','content'];
+    protected $fillable = [
+        'title',
+        'img',
+        'content',
+    ];
 }

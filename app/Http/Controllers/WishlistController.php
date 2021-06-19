@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Includes\CookieHelper;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cookie;
 
 class WishlistController extends Controller
 {
@@ -34,7 +35,7 @@ class WishlistController extends Controller
         $items = CookieHelper::getCookie($cookie, true);
 
         if (!is_array($items)) {
-            \Cookie::queue($cookie, json_encode([]), $minutes);
+            Cookie::queue($cookie, json_encode([]), $minutes);
             return [];
         }
         return $items;

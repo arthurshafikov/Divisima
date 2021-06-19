@@ -18,8 +18,14 @@ class Product extends Model
     use HasImage;
 
     public $timestamps = false;
-
-    protected $fillable = ['name','img','price','stock','details','description'];
+    protected $fillable = [
+        'name',
+        'img',
+        'price',
+        'stock',
+        'details',
+        'description',
+    ];
 
     public function category()
     {
@@ -41,7 +47,6 @@ class Product extends Model
         return '$' . number_format($this->price, 2);
     }
 
-
     public function orders()
     {
         return $this->belongsToMany(Order::class)->withPivot('qty', 'size', 'color', 'subtotal');
@@ -52,13 +57,11 @@ class Product extends Model
         return getOption('stock_status', $this->stock);
     }
 
-
     public function getFormattedSubtotalAttribute()
     {
         return '$' . number_format($this->pivot->subtotal, 2);
     }
 
-    // Filter for Shop page
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
         return $filters->apply($builder);

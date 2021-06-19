@@ -15,26 +15,17 @@ class OrderMail extends Mailable
     public $order;
     public $title;
     public $site_url;
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+
     public function __construct(Order $order, string $title)
     {
         $this->order = $order;
         $this->title = $title;
-        $this->site_url = \App::make('url')->to('/');
+        $this->site_url = app()->make('url')->to('/');
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->subject('New order!')
-                    ->view('emails.order');
+            ->view('emails.order');
     }
 }

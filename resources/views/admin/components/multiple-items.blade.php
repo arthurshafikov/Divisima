@@ -1,10 +1,7 @@
 <div class="form-group">
     <label class="small mb-1">Items</label>
     <div class="btn btn-primary new-item">New item</div>
-    <!-- <div class="btn btn-primary new-variation">New item</div> -->
     <div class="multipleItems">
-        <!-- <div class="variations"> -->
-        <!-- <label class="variation-example" for=""> -->
         <label class="item-example" for="">
             @if(!is_array($name))
                 <input class="form-control py-4" type="text" name="{{$name}}[]" placeholder="{{$placeholder}}" value="" disabled/>
@@ -13,8 +10,6 @@
                     <input class="form-control py-4" type="text" name="{{$el}}[]" placeholder="{{$placeholder[$loop->index]}}" value="" disabled/>
                 @endforeach 
             @endif 
-            <!-- <input class="form-control py-4" type="text" name="variation[]" placeholder="Name of the variation" value="" disabled/> -->
-            
             <div class="remove-item btn-danger"><i class="fas fa-times"></i></div>
         </label>
 

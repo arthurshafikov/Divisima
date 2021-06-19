@@ -6,16 +6,12 @@ use Illuminate\View\Component;
 
 class Textarea extends Component
 {
-    public $name;
-    public $label;
-    public $placeholder;
-    public $value;
-    public $id;
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
+    public string $name;
+    public string $label;
+    public string $placeholder;
+    public string $value;
+    public string $id;
+
     public function __construct(
         $id = '',
         $name = 'content',
@@ -30,11 +26,6 @@ class Textarea extends Component
         $this->id = $id;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|string
-     */
     public function render()
     {
         return view('admin.components.textarea');

@@ -9,11 +9,6 @@ use App\Models\Product;
 
 class AttributesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $arr = [

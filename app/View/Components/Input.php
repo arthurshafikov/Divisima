@@ -6,24 +6,19 @@ use Illuminate\View\Component;
 
 class Input extends Component
 {
+    public string $name;
+    public string $value;
+    public string $type;
+    public string $placeholder;
+    public string $label;
+    public string $class;
 
-    public $name;
-    public $value;
-    public $type;
-    public $placeholder;
-    public $label;
-    public $class;
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
     public function __construct(
         $name = 'name',
         $value = '',
         $type = 'text',
         $pholder = '',
-        $label = '',
+        $label = ''
     ) {
         $this->name = $name;
         $this->value = $value;
@@ -36,11 +31,6 @@ class Input extends Component
         }
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|string
-     */
     public function render()
     {
         return view('admin.components.input');

@@ -4,12 +4,13 @@ namespace App\Http\ViewComposers\Admin;
 
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class ChartsComposer
 {
     public function compose(View $view)
     {
-        $shop_revenue = \Cache::remember('shop_revenue', env("CACHE_TIME", 0), function () {
+        $shop_revenue = Cache::remember('shop_revenue', env("CACHE_TIME", 0), function () {
             $dates = [];
             $revenue = [];
             for ($i = 0; $i < 14; $i++) {
@@ -35,7 +36,7 @@ class ChartsComposer
 
 
 
-        $shop_orders = \Cache::remember('shop_orders', env("CACHE_TIME", 0), function () {
+        $shop_orders = Cache::remember('shop_orders', env("CACHE_TIME", 0), function () {
             $orders = [];
             $months = [];
             for ($i = 0; $i < 6; $i++) {

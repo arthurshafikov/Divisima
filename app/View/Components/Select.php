@@ -6,18 +6,14 @@ use Illuminate\View\Component;
 
 class Select extends Component
 {
-    public $name;
-    public $default;
-    public $field;
-    public $array;
-    public $compared;
-    public $label;
-    public $labelField;
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
+    public string $name;
+    public string $default;
+    public string $field;
+    public array $array;
+    public string $compared;
+    public string $label;
+    public string $labelField;
+
     public function __construct(
         $name,
         $array,
@@ -36,11 +32,6 @@ class Select extends Component
         $this->default = $default;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|string
-     */
     public function render()
     {
         return view('admin.components.select');
