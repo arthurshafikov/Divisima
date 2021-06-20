@@ -49,3 +49,13 @@ services:
       MYSQL_ROOT_PASSWORD: supersecret
     volumes:
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init-testing-db.sql
+  node:
+    image: node:16
+    working_dir: /src
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/src
+    expose:
+      - "8081"
+    command: bash -c "npm install && npm install --global cross-env && npm run watch-poll"
