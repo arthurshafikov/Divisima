@@ -19,7 +19,7 @@ class Cart
     public const CART_COOKIE_NAME = 'cart';
     public const CART_COOKIE_TIME = 60 * 24;
 
-    public static function addToCart($id)
+    public static function addToCart($id): array
     {
         Product::findOrFail($id);
         $qty = request()->qty ?? 1;
@@ -50,7 +50,7 @@ class Cart
         return $items;
     }
 
-    public static function updateCart()
+    public static function updateCart(): array
     {
         $items = request()->input('items');
         $cart = [];
@@ -81,7 +81,7 @@ class Cart
         ];
     }
 
-    public static function getCount(): string
+    public static function getCount()
     {
         $cart = self::getCartCookie();
         if (!is_array($cart)) {
@@ -91,19 +91,19 @@ class Cart
         return $qty > 99 ? '99+' : strval($qty);
     }
 
-    public static function getCartData()
+    public static function getCartData(): array
     {
         $cart = self::getCartCookie();
         extract(self::countCartTotal($cart));
         return compact(self::CART_COMPACT_VARS);
     }
 
-    public static function resetCart()
+    public static function resetCart(): void
     {
         Cookie::queue(self::CART_COOKIE_NAME, json_encode([]), 0);
     }
 
-    public static function getCartCookie()
+    public static function getCartCookie(): array
     {
         $cookie = self::CART_COOKIE_NAME;
         $items = CookieHelper::getCookie($cookie, true);

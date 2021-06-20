@@ -111,7 +111,7 @@ if (!function_exists('getOption')) {
     function getOption($option, $val = false)
     {
         return \Cache::remember($option, env("CACHE_TIME", 0), function () use ($option, $val) {
-            return App\Http\Controllers\Admin\OptionController::getOption($option, $val);
+            return \App\Includes\OptionHelper::getOption($option, $val);
         });
     }
 }
@@ -120,7 +120,7 @@ if (!function_exists('getOptions')) {
     function getOptions($option)
     {
         return \Cache::remember($option . '_ALL', env("CACHE_TIME", 0), function () use ($option) {
-            return App\Http\Controllers\Admin\OptionController::getOption($option);
+            return \App\Includes\OptionHelper::getOption($option);
         });
     }
 }
@@ -159,5 +159,12 @@ if (!function_exists('echoCheckedIfModelHas')) {
         if ($model->$property->contains($value)) {
             echo 'checked';
         }
+    }
+}
+
+if (!function_exists('snakeCaseToNormal')) {
+    function snakeCaseToNormal(string $string): string
+    {
+        return ucwords(str_replace('_', ' ', $string));
     }
 }

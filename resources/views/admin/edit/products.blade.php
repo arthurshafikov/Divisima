@@ -19,7 +19,7 @@
         <a data-fancybox data-src="#media" href="javascript:;" class="media-load">Select Images</a>
         
         <div class="gallery-wrapper">
-            <div class="gallery">
+            <div class="gallery" data-url="{{ route('loadGallery') }}">
                 @foreach ($post->images as $img)
                     @include('admin.parts.gallery-image')
                 @endforeach
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <x-select name="stock" label="Stock" :array="getOptions('stock_status')" :compared="$post->stock"/>
+    <x-select name="stock" label="Stock" :array="App\Models\Product::PRODUCT_STOCK_STATUSES" :compared="$post->stock"/>
 
     @include('admin.parts.form.button')
 </form>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Order;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class CheckoutRequest extends FormRequest
 {
@@ -14,7 +16,10 @@ class CheckoutRequest extends FormRequest
             "country" => "required|string",
             "zip" => "required",
             "phone" => "required",
-            "delivery" => "required",
+            "delivery" => [
+                "required",
+                Rule::in(Order::ORDER_DELIVERY_METHODS),
+            ],
         ];
         if (Auth::id() === null) {
             $rules = array_merge($rules, [

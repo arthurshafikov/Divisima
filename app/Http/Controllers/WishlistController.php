@@ -21,17 +21,15 @@ class WishlistController extends Controller
         ]);
     }
 
-    public function addToWishlist($id)
+    public function addToWishlist($id): void
     {
         Product::findOrFail($id);
         CookieHelper::updateArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
-        return;
     }
 
-    public function removeFromWishlist($id)
+    public function removeFromWishlist($id): void
     {
         CookieHelper::removeFromArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
-        return;
     }
 
     private function getWishlistCookie(): array

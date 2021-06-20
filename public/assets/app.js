@@ -19674,7 +19674,7 @@ $(document).ready(function () {
 
     log(url);
     var $this = $(this); // if($this.hasClass('success')){
-    // 	return false;
+    //  return false;
     // }
 
     $.ajax({
@@ -19783,7 +19783,7 @@ $(document).ready(function () {
       contentType: false,
       // нужно указать тип контента false для картинки(файла)
       processData: false,
-      // для передачи картинки(файла) нужно false 
+      // для передачи картинки(файла) нужно false
       dataType: 'json',
       beforeSend: function beforeSend(xhr) {
         log('before');
@@ -19958,7 +19958,7 @@ function changeCartQuantity(quantity) {
 
 function addQuantityChangeInCart() {
   /*-------------------
-  	Quantity change
+      Quantity change asfasfs
   --------------------- */
   var proQty = $('.pro-qty');
   proQty.prepend('<span class="dec qtybtn">-</span>');

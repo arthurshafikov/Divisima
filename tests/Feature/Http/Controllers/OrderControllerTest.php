@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -77,7 +78,7 @@ class OrderControllerTest extends TestCase
             "country" => "testCountry",
             "zip" => "12412142",
             "phone" => "94124124124",
-            "delivery" => "testDelivery",
+            "delivery" => 'courier',
             "first_name" => "testName",
             "surname" => "testSurname",
             'email' => $user->email,
@@ -100,7 +101,7 @@ class OrderControllerTest extends TestCase
 
         $response = $this->actingAs($admin)
             ->patch(route('orders.update', $order->id), [
-                'status' => mt_rand(1, 3), // todo ???
+                'status' => Arr::random(Order::ORDER_STATUSES),
             ]);
 
         $response->assertRedirect();

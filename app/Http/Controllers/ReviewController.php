@@ -10,14 +10,13 @@ class ReviewController extends Controller
 {
     public function addReview(ReviewRequest $request, $id): string
     {
-        $data = $request->only('text', 'rating');
+        $data = $request->validated();
         $data['product_id'] = $id;
-        $user_id = Auth::id();
-        $data['user_id'] = $user_id;
+        $data['user_id'] =  Auth::id();
 
         $reviews = Review::where([
-            ['user_id','=',$user_id],
-            ['product_id','=',$id],
+            ['user_id', Auth::id()],
+            ['product_id', $id],
         ])->get();
 
         if ($reviews->isEmpty()) {

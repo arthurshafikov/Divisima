@@ -30,7 +30,7 @@ class OrderController extends Controller
             'discount' => $discount,
             'total' => $total,
             'profile' => $profile,
-            'delivery' => getOption('order_delivery'),
+            'delivery' => Order::ORDER_DELIVERY_METHODS,
         ]);
     }
 
@@ -38,15 +38,14 @@ class OrderController extends Controller
     {
         $data = $request->only('address', 'zip', 'phone', 'country', 'delivery', 'additional');
 
-        if (Auth::id() === null) {
+        $user = Auth::user();
+        if ($user === null) {
             $userData = $request->only('email', 'name', 'password');
             $user = User::create($userData);
             Auth::attempt($request->only('email', 'password'));
-        } else {
-            $user = Auth::user();
         }
-        $data['user_id'] = $user->id;
 
+        $data['user_id'] = $user->id;
 
         $profileData = array_merge($request->only('first_name', 'surname', 'address', 'country', 'zip', 'phone'), [
             'user_id' => $data['user_id'],
@@ -101,7 +100,7 @@ class OrderController extends Controller
             'zip' => $order->zip,
             'phone' => $order->phone,
             'status' => $order->status_text,
-            'delivery' => $order->delivery,
+            'delivery' => $order->delivery_text,
             'subtotal' => $order->subtotal,
             'discount' => $order->discount,
             'total' => $order->formatted_total,

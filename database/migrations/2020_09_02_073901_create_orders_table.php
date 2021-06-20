@@ -21,13 +21,14 @@ class CreateOrdersTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
 
-            $table->tinyInteger('status')->default(0);
+            $table->enum('status', ['in_progress', 'on_hold', 'completed', 'declined'])
+                ->default('in_progress');
 
             $table->string('address');
             $table->string('zip');
             $table->string('phone');
             $table->string('country');
-            $table->string('delivery');
+            $table->enum('delivery', ['courier', 'post', 'post_express']);
 
             $table->string('additional')->nullable();
 

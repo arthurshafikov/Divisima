@@ -9,9 +9,9 @@ class Image extends Component
     public string $label;
     public string $name;
     public string $input_id;
-    public string $value;
+    public mixed $value;
     public string $selectText;
-    public string $src;
+    public mixed $src;
     public string $img_id;
 
     public function __construct(

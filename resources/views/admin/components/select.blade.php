@@ -6,11 +6,11 @@
         @if ($default != false)
             <option value="">{{ $default }}</option>
         @endif
-        @foreach ($array as $id => $element)
+        @foreach ($array as $element)
             @if(is_object($element))
                 <option value="{{$element->$field}}" {{ $echoSelectedIfEquals($element->$field) }} >{{$element->$labelField}}</option>
             @else 
-                <option value="{{$id}}" {{ $echoSelectedIfEquals($id) }} >{{$element}}</option>
+                <option value="{{$element}}" {{ $echoSelectedIfEquals($element) }} >{{snakeCaseToNormal($element)}}</option>
             @endif
         @endforeach
     </select>

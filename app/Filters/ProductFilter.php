@@ -4,14 +4,14 @@ namespace App\Filters;
 
 class ProductFilter extends QueryFilter
 {
-    public function price_min($val)
+    public function priceMin($val)
     {
         return $this->builder->where([
             ['price', '>=', $val],
         ]);
     }
 
-    public function price_max($val)
+    public function priceMax($val)
     {
         return $this->builder->where([
             ['price', '<=', $val],

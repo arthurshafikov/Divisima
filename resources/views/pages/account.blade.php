@@ -51,7 +51,7 @@
                                     <th scope="row">{{$order->id}}</th>
                                     <td>{{$order->status_text}}</td>
                                     <td>{{$order->address}}</td>
-                                    <td>{{$order->delivery}}</td>
+                                    <td>{{$order->delivery_text}}</td>
                                     <td>{{$order->created_at}}</td>
                                     <td><a href="{{ route('order', $order->id ) }}">View<a></td>
                                 </tr>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\UserEmailHadChanged;
 use App\Models\User;
-use App\Notifications\EmailChangedUserNotification;
 use Illuminate\Http\Request;
 
 class UserController extends CRUDController
@@ -41,7 +41,7 @@ class UserController extends CRUDController
         if ($request->email !== $user->email) {
             $data['email'] = $request->email;
             $verify = null;
-            $user->notify(new EmailChangedUserNotification($user));
+            event(new UserEmailHadChanged($user));
         }
 
         if ($request->verify == "1") {

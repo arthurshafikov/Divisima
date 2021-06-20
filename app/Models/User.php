@@ -42,6 +42,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function isVerified()
+    {
+        return $this->hasVerifiedEmail();
+    }
+
     public function scopeAdmin()
     {
         return $this->factory()->create()->assignRole('admin');

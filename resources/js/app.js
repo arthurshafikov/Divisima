@@ -62,7 +62,6 @@ $(document).ready(function () {
         if ($(this).hasClass('load-more')) {
             $(this).remove();
         } else {
-
             $.fancybox.open(reviewsBox, {
                 touch: false,
             });
@@ -149,7 +148,6 @@ $(document).ready(function () {
             page = 1;
             loadTopSellingProducts(preloader, select);
         });
-
     }
 
     $(".contact-form").submit(function (e) {
@@ -262,7 +260,7 @@ $(document).ready(function () {
     });
 
 
-	addQuantityChangeInCart();
+    addQuantityChangeInCart();
     /* Add to cart */
 
     // $(".add-cart").click(function(e){
@@ -274,10 +272,10 @@ $(document).ready(function () {
         var size,color;
 
         var details = $(this).parents('.product-details');
-        if(details.length > 0){
+        if (details.length > 0) {
             var size_check = details.find('.fw-size-choose input:checked');
             var color_check = details.find('.fw-color-choose input:checked');
-            
+
             size = size_check.val();
             color = color_check.val();
         }
@@ -290,7 +288,7 @@ $(document).ready(function () {
         log(url);
         var $this = $(this);
         // if($this.hasClass('success')){
-        // 	return false;
+        //  return false;
         // }
         $.ajax({
             method: 'GET',
@@ -319,20 +317,20 @@ $(document).ready(function () {
                 $this.addClass('error');
                 $this.find('span').text('Error!');
             },
-            complete:function(xhr){
+            complete:function (xhr) {
                 $this.removeClass('loading');
 
             },
         });
     });
-    $("body").on('change','.color-col select',function(e){
-        
+    $("body").on('change','.color-col select',function (e) {
+
         var parent = $(this).parents('.selectric-wrapper');
         var btn = parent.find('.selectric .button');
 
         btn[0].className = 'button';
 
-        
+
         var optionClass = $(this).find('option:selected')[0].className;
 
         btn.addClass(optionClass);
@@ -409,7 +407,7 @@ $(document).ready(function () {
             cache: false, // кэш и прочие настройки писать именно так (для файлов)
             // (связано это с кодировкой и всякой лабудой)
             contentType: false, // нужно указать тип контента false для картинки(файла)
-            processData: false, // для передачи картинки(файла) нужно false 
+            processData: false, // для передачи картинки(файла) нужно false
             dataType: 'json',
             beforeSend: function (xhr) {
                 log('before');
@@ -438,7 +436,6 @@ $(document).ready(function () {
                     $(thisForm).find(".form-errors").text(errordata[0]);
                 } else {
                     $(thisForm).find(".form-errors").text('500 error!');
-
                 }
             },
             complete: function (xhr) {
@@ -474,16 +471,16 @@ $(document).ready(function () {
             error: function (data) {
                 btn.text('Error!');
                 log(data);
-                if(data.responseJSON != undefined){
+                if (data.responseJSON != undefined) {
                     if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
-                        for(error in data.responseJSON.errors){
-                            $(thisForm).find(".form-errors").append(data.responseJSON.errors[error] +'<br>');
+                        for (error in data.responseJSON.errors) {
+                            $(thisForm).find(".form-errors").append(data.responseJSON.errors[error] + '<br>');
                         }
                     } else {
                         $(thisForm).find(".form-errors").text('500 error!');
                     }
                 }
-                
+
             },
             complete: function (xhr) {
                 log('complete');
@@ -496,7 +493,8 @@ $(document).ready(function () {
 
 });
 
-function loadTopSellingProducts(preloader, select = null, page = 1) {
+function loadTopSellingProducts(preloader, select = null, page = 1)
+{
     if (select !== null) {
         var category = select.data('cat-id');
     } else {
@@ -533,7 +531,8 @@ function loadTopSellingProducts(preloader, select = null, page = 1) {
         },
     });
 }
-function showSuccessMessage(text = 'Success!') {
+function showSuccessMessage(text = 'Success!')
+{
     $("#suc-mes h2").text(text);
     $.fancybox.open({
         src: '#suc-mes',
@@ -545,65 +544,69 @@ function showSuccessMessage(text = 'Success!') {
         }
     });
 }
-function log(variable) {
-    if(enviroment === 'production'){
+function log(variable)
+{
+    if (enviroment === 'production') {
         return '';
     }
     if (typeof variable !== 'undefined') {
         console.log(variable);
     }
 }
-function changeCartQuantity(quantity){
-	var count = $("#shopping-cart-count");
-	log(quantity);
-	log(Number.isInteger(parseInt(quantity)));
-	if(Number.isInteger(parseInt(quantity))){
-		count.text(quantity);
-
-	}
+function changeCartQuantity(quantity)
+{
+    var count = $("#shopping-cart-count");
+    log(quantity);
+    log(Number.isInteger(parseInt(quantity)));
+    if (Number.isInteger(parseInt(quantity))) {
+        count.text(quantity);
+    }
 }
 
-function addQuantityChangeInCart(){
-	/*-------------------
-		Quantity change
-	--------------------- */
+function addQuantityChangeInCart()
+{
+    /*-------------------
+        Quantity change asfasfs
+    --------------------- */
     var proQty = $('.pro-qty');
-	proQty.prepend('<span class="dec qtybtn">-</span>');
-	proQty.append('<span class="inc qtybtn">+</span>');
-	proQty.on('click', '.qtybtn', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-	});
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+    });
 }
-function previewFile(input,preview) {
-	var file    = input.files[0];
-	var reader  = new FileReader();
-	reader.onloadend = function () {
-		preview.attr("src",reader.result);
-	}
+function previewFile(input,preview)
+{
+    var file    = input.files[0];
+    var reader  = new FileReader();
+    reader.onloadend = function () {
+        preview.attr("src",reader.result);
+    }
 
-	if (file) {
-		reader.readAsDataURL(file);
-	} else {
-		preview.src = "";
-	}
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
 };
-function initializeSelectFields(){
+function initializeSelectFields()
+{
     $('select:not(.color-select)').selectric();
 
     $('.color-select').selectric({
-        onInit: function() {
+        onInit: function () {
             var colorClass = $(this).data('color');
             var button = $(this).parents('.selectric-color-select').find('.button');
             button.addClass(colorClass);

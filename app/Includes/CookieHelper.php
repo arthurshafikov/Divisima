@@ -27,7 +27,7 @@ class CookieHelper
         return $cookie;
     }
 
-    public static function setCookie(string $cookieName, $value = null, $minutes = false, $json = false)
+    public static function setCookie(string $cookieName, $value = null, $minutes = false, $json = false): void
     {
         $minutes = $minutes ? self::$defaultMin : $minutes;
         if ($json === true) {
@@ -36,20 +36,20 @@ class CookieHelper
         Cookie::queue($cookieName, $value, $minutes);
     }
 
-    public static function updateArrayCookie(string $cookieName, $value, $minutes = false, $unique = true)
+    public static function updateArrayCookie(string $cookieName, $value, $minutes = false, $unique = true): void
     {
         $cookie = self::getCookie($cookieName, true);
         if (!is_array($cookie)) {
             $cookie = [];
         }
         if ($unique === true && in_array($value, $cookie)) {
-            return false;
+            return;
         }
         $cookie[] = $value;
         self::setCookie($cookieName, $cookie, $minutes, true);
     }
 
-    public static function removeFromArrayCookie(string $cookieName, $value, $minutes = false)
+    public static function removeFromArrayCookie(string $cookieName, $value, $minutes = false): void
     {
         $cookie = self::getCookie($cookieName, true);
         if (!is_array($cookie)) {

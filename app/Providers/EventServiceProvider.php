@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Events\OrderPlaced;
 use App\Events\ProductViewed;
+use App\Events\UserEmailHadChanged;
 use App\Listeners\AddViewedCookie;
+use App\Listeners\NotifyUserAboutChangedEmail;
 use App\Listeners\SendEmails;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderPlaced::class => [
             SendEmails::class,
+        ],
+        UserEmailHadChanged::class => [
+            NotifyUserAboutChangedEmail::class,
         ],
     ];
 

@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 
 class OptionController extends Controller
 {
-    protected static $options = [];
-
     public function index()
     {
         $options = Option::all();
@@ -29,21 +27,5 @@ class OptionController extends Controller
         }
 
         return redirect()->back()->with('message', 'Options has been saved successfully!');
-    }
-
-    public static function getOption(string $option, $val = false)
-    {
-        if (!array_key_exists($option, static::$options)) {
-            static::$options[$option] = Option::where('key', $option)?->first()?->value;
-        }
-        $option = static::$options[$option];
-
-        if ($val === false) {
-            return $option;
-        }
-        if (array_key_exists($val, $option) && is_array($option)) {
-            return $option[$val];
-        }
-        return 'error';
     }
 }

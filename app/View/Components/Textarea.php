@@ -9,7 +9,7 @@ class Textarea extends Component
     public string $name;
     public string $label;
     public string $placeholder;
-    public string $value;
+    public mixed $value;
     public string $id;
 
     public function __construct(

@@ -28,24 +28,6 @@ class OptionsTableSeeder extends Seeder
             'youtube_link' => 'https://youtube.com',
             'tumblr_link' => 'https://tumblr.com',
 
-            // delivery
-            'order_delivery' => [
-                'Courier delivery',
-                'Post delivery',
-                'Post-express delivery',
-            ],
-            'order_status' => [
-                'In progress',
-                'On hold',
-                'Completed',
-                'Declined',
-            ],
-            'stock_status' => [
-                'Out of stock',
-                'Pre-order',
-                'In stock',
-            ],
-
             'products_per_page' => '12',
 
             'shipping_return_info' => '<h4>7 Days Returns</h4>

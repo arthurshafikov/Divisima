@@ -85,22 +85,11 @@
 										<div class="cf-radio-btns">
 											<div class="cfr-item">
 												<input type="radio" name="delivery" value="{{$del}}" id="ship-{{ $id }}" checked>
-												<label for="ship-{{ $id }}">{{$del}}</label>
+												<label for="ship-{{ $id }}">{{snakeCaseToNormal($del)}}</label>
 											</div>
 										</div>
 									</div>
 								@endforeach
-								<!-- <div class="col-6">
-									<h4>Next day delievery  </h4>
-								</div>
-								<div class="col-6">
-									<div class="cf-radio-btns">
-										<div class="cfr-item">
-											<input type="radio" name="delivery" value="1" id="ship-2">
-											<label for="ship-2">$3.45</label>
-										</div>
-									</div>
-								</div> -->
 							</div>
 						@endif
 						<div class="cf-title">Additional Info</div>

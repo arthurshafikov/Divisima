@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 class Input extends Component
 {
     public string $name;
-    public string $value;
+    public mixed $value;
     public string $type;
     public string $placeholder;
     public string $label;
@@ -25,6 +25,7 @@ class Input extends Component
         $this->type = $type;
         $this->placeholder = $pholder;
         $this->label = $label;
+        $this->class = '';
 
         if ($type != 'checkbox') {
             $this->class = 'form-control';

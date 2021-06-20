@@ -34,8 +34,8 @@
 							</div>
 							<div class="range-slider">
 								<div class="price-input">
-									<input type="text" name="price_min" id="minamount" >
-									<input type="text" name="price_max" id="maxamount" >
+									<input type="text" name="priceMin" id="minamount" >
+									<input type="text" name="priceMax" id="maxamount" >
 								</div>
 							</div>
 						</div>

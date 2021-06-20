@@ -35,7 +35,7 @@ class MenuController extends CRUDController
         }
 
         return redirect()->route($this->essense . '.edit', $menu->id)
-                            ->with('message', $this->oneText . ' has been created successfully!');
+            ->with('message', $this->oneText . ' has been created successfully!');
     }
 
     public function update(Request $request, $id)

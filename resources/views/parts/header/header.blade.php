@@ -1,4 +1,4 @@
-@auth
+@can('admin_panel')
     <div class="admin-bar-wrapper">
         <div class="admin-bar">
             <a href="{{ route('admin') }}">Dashboard</a>

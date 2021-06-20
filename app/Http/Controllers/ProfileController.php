@@ -31,8 +31,9 @@ class ProfileController extends Controller
         $image = Image::create([
             'img' => $file,
         ]);
-        $user->profile->avatar = $image->id;
-        $user->profile->save();
+        $user->profile()->update([
+            'avatar' => $image->id,
+        ]);
         $res['text'] = $file;
 
         return response()->json($res);

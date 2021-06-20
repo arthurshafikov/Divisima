@@ -31,8 +31,10 @@ class CartControllerTest extends TestCase
 
     public function testGetCartWithWrongItems()
     {
-        //todo wtf???
-        $cart = '{"241241214":{"1fa":"1","2312":"","color":""},"1":{"qty":"1","size":"","color":""} }';
+        $product = Product::factory()->create();
+        $product->forceDelete();
+        $cart = '{"' . $product->id . '":{"1fa":"1","2312":"","color":""},"1":{"qty":"1","size":"","color":""} }';
+
         $response = $this->withCookie('cart', $cart)->get(route('cart'));
 
         $response->assertSee('Your cart is empty!');

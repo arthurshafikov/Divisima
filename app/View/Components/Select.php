@@ -10,7 +10,7 @@ class Select extends Component
     public string $default;
     public string $field;
     public array $array;
-    public string $compared;
+    public mixed $compared;
     public string $label;
     public string $labelField;
 

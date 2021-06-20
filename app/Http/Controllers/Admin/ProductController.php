@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductController extends CRUDController
 {
@@ -27,7 +28,7 @@ class ProductController extends CRUDController
         $product->attributes()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
         return redirect()->route($this->essense . '.edit', $product->id)
-                            ->with('message', $this->oneText . ' has been created successfully!');
+            ->with('message', $this->oneText . ' has been created successfully!');
     }
 
     public function update(Request $request, $id)
@@ -80,7 +81,7 @@ class ProductController extends CRUDController
             'price' => 'required|numeric',
             'attributes' => 'array',
             'category' => 'array',
-            'stock' => 'integer',
+            'stock' => Rule::in(Product::PRODUCT_STOCK_STATUSES),
         ]);
     }
 }

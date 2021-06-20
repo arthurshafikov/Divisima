@@ -60,13 +60,12 @@ class ProductController extends Controller
 
     public function getTopSellingProducts(Request $request)
     {
-        $category = $request->get('category');
-        if ($category === null) {
-            $products = Product::orderBy('total_sales', 'DESC')->paginate(8);
-        } else {
+        if ($category = $request->get('category')) {
             $products = Product::whereHas('category', function ($query) use ($category) {
                 $query->where('id', $category);
             })->orderBy('total_sales', 'DESC')->paginate(8);
+        } else {
+            $products = Product::orderBy('total_sales', 'DESC')->paginate(8);
         }
 
         return view('parts.product.product-loop', [

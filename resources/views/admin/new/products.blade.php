@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <x-select name="stock" label="Stock" :array="getOptions('stock_status')" :compared="old('stock')"/>
+    <x-select name="stock" label="Stock" :array="App\Models\Product::PRODUCT_STOCK_STATUSES" :compared="old('stock')"/>
 
     
     @include('admin.parts.form.button')

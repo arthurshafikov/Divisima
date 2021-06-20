@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
                 ->references('id')->on('images')
                 ->onDelete('set null');
             $table->bigInteger('price');
-            $table->tinyInteger('stock')->default(1);
+            $table->enum('stock', ['in_stock', 'pre_order', 'out_of_stock'])->default('in_stock');
             $table->string('description')->nullable();
             $table->string('details')->nullable();
 

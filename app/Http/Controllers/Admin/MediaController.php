@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
-
     public function loadGallery(Request $request)
     {
         $images = $request->get('gallery');

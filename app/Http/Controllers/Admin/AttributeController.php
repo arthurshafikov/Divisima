@@ -41,8 +41,9 @@ class AttributeController extends CRUDController
         $this->myValidate($request);
         $attr = Attribute::findOrFail($id);
 
-        $attr->name = $request->name;
-        $attr->save();
+        $attr->update([
+           'name' => $request->name,
+        ]);
 
         $new_vars = $request->variation;
 

@@ -65,7 +65,7 @@ $(document).ready(function () {
         preventCaptionOverlap: false,
         smallBtn: false,
         scrolling : 'yes',
-        
+
     });
 
     $("body").on('click', ".accept-media", function (e) {
@@ -80,12 +80,11 @@ $(document).ready(function () {
             srcs.push($(item).find('img').attr('src'));
         });
         media.removeClass('selected');
-        
 
-        if(fancyBox_opener === null){
+
+        if (fancyBox_opener === null) {
             srcs.forEach(element => $('#content').summernote('insertImage', element, 'test.jpg'));
         } else {
-
             if (fancyBox_opener.hasClass('single-image') && ids.length > 1) {
                 alert('You must select only one image!');
                 return false;
@@ -105,7 +104,7 @@ $(document).ready(function () {
             }
         }
 
-        
+
         fancyBox_opener = null;
         $.fancybox.close();
     });
@@ -157,9 +156,7 @@ $(document).ready(function () {
     });
 
     var loadGalleryImages = function (object, gallery) {
-        log(media);
-
-        var url = $(this).data('url');
+        var url = $(object).data('url');
         var data = {
             gallery,
         };
@@ -211,7 +208,7 @@ $(document).ready(function () {
             cache: false, // кэш и прочие настройки писать именно так (для файлов)
             // (связано это с кодировкой и всякой лабудой)
             contentType: false, // нужно указать тип контента false для картинки(файла)
-            processData: false, // для передачи картинки(файла) нужно false 
+            processData: false, // для передачи картинки(файла) нужно false
             dataType: 'json',
             beforeSend: function (xhr) {
                 log('before');
@@ -234,17 +231,17 @@ $(document).ready(function () {
     });
 
 
-    
+
     var media_block = $(".media-popup");
     var button = media_block.find(".load-more");
     var page = 2;
     var loading = false;
     var scrollHandling = {
-      allow: true,
-      reallow: function () {
-        scrollHandling.allow = true;
-      },
-      delay: 400,
+        allow: true,
+        reallow: function () {
+            scrollHandling.allow = true;
+        },
+        delay: 400,
     };
 
     // $("body").on('scroll','.media-popup',function(e){
@@ -267,11 +264,11 @@ $(document).ready(function () {
                     log('res');
                     media_block.find('.media-blocks').append(res);
                     media_block.find('.media-blocks').append(button);
-                    
+
 
                     page = page + 1;
                     loading = false;
-                    
+
                 }).fail(function (xhr, textStatus, e) {
                     log(xhr.responseText);
                     // log("fail");
@@ -284,7 +281,8 @@ $(document).ready(function () {
     $(".media-popup").scroll(mediaScroll);
 
 
-    function log(variable) {
+    function log(variable)
+    {
         console.log(variable);
     }
 });

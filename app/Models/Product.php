@@ -17,6 +17,15 @@ class Product extends Model
     use HasFactory;
     use HasImage;
 
+    public const PRODUCT_IN_STOCK_STATUS = 'in_stock';
+    public const PRODUCT_PRE_ORDER_STATUS = 'pre_order';
+    public const PRODUCT_OUT_OF_STOCK_STATUS = 'out_of_stock';
+    public const PRODUCT_STOCK_STATUSES = [
+        self::PRODUCT_IN_STOCK_STATUS,
+        self::PRODUCT_PRE_ORDER_STATUS,
+        self::PRODUCT_OUT_OF_STOCK_STATUS,
+    ];
+
     public $timestamps = false;
     protected $fillable = [
         'name',
@@ -54,7 +63,7 @@ class Product extends Model
 
     public function getStockStatusAttribute()
     {
-        return getOption('stock_status', $this->stock);
+        return snakeCaseToNormal($this->stock);
     }
 
     public function getFormattedSubtotalAttribute()

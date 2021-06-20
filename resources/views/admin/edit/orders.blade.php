@@ -50,7 +50,7 @@
         @endif
         
 
-        <x-select name="status" label="Status" :array="getOptions('order_status')" :compared="$post->status"/>
+        <x-select name="status" label="Status" :array="\App\Models\Order::ORDER_STATUSES" :compared="$post->status"/>
 
 
         @include('admin.parts.form.button')
