@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -81,7 +82,7 @@ class OrderController extends Controller
         return redirect()->route('thank-you', $order->id);
     }
 
-    public function thank($id)
+    public function thank($id): View
     {
         $this->checkOrderOwner($id);
 
@@ -91,7 +92,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function order($id)
+    public function order($id): View
     {
         $order = $this->checkOrderOwner($id);
 

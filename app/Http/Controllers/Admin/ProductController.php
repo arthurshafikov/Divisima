@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class ProductController extends CRUDController
 {
@@ -46,7 +47,7 @@ class ProductController extends CRUDController
         return redirect()->back()->with('message', $this->oneText . ' has been updated successfully!');
     }
 
-    public function trash()
+    public function trash(): View
     {
         $products = Product::onlyTrashed()->orderBy('deleted_at', 'DESC')->paginate(10);
 

@@ -7,10 +7,11 @@ use App\Filters\ProductFilter;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function one(string $slug)
+    public function one(string $slug): View
     {
         $product = Product::whereSlug($slug)->with('images')->firstOrFail();
 
@@ -42,7 +43,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function shop(ProductFilter $filters)
+    public function shop(ProductFilter $filters): View
     {
         $products = Product::filter($filters)
             ->with('image')

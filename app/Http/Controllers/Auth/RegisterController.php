@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -19,7 +20,7 @@ class RegisterController extends Controller
         $this->redirectTo = route('home');
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(): View
     {
         return view('auth.register')->with([
             'title' => 'Register Page',

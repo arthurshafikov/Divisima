@@ -6,10 +6,11 @@ use App\Includes\Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    public function cart()
+    public function cart(): View
     {
         extract(Cart::getCartData());
         $title = 'Shopping Cart';

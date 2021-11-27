@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\UserEmailHadChanged;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends CRUDController
 {
@@ -18,7 +19,7 @@ class UserController extends CRUDController
         $this->oneText = 'User';
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $user = $this->model::findOrFail($id);
         return view('admin.edit.' . $this->essense, [

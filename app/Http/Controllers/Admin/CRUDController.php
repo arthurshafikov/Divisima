@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 abstract class CRUDController extends Controller
 {
@@ -13,7 +14,7 @@ abstract class CRUDController extends Controller
     protected $td;
     protected $oneText;
 
-    public function index()
+    public function index(): View
     {
         $posts = $this->model::orderBy('id', 'desc')->paginate(10);
 
@@ -26,7 +27,7 @@ abstract class CRUDController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('admin.new.' . $this->essense);
     }
@@ -44,7 +45,7 @@ abstract class CRUDController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $post = $this->model::findOrFail($id);
         return view('admin.edit.' . $this->essense, [

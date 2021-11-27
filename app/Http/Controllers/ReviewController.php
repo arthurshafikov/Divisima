@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ReviewRequest;
 use App\Models\Review;
 use App\Services\ReviewService;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ReviewController extends Controller
 {
@@ -14,7 +14,7 @@ class ReviewController extends Controller
         return app(ReviewService::class)->addReview($request->validated(), $id);
     }
 
-    public function getProductReviews($id)
+    public function getProductReviews($id): View
     {
         $reviews = Review::where('product_id', $id)->with('user')->orderBy('created_at', 'desc')->paginate(4);
         return view('parts.reviews.reviews', [

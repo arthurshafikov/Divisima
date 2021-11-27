@@ -7,10 +7,11 @@ use App\Http\Requests\ProfileInfoRequest;
 use App\Services\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function account()
+    public function account(): View
     {
         $user = Auth::user();
 

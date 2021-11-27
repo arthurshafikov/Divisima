@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Includes\CookieHelper;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\View\View;
 
 class WishlistController extends Controller
 {
     protected const WISHLIST_COOKIE_TIME = 60 * 24;
     protected const WISHLIST_COOKIE_NAME = 'wishlist';
 
-    public function wishlist()
+    public function wishlist(): View
     {
         $product_ids = $this->getWishlistCookie();
         $products = Product::whereIn('id', $product_ids)->get();

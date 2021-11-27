@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\View\View;
 
 class LoginController extends Controller
 {
@@ -39,7 +40,7 @@ class LoginController extends Controller
         return $this->usernameFieldType;
     }
 
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('auth.login')->with([
             'title' => 'Sign-in Page',
