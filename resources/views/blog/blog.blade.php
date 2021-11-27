@@ -3,7 +3,6 @@
 @section('title', $title)
 
 @section('content')
-
 	@include('parts.page-info')
 
     <div class="blog-wrapper">
@@ -28,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach 
+                @endforeach
 
                 {{ $posts->links() }}
             </div>

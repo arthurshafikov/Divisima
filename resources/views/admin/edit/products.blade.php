@@ -6,7 +6,7 @@
 
 <form method="POST" action="{{ route('products.update',$post->id) }}">
     @csrf
-    {{ method_field('PATCH') }}
+    @method('PATCH')
 
     <x-input :value="$post->name" placeholder="Name of the product" label="Name" />
 
@@ -17,7 +17,7 @@
 
         <input type="hidden" name="gallery" value="{{ $post->images->implode('id',',') }} " class="form-control py-4 hidden-img">
         <a data-fancybox data-src="#media" href="javascript:;" class="media-load">Select Images</a>
-        
+
         <div class="gallery-wrapper">
             <div class="gallery" data-url="{{ route('loadGallery') }}">
                 @foreach ($post->images as $img)
@@ -29,7 +29,7 @@
     </div>
 
     <x-input type="number" name="price" :value="$post->price" placeholder="Price of the product" label="Price" />
-    
+
     <x-textarea label="Details" name="details" placeholder="Details of the product" :value="$post->details" />
 
     <x-textarea label="Description" name="description" placeholder="Description of the product" :value="$post->description" />

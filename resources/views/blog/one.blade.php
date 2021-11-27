@@ -3,8 +3,6 @@
 @section('title', $title)
 
 @section('content')
-
-
 	@include('parts.page-info')
 
     <div class="wrapper">
@@ -22,8 +20,8 @@
             </div>
         </div>
     </div>
-    
+
 	@include('parts.banner')
-	
+
     @include('parts.product.top-selling')
 @endsection

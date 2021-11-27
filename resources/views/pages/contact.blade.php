@@ -3,7 +3,6 @@
 @section('title',$title)
 
 @section('content')
-
 	@include('parts.page-info')
 
 	<!-- Contact section -->
@@ -25,7 +24,7 @@
 					<form class="contact-form" action="{{ route('contactEmail') }}">
 						<div class="preloader">
 							<div class="loader"></div>
-						</div>	
+						</div>
 						<div class="form-errors"></div>
 						@csrf
 						<input type="text" name="name" placeholder="Your name">

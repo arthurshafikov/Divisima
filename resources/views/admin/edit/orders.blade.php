@@ -3,7 +3,7 @@
 @section('form')
     <form method="POST" action="{{ route('orders.update',$post->id) }}">
         @csrf
-        {{ method_field('PATCH') }}
+        @method('PATCH')
 
         <h3>Order details:</h3>
         <ul>
@@ -48,7 +48,7 @@
         @else
         <h2>No products!</h2>
         @endif
-        
+
 
         <x-select name="status" label="Status" :array="\App\Models\Order::ORDER_STATUSES" :compared="$post->status"/>
 

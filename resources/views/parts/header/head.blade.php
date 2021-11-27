@@ -13,17 +13,3 @@
 
 <link rel="stylesheet" href="{{ asset('/assets/main.css') }}">
 <link rel="stylesheet" href="{{ asset('/assets/app.css') }}">
-
-<!-- Stylesheets -->
-<!-- <link rel="stylesheet" href="/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/css/font-awesome.min.css" />
-<link rel="stylesheet" href="/css/flaticon.css" />
-<link rel="stylesheet" href="/css/slicknav.min.css" />
-<link rel="stylesheet" href="/css/jquery-ui.min.css" />
-<link rel="stylesheet" href="/css/owl.carousel.min.css" />
-<link rel="stylesheet" href="/css/animate.css" />
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/scss/app.css" />
-
-Libs
-<link rel="stylesheet" type="text/css" href="/js/libs/fancybox/jquery.fancybox.min.css"> -->

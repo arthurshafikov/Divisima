@@ -3,7 +3,6 @@
 @section('title', $title)
 
 @section('content')
-
 	@include('parts.slider')
 
 	@include('parts.features')
@@ -28,5 +27,5 @@
 	@include('parts.product.top-selling')
 
 	@include('parts.banner')
-	
+
 @endsection

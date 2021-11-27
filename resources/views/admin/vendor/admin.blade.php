@@ -2,7 +2,6 @@
 <html lang="en">
 @include('admin.header.head')
 
-
 <body class="sb-nav-fixed">
     @include('admin.header.header')
 
@@ -37,12 +36,12 @@
                                     @endif
                                 @endforeach
                         @endforeach
-                        
+
 
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as: {{ Auth::user()?->name }}</div>
+                    <div class="small">Logged in as: {{ optional(Auth::user())->name }}</div>
                 </div>
             </nav>
         </div>
@@ -67,7 +66,7 @@
 
     </div>
     @include('admin.footer.footer')
-    
+
     @include('admin.parts.media')
 
 </body>

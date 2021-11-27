@@ -85,23 +85,6 @@
         </div>
     </div>
 </section>
-<!-- Footer section end -->
-
-<!--====== Javascripts & Jquery ======-->
-<!-- <script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.slicknav.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/jquery.nicescroll.min.js"></script>
-<script src="/js/jquery.zoom.min.js"></script>
-<script src="/js/jquery-ui.min.js"></script>
-<script src="/js/main.js"></script>
-
-<script src="/js/app.js"></script>
-<script src="/js/libs/fancybox/jquery.fancybox.min.js"></script> -->
 
 <script src="{{ asset('/assets/all.js') }}"></script>
 <script src="{{ asset('/assets/app.js') }}"></script>
-
-<!-- <script src="{{ asset('/assets/selectric/jquery.selectric.min.js') }}"></script> -->
-<!-- <link rel="stylesheet" href="{{ asset('/assets/selectric/selectric.css') }}"> -->

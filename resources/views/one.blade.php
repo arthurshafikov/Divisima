@@ -3,7 +3,6 @@
 @section('title', $title)
 
 @section('content')
-
 	@include('parts.page-info')
 
 	<!-- product section -->
@@ -17,7 +16,7 @@
 					<div class="product-pic-zoom">
 						<img class="product-big-img" src="{{ $product->img() }}" alt="">
                     </div>
-                    
+
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
 							@foreach ($product->images as $img)
@@ -25,7 +24,7 @@
 							@endforeach
 						</div>
                     </div>
-                    
+
 				</div>
 				<div class="col-lg-6 product-details">
 					<h3>Category: </h3>
@@ -41,7 +40,7 @@
 						@for ($i = 1; $i <= 5; $i++)
 							@if($i > $rating)
 								<i class="fa fa-star-o fa-fade"></i>
-							@else 
+							@else
 								<i class="fa fa-star-o"></i>
 							@endif
 						@endfor
@@ -49,8 +48,8 @@
 					<div class="p-review">
 						<a data-src="#reviews" href="{{ route('getReviews',$id) }}" onclick="return false" class="reviews-load">{{ $ratingCount }} reviews</a>|<a data-fancybox data-src="#add-review" href="javascript:;"> Add your review</a>
                     </div>
-					
-					
+
+
 					@if ($sizes->count() > 0)
 						<div class="fw-size-choose choose-radio">
 
@@ -61,11 +60,11 @@
 									<label for="{{ $size->name }}-size">{{ $size->name }}</label>
 								</div>
 							@endforeach
-							
+
 
 						</div>
 					@endif
-					
+
 					@if ($colors->count() > 0)
 						<div class="fw-color-choose choose-radio">
 
@@ -76,7 +75,7 @@
 									<label for="{{ $color->name }}-color" class="{{ $color->name }}-color"></label>
 								</div>
 							@endforeach
-							
+
 						</div>
 					@endif
 
@@ -174,13 +173,13 @@
 				<div class="form-group">
 					<label for="exampleInputEmail1">Rating</label>
 					<div class="rate-wrapper">
-						<div class="rate">      
+						<div class="rate">
 							<input type="radio" id="star-5" name="rating" value="5">
-							<label for="star-5" title="Rate «5»"><i class="fa fa-star-o"></i></label>	
+							<label for="star-5" title="Rate «5»"><i class="fa fa-star-o"></i></label>
 							<input type="radio" id="star-4" name="rating" value="4">
-							<label for="star-4" title="Rate «4»"><i class="fa fa-star-o"></i></label>  
+							<label for="star-4" title="Rate «4»"><i class="fa fa-star-o"></i></label>
 							<input type="radio" id="star-3" name="rating" value="3">
-							<label for="star-3" title="Rate «3»"><i class="fa fa-star-o"></i></label>  
+							<label for="star-3" title="Rate «3»"><i class="fa fa-star-o"></i></label>
 							<input type="radio" id="star-2" name="rating" value="2">
 							<label for="star-2" title="Rate «2»"><i class="fa fa-star-o"></i></label>
 							<input type="radio" id="star-1" name="rating" value="1">
@@ -200,14 +199,14 @@
 	<div style="display: none;" id="reviews" class="popup">
 		<div class="preloader active">
 			<div class="loader"></div>
-		</div>	
+		</div>
 		<h2>Reviews:</h2>
 		<div class="reviews-wrapper">
 
 		</div>
-		
+
 	</div>
 
 	@include('parts.banner')
-	
+
 @endsection

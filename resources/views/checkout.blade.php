@@ -3,7 +3,6 @@
 @section('title', $title)
 
 @section('content')
-
 	@include('parts.page-info')
 
 	<!-- checkout section  -->
@@ -62,7 +61,7 @@
 									<input type="email" name="email" placeholder="Email address">
 									<input type="text" name="name" placeholder="Username">
 								</div>
-								
+
 								<div class="col-md-12">
 									<div class="column-input">
 										<input type="password" name="password" placeholder="Password">

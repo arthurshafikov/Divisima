@@ -3,9 +3,8 @@
 @section('title',$title)
 
 @section('content')
-    
     @include('parts.page-info')
-    
+
     <div class="auth-wrapper">
         <div class="container">
             <div class="auth">
