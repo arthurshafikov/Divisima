@@ -35,7 +35,6 @@ services:
       - ./.env:/src/.env
       - ./.env.testing:/src/.env.testing
       - ./phpunit.xml:/src/phpunit.xml
-    command: ["./start-php-fpm.sh"]
   redis:
     image: redis:4
   divisima-mysql:

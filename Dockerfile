@@ -20,10 +20,6 @@ RUN docker-php-ext-configure opcache --enable-opcache && \
 
 WORKDIR /src
 
-# Script that will wait on the availability of a host and TCP port
-# for synchronizing the spin-up of linked docker containers in CI (https://github.com/vishnubob/wait-for-it)
-COPY docker/wait-for-it.sh /usr/local/bin/
-
 COPY docker/php-fpm/php.ini $PHP_INI_DIR/conf.d/php.ini
 
 COPY composer.json composer.lock ./
