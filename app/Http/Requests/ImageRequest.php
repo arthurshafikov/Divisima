@@ -9,10 +9,7 @@ class ImageRequest extends FormRequest
 {
     public function authorize()
     {
-        if (!Auth::user()) {
-            return false;
-        }
-        return true;
+        return (bool)Auth::user();
     }
 
     public function rules()

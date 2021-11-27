@@ -3,13 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\Option;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class OptionsTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
         $options = [
             'footer_about' => $faker->realText(100),
 
@@ -32,8 +33,8 @@ class OptionsTableSeeder extends Seeder
 
             'shipping_return_info' => '<h4>7 Days Returns</h4>
             <p>Cash on Delivery Available<br>Home Delivery <span>3 - 4 days</span></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-            Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. 
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Proin pharetra tempor so dales. Phasellus sagittis auctor gravida.
             Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>',
         ];
         foreach ($options as $key => $value) {

@@ -9,6 +9,7 @@ class SlideController extends CRUDController
 {
     public function __construct()
     {
+        parent::__construct();
         $this->model = Slide::class;
         $this->essense = 'slider';
         $this->td = ['id','title','image_tag'];

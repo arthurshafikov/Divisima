@@ -10,7 +10,7 @@ class PostFactory extends Factory
 {
     protected $model = Post::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => $this->faker->realText(50),

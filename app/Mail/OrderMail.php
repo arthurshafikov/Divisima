@@ -12,9 +12,9 @@ class OrderMail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public $order;
-    public $title;
-    public $site_url;
+    public Order $order;
+    public string $title;
+    public string $site_url;
 
     public function __construct(Order $order, string $title)
     {

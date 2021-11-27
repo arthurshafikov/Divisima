@@ -1,13 +1,13 @@
 @extends('vendor.app')
 
-@section('title',$errorMessage)
+@section('title', $errorMessage ?? '')
 
 @section('content')
 
     <section class="error-page">
         <div class="container">
             <div class="row">
-                <h1>{{ $errorCode }} {{ $errorMessage }}</h1>
+                <h1>{{ $errorCode ?? '' }} {{ $errorMessage ?? '' }}</h1>
 
             </div>
         </div>

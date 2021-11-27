@@ -16,9 +16,11 @@
                 <div class="footer-widget about-widget">
                     <h2>Questions</h2>
                     <ul>
-                        @foreach ($menu->items as $item)
-                            <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
-                        @endforeach
+                        @if ($menu !== null)
+                            @foreach ($menu->items as $item)
+                                <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

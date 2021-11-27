@@ -9,7 +9,6 @@ class AddViewedCookie
 {
     public function handle(ProductViewed $event)
     {
-        $id = $event->productId;
-        CookieHelper::updateArrayCookie('watched', $id, 60 * 24, true);
+        CookieHelper::updateArrayCookie('watched', $event->productId, 60 * 24, true);
     }
 }

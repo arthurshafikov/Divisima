@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 class Review extends Model
@@ -17,17 +18,17 @@ class Review extends Model
         'rating',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo('App\Models\Product');
     }
 
-    public function getCreatedAtAttribute($value)
+    public function getCreatedAtAttribute($value): string
     {
         return Carbon::parse($value)->format('j F Y');
     }

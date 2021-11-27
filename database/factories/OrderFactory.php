@@ -11,7 +11,7 @@ class OrderFactory extends Factory
 {
     protected $model = Order::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'    => self::factoryForModel(User::class),
@@ -27,7 +27,7 @@ class OrderFactory extends Factory
         ];
     }
 
-    public function configure()
+    public function configure(): Factory
     {
         return $this->afterCreating(function (Order $order) {
             for ($i = 0; $i < 4; $i++) {

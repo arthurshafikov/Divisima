@@ -11,7 +11,7 @@ class ReviewFactory extends Factory
 {
     protected $model = Review::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'product_id' => self::factoryForModel(Product::class),

@@ -28,9 +28,4 @@ class EventServiceProvider extends ServiceProvider
             NotifyUserAboutChangedEmail::class,
         ],
     ];
-
-    public function boot()
-    {
-        parent::boot();
-    }
 }

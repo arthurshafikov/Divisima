@@ -26,7 +26,7 @@ class PostControllerTest extends TestCase
         $post = Post::factory()->make();
 
         $response = $this->actingAs($admin)
-                            ->post(route('posts.store'), $post->toArray());
+            ->post(route('posts.store'), $post->toArray());
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');

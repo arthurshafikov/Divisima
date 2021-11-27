@@ -10,7 +10,7 @@ class ProfileFactory extends Factory
 {
     protected $model = Profile::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id'     => self::factoryForModel(User::class),

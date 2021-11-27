@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
@@ -43,37 +45,37 @@ class Order extends Model
         'additional',
     ];
 
-    public function products()
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class)->withPivot('qty', 'size', 'color', 'subtotal');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function getStatusTextAttribute()
+    public function getStatusTextAttribute(): string
     {
         return snakeCaseToNormal($this->status);
     }
 
-    public function getDeliveryTextAttribute()
+    public function getDeliveryTextAttribute(): string
     {
         return snakeCaseToNormal($this->delivery) . ' Delivery';
     }
 
-    public function getFormattedTotalAttribute()
+    public function getFormattedTotalAttribute(): string
     {
         return '$' . number_format($this->total, 2);
     }
 
-    public function getSubtotalAttribute($value)
+    public function getSubtotalAttribute($value): string
     {
         return '$' . number_format($value, 2);
     }
 
-    public function getDiscountAttribute($value)
+    public function getDiscountAttribute($value): string
     {
         return '$' . number_format($value, 2);
     }

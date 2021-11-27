@@ -8,6 +8,9 @@ use App\Models\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -36,12 +39,12 @@ class Product extends Model
         'description',
     ];
 
-    public function category()
+    public function category(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Category')->using('App\Models\Pivots\CategoryProduct');
     }
 
-    public function attributes()
+    public function attributes(): BelongsToMany
     {
         return $this->belongsToMany(
             Attributes\AttributeVariation::class,
@@ -51,37 +54,37 @@ class Product extends Model
         );
     }
 
-    public function getFormattedPriceAttribute()
+    public function getFormattedPriceAttribute(): string
     {
         return '$' . number_format($this->price, 2);
     }
 
-    public function orders()
+    public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)->withPivot('qty', 'size', 'color', 'subtotal');
     }
 
-    public function getStockStatusAttribute()
+    public function getStockStatusAttribute(): string
     {
         return snakeCaseToNormal($this->stock);
     }
 
-    public function getFormattedSubtotalAttribute()
+    public function getFormattedSubtotalAttribute(): string
     {
         return '$' . number_format($this->pivot->subtotal, 2);
     }
 
-    public function scopeFilter(Builder $builder, QueryFilter $filters)
+    public function scopeFilter(Builder $builder, QueryFilter $filters): Builder
     {
         return $filters->apply($builder);
     }
 
-    public function images()
+    public function images(): MorphToMany
     {
         return $this->morphToMany(Image::class, 'imageable');
     }
 
-    public function reviews()
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
     }

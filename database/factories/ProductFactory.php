@@ -10,7 +10,7 @@ class ProductFactory extends Factory
 {
     protected $model = Product::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->realText(30),
@@ -23,7 +23,7 @@ class ProductFactory extends Factory
         ];
     }
 
-    public function configure()
+    public function configure(): Factory
     {
         return $this->afterCreating(function (Product $product) {
             $product->images()->sync(Image::factory()->count(3)->create());

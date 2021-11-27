@@ -30,6 +30,7 @@ class CheckoutRequest extends FormRequest
                 "password" => "confirmed",
             ]);
         }
+
         return $rules;
     }
 }

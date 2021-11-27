@@ -6,12 +6,12 @@ use App\Models\Option;
 
 class OptionHelper
 {
-    protected static $options = [];
+    protected static array $options = [];
 
     public static function getOption(string $option, $val = false)
     {
         if (!array_key_exists($option, static::$options)) {
-            static::$options[$option] = Option::firstWhere('key', $option)->value;
+            static::$options[$option] = optional(Option::firstWhere('key', $option))->value;
         }
         $option = static::$options[$option];
 

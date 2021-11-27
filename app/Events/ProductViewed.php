@@ -4,9 +4,9 @@ namespace App\Events;
 
 class ProductViewed
 {
-    public $productId;
+    public int $productId;
 
-    public function __construct($id)
+    public function __construct(int $id)
     {
         $this->productId = $id;
     }

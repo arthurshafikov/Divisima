@@ -56,25 +56,11 @@
         <div class="container">
             <!-- menu -->
             <ul class="main-menu">
-                @foreach ($menu->items as $item)
-                    <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
-                @endforeach
-                <!-- <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('shop') }}">Shop</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
-                <li><a href="{{ route('blog') }}">Blog</a></li> -->
-                {{-- $menu --}}
-                <!--
-                <li><a href="#">Pages</a>
-                    <ul class="sub-menu">
-                        <li><a href="./product.html">Product Page</a></li>
-                        <li><a href="./category.html">Category Page</a></li>
-                        <li><a href="./cart.html">Cart Page</a></li>
-                        <li><a href="./checkout.html">Checkout Page</a></li>
-                        <li><a href="./contact.html">Contact Page</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Blog</a></li> -->
+                @if ($menu !== null)
+                    @foreach ($menu->items as $item)
+                        <li><a href="{{ $item->path }}">{{ $item->name }}</a></li>
+                    @endforeach
+                @endif
             </ul>
         </div>
     </nav>

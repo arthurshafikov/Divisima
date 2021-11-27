@@ -10,7 +10,7 @@ class UserFactory extends Factory
 {
     protected $model = User::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->unique()->userName,
@@ -19,14 +19,14 @@ class UserFactory extends Factory
         ];
     }
 
-    public function configure()
+    public function configure(): Factory
     {
         return $this->afterCreating(function (User $user) {
             Profile::factory()->for($user)->create();
         });
     }
 
-    public function admin()
+    public function admin(): Factory
     {
         return $this->state(function (array $attributes) {
             return [
@@ -38,7 +38,7 @@ class UserFactory extends Factory
         });
     }
 
-    public function testUser()
+    public function testUser(): Factory
     {
         return $this->state(function (array $attributes) {
             return [

@@ -10,7 +10,7 @@ class SlideFactory extends Factory
 {
     protected $model = Slide::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => $this->faker->realText(50),

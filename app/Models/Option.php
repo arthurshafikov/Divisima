@@ -17,7 +17,7 @@ class Option extends Model
         'value' => 'json',
     ];
 
-    public function name()
+    public function name(): string
     {
         return ucwords(str_replace('_', ' ', $this->key));
     }

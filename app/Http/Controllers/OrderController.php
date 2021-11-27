@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     public function checkout()
     {
-        $profile = Auth::user() ? Auth::user()->profile : null;
+        $profile = optional(Auth::user())->profile;
 
         extract(Cart::getCartData());
 

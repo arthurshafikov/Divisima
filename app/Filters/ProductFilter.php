@@ -42,6 +42,7 @@ class ProductFilter extends QueryFilter
     public function search($search)
     {
         $s = '%' . $search . '%';
+
         return $this->builder->where('name', 'LIKE', $s)
             ->orWhere('description', 'LIKE', $s)
             ->orWhere('details', 'LIKE', $s);

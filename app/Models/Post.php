@@ -29,7 +29,7 @@ class Post extends Model
         ];
     }
 
-    public function getCreatedAtAttribute($value)
+    public function getCreatedAtAttribute($value): string
     {
         return Carbon::parse($value)->format('j F Y');
     }

@@ -11,7 +11,7 @@ class EmailChangedUserNotification extends Notification
 {
     use Queueable;
 
-    public $user;
+    public User $user;
 
     public function __construct(User $user)
     {

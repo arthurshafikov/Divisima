@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 abstract class QueryFilter
 {
-    protected $request;
-    protected $builder;
-    protected $delimiter;
+    protected Request $request;
+    protected Builder $builder;
+    protected string $delimiter;
 
     public function __construct(Request $request)
     {

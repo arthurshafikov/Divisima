@@ -15,9 +15,11 @@ class Promocode extends Model
         'expired_at',
     ];
 
-    protected $dates = ['expired_at'];
+    protected $dates = [
+        'expired_at',
+    ];
 
-    public function getPureDateAttribute()
+    public function getPureDateAttribute(): string
     {
         return trim(str_replace('00:00:00', '', $this->expired_at));
     }

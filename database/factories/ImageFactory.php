@@ -9,14 +9,14 @@ class ImageFactory extends Factory
 {
     protected $model = Image::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'img' => 'images/' . $this->faker->numberBetween(1, 19) . '.jpg',
         ];
     }
 
-    public function onlyJpeg()
+    public function onlyJpeg(): Factory
     {
         return $this->state(function (array $attributes) {
             return [

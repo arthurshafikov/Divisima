@@ -9,7 +9,7 @@ class PromocodeFactory extends Factory
 {
     protected $model = Promocode::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'promocode' => $this->faker->word,

@@ -15,6 +15,7 @@ class RoleTableSeeder extends Seeder
             ],
             'client' => [],
         ];
+
         foreach ($roles as $role => $permissions) {
             $role = Role::create(['name' => $role]);
             $role->givePermissionTo($permissions);

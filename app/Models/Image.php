@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Image extends Model
 {
@@ -13,12 +14,12 @@ class Image extends Model
         'img',
     ];
 
-    public function getImgAttribute($value)
+    public function getImgAttribute($value): string
     {
         return '/storage/' . $value;
     }
 
-    public function products()
+    public function products(): MorphToMany
     {
         return $this->morphedByMany(Product::class, 'imageable');
     }
