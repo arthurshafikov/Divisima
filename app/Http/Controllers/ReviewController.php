@@ -4,26 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReviewRequest;
 use App\Models\Review;
+use App\Services\ReviewService;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
     public function addReview(ReviewRequest $request, $id): string
     {
-        $data = $request->validated();
-        $data['product_id'] = $id;
-        $data['user_id'] =  Auth::id();
-
-        $reviews = Review::where([
-            ['user_id', Auth::id()],
-            ['product_id', $id],
-        ])->get();
-
-        if ($reviews->isEmpty()) {
-            Review::create($data);
-            return '1';
-        }
-        return 'You already have a review here';
+        return app(ReviewService::class)->addReview($request->validated(), $id);
     }
 
     public function getProductReviews($id)
@@ -35,13 +23,8 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function deleteReview($id): string
+    public function deleteReview(int $id): string
     {
-        $review = Review::findOrFail($id);
-        if ($review->user->id === Auth::id()) {
-            $review->delete();
-            return '1';
-        }
-        return 'You are not allowed to delete this review!';
+        return app(ReviewService::class)->deleteReview($id);
     }
 }

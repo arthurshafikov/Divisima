@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageRequest;
 use App\Http\Requests\ProfileInfoRequest;
-use App\Models\Image;
+use App\Services\ProfileService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -12,6 +13,7 @@ class ProfileController extends Controller
     public function account()
     {
         $user = Auth::user();
+
         return view('pages.account')->with([
             'title' => 'Your account',
             'profile' => $user->profile,
@@ -19,30 +21,16 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function uploadAvatar(ImageRequest $request)
+    public function uploadAvatar(ImageRequest $request): JsonResponse
     {
-        $user = Auth::user();
-        $res = [
-            'error' => false,
-            'text'  => '',
-        ];
         $request->file('avatar');
         $file = $request->avatar->store('avatars');
-        $image = Image::create([
-            'img' => $file,
-        ]);
-        $user->profile()->update([
-            'avatar' => $image->id,
-        ]);
-        $res['text'] = $file;
 
-        return response()->json($res);
+        return response()->json(app(ProfileService::class)->uploadAvatar($file));
     }
 
     public function changeProfile(ProfileInfoRequest $request)
     {
-        $user = Auth::user();
-        $user->profile()->update($request->except('_token'));
-        return;
+        app(ProfileService::class)->updateProfileInfo($request->validated());
     }
 }

@@ -35,7 +35,7 @@ class ProductController extends Controller
             'related' => $related,
             'id'      => $product->id,
             'rating'  => $rating,
-            'ratingCount'  => $ratingCount,
+            'ratingCount' => $ratingCount,
             'sizes' => $sizes,
             'colors' => $colors,
             'brands' => $brands,
@@ -57,8 +57,7 @@ class ProductController extends Controller
         ]);
     }
 
-
-    public function getTopSellingProducts(Request $request)
+    public function getTopSellingProducts(Request $request): string
     {
         if ($category = $request->get('category')) {
             $products = Product::whereHas('category', function ($query) use ($category) {

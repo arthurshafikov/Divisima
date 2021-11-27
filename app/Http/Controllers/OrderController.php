@@ -84,6 +84,7 @@ class OrderController extends Controller
     public function thank($id)
     {
         $this->checkOrderOwner($id);
+
         return view('pages.thank-you', [
             'title' => 'Thank you for the order!',
             'id' => $id,
@@ -118,6 +119,7 @@ class OrderController extends Controller
 
     protected function checkOrderOwner($id): Order
     {
+        // todo переделать
         $order = Order::findOrFail($id);
         if (Auth::id() !== $order->user->id) {
             abort(404);
