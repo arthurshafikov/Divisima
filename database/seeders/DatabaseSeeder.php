@@ -11,18 +11,23 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MenusTableSeeder::class,
             CategoriesTableSeeder::class,
-            ImagesTableSeeder::class,
-            ProductsTableSeeder::class,
             PermissionTableSeeder::class,
             RoleTableSeeder::class,
-            UsersTableSeeder::class,
-            ReviewsTableSeeder::class,
-            PostsTableSeeder::class,
             AttributesTableSeeder::class,
-            OrdersTableSeeder::class,
-            SlidesTableSeeder::class,
             OptionsTableSeeder::class,
-            PromocodesTableSeeder::class,
         ]);
+
+        if (app()->environment('local', 'development')) {
+            $this->call([
+                ImagesTableSeeder::class,
+                ProductsTableSeeder::class,
+                UsersTableSeeder::class,
+                ReviewsTableSeeder::class,
+                PostsTableSeeder::class,
+                OrdersTableSeeder::class,
+                SlidesTableSeeder::class,
+                PromocodesTableSeeder::class,
+            ]);
+        }
     }
 }

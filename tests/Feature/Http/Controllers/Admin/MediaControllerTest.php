@@ -65,6 +65,7 @@ class MediaControllerTest extends TestCase
     public function testLoadMediaImages()
     {
         $user = User::admin();
+        Image::factory()->count(5)->create();
 
         $response = $this->actingAs($user)
             ->get(route('loadMediaImages'));
