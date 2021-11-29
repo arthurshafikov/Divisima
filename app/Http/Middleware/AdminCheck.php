@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Permission;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ class AdminCheck
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user() === null || Auth::user()->cant('admin_panel')) {
+        if (Auth::user() === null || Auth::user()->cant(Permission::ADMIN_PANEL)) {
             abort(403);
         }
         return $next($request);

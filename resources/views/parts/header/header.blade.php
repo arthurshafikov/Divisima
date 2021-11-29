@@ -1,4 +1,4 @@
-@can('admin_panel')
+@can(\App\Models\Permission::ADMIN_PANEL)
     <div class="admin-bar-wrapper">
         <div class="admin-bar">
             <a href="{{ route('admin') }}">Dashboard</a>

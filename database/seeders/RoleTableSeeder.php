@@ -2,21 +2,22 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class RoleTableSeeder extends Seeder
 {
     public function run()
     {
-        $roles = [
-            'admin' => [
-                'admin_panel',
+        $rolesWithPermissions = [
+            Role::ADMIN => [
+                Permission::ADMIN_PANEL,
             ],
-            'client' => [],
+            Role::CLIENT => [],
         ];
 
-        foreach ($roles as $role => $permissions) {
+        foreach ($rolesWithPermissions as $role => $permissions) {
             $role = Role::create(['name' => $role]);
             $role->givePermissionTo($permissions);
         }

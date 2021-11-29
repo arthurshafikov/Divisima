@@ -3,17 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
 
 class PermissionTableSeeder extends Seeder
 {
     public function run()
     {
-        $permissions = [
-            'admin_panel',
-        ];
-
-        foreach ($permissions as $permission) {
+        foreach (Permission::PERMISSIONS as $permission) {
             Permission::create(['name' => $permission]);
         }
     }
