@@ -2,43 +2,41 @@
 
 namespace App\Includes;
 
+use Exception;
 use Illuminate\Support\Facades\Cookie;
 
 class CookieHelper
 {
-    protected static $defaultMin = 60 * 24;
-    protected static $defaultVal = null;
+    protected const DEFAULT_MINUTES = 60 * 24;
+    protected const DEFAULT_VALUE = null;
 
-    public static function getCookie(string $cookieName, $json = false)
+    public static function getJSONCookie(string $cookieName)
     {
         $cookie = request()->cookie($cookieName);
-        if (!$cookie) {
-            return null;
-        }
-        if ($json !== false) {
+        if ($cookie) {
             try {
-                $json = json_decode($cookie, true);
-            } catch (\Exception $e) {
-                Cookie::queue($cookieName, json_encode(self::$defaultVal), 0);
-                return null;
+                return json_decode($cookie, true);
+            } catch (Exception $e) {
+                Cookie::queue($cookieName, json_encode(self::DEFAULT_VALUE), 0);
             }
-            return $json;
         }
-        return $cookie;
+
+        return null;
     }
 
-    public static function setCookie(string $cookieName, $value = null, $minutes = false, $json = false): void
+    private static function setJSONCookie(string $cookieName, $value, int $minutes): void
     {
-        $minutes = $minutes ? self::$defaultMin : $minutes;
-        if ($json === true) {
-            $value = json_encode($value);
-        }
-        Cookie::queue($cookieName, $value, $minutes);
+        Cookie::queue($cookieName, json_encode($value), $minutes);
     }
 
-    public static function updateArrayCookie(string $cookieName, $value, $minutes = false, $unique = true): void
-    {
-        $cookie = self::getCookie($cookieName, true);
+    public static function updateArrayCookie(
+        string $cookieName,
+        $value,
+        ?int $minutes = null,
+        bool $unique = true
+    ): void {
+        $minutes = $minutes ?? self::DEFAULT_MINUTES;
+        $cookie = self::getJSONCookie($cookieName);
         if (!is_array($cookie)) {
             $cookie = [];
         }
@@ -46,18 +44,19 @@ class CookieHelper
             return;
         }
         $cookie[] = $value;
-        self::setCookie($cookieName, $cookie, $minutes, true);
+        self::setJSONCookie($cookieName, $cookie, $minutes, true);
     }
 
-    public static function removeFromArrayCookie(string $cookieName, $value, $minutes = false): void
+    public static function removeFromArrayCookie(string $cookieName, $value, ?int $minutes = null): void
     {
-        $cookie = self::getCookie($cookieName, true);
+        $minutes = $minutes ?? self::DEFAULT_MINUTES;
+        $cookie = self::getJSONCookie($cookieName);
         if (!is_array($cookie)) {
             $cookie = [];
         }
         if (in_array($value, $cookie)) {
             $cookie = array_diff($cookie, array($value));
         }
-        self::setCookie($cookieName, $cookie, $minutes, true);
+        self::setJSONCookie($cookieName, $cookie, $minutes, true);
     }
 }

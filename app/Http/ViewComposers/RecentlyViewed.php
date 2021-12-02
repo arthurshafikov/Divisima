@@ -10,7 +10,7 @@ class RecentlyViewed
 {
     public function compose(View $view)
     {
-        $viewedCookie = CookieHelper::getCookie('watched', true);
+        $viewedCookie = CookieHelper::getJSONCookie('watched');
         if ($viewedCookie == false) {
             $viewedCookie = [];
         }

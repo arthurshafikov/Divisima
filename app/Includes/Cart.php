@@ -106,7 +106,7 @@ class Cart
     public static function getCartCookie(): array
     {
         $cookie = self::CART_COOKIE_NAME;
-        $items = CookieHelper::getCookie($cookie, true);
+        $items = CookieHelper::getJSONCookie($cookie);
         if (!is_array($items)) {
             Cookie::queue($cookie, json_encode([]), self::CART_COOKIE_TIME);
             return [];
