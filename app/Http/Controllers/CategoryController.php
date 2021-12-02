@@ -15,7 +15,7 @@ class CategoryController extends Controller
 
         $products = Product::whereHas('category', function ($query) use ($slug) {
             $query->where('slug', $slug);
-        })->filter($filters)->with('image')->paginate(self::$products_per_page)->appends(request()->input());
+        })->filter($filters)->with('image')->paginate(self::$productsPerPage)->appends(request()->input());
 
         return view('shop')->with([
             'title'   =>  $category->name,

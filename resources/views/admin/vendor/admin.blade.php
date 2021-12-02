@@ -11,7 +11,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        @foreach ($admin_menu as $header => $array)
+                        @foreach ($adminMenu as $header => $array)
                             <div class="sb-sidenav-menu-heading">{{$header}}</div>
 
                                 @foreach ($array as $el)

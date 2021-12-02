@@ -13,10 +13,10 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    protected static $products_per_page;
+    protected static $productsPerPage;
 
     public function __construct()
     {
-        self::$products_per_page = getOption('products_per_page');
+        self::$productsPerPage = getOption('products_per_page');
     }
 }

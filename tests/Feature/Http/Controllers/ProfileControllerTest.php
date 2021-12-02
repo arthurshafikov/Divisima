@@ -52,7 +52,7 @@ class ProfileControllerTest extends TestCase
     public function testChangeProfile()
     {
         $user = User::factory()->create();
-        $profile_info = [
+        $profileInfo = [
             'first_name' => 'testName',
             'surname' => 'testSurname',
             'address' => 'testAddress',
@@ -62,7 +62,7 @@ class ProfileControllerTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post(route('change-profile'), $profile_info);
+            ->post(route('change-profile'), $profileInfo);
 
         $response->assertOk();
     }

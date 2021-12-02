@@ -40,7 +40,7 @@
                             @endguest
                             <div class="shopping-card">
                                 <i class="flaticon-bag"></i>
-                                <span id="shopping-cart-count">{{ $cart_count }}</span>
+                                <span id="shopping-cart-count">{{ $cartCount }}</span>
                             </div>
                             <a href="{{ route('cart') }}">Shopping Cart</a>
 

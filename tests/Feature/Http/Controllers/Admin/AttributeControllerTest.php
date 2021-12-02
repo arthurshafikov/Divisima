@@ -14,7 +14,7 @@ class AttributeControllerTest extends TestCase
     public function testStore()
     {
         $admin = User::admin();
-        $new_attr = [
+        $newAttr = [
             'name' => 'test_attr',
             'variation' => [
                 'test1','test2',
@@ -22,7 +22,7 @@ class AttributeControllerTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->post(route('attributes.store'), $new_attr);
+            ->post(route('attributes.store'), $newAttr);
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');
@@ -32,7 +32,7 @@ class AttributeControllerTest extends TestCase
     {
         $admin = User::admin();
         $attribute = Attribute::factory()->create();
-        $update_attr = [
+        $updateAttr = [
             'name' => 'test_new_name_update',
             'variation' => [
                 'newvar1','newvar2',
@@ -40,7 +40,7 @@ class AttributeControllerTest extends TestCase
         ];
 
         $response = $this->actingAs($admin)
-            ->patch(route('attributes.update', $attribute->id), $update_attr);
+            ->patch(route('attributes.update', $attribute->id), $updateAttr);
 
         $response->assertStatus(302);
         $response->assertSessionHas('message');

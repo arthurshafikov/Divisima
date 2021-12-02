@@ -8,28 +8,28 @@ class Image extends Component
 {
     public string $label;
     public string $name;
-    public string $input_id;
+    public string $inputId;
     public mixed $value;
     public string $selectText;
     public mixed $src;
-    public string $img_id;
+    public string $imgId;
 
     public function __construct(
         $label = 'Image',
         $name = 'img',
-        $input_id = 'featured_img',
+        $inputId = 'featured_img',
         $value = '',
         $selectText = 'Select Images',
         $src = '',
-        $img_id = 'featured_preview'
+        $imgId = 'featured_preview'
     ) {
         $this->label = $label;
         $this->name = $name;
-        $this->input_id = $input_id;
+        $this->inputId = $inputId;
         $this->value = $value;
         $this->selectText = $selectText;
         $this->src = $src;
-        $this->img_id = $img_id;
+        $this->imgId = $imgId;
     }
 
     public function render()

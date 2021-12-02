@@ -45,13 +45,13 @@ class AttributeController extends CRUDController
            'name' => $request->name,
         ]);
 
-        $new_vars = $request->variation;
+        $newVars = $request->variation;
 
         AttributeVariation::where([
             ['attribute_id','=',$id],
-        ])->whereNotIn('name', $new_vars)->delete();
+        ])->whereNotIn('name', $newVars)->delete();
 
-        foreach ($new_vars as $varname) {
+        foreach ($newVars as $varname) {
             AttributeVariation::updateOrCreate(
                 ['attribute_id' => $attr->id,'name' => $varname],
             );

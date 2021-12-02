@@ -8,7 +8,7 @@ class AdminMenuComposer
 {
     public function compose(View $view)
     {
-        $admin_menu = [
+        $adminMenu = [
             'Core' => [
                 [
                     'link' => 'admin',
@@ -78,6 +78,6 @@ class AdminMenuComposer
 
 
         ];
-        $view->with('admin_menu', $admin_menu);
+        $view->with('adminMenu', $adminMenu);
     }
 }
