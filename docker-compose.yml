@@ -22,7 +22,6 @@ services:
     volumes:
       - ./public:/src/public
       - ./app:/src/app
-      - ./start-php-fpm.sh:/app/src/start-php-fpm.sh
       - ./bootstrap/app.php:/src/bootstrap/app.php
       - ./config:/src/config
       - ./database:/src/database
