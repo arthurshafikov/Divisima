@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmail implements ShouldQueue
+class SendEmailJob implements ShouldQueue
 {
     use Dispatchable;
     use Queueable;
