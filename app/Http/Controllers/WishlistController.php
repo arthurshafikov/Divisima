@@ -37,7 +37,7 @@ class WishlistController extends Controller
     {
         $minutes = self::WISHLIST_COOKIE_TIME;
         $cookie = self::WISHLIST_COOKIE_NAME;
-        $items = CookieHelper::getCookie($cookie, true);
+        $items = CookieHelper::getJSONCookie($cookie);
 
         if (!is_array($items)) {
             Cookie::queue($cookie, json_encode([]), $minutes);
