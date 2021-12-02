@@ -11,13 +11,13 @@ class HeaderViewComposer
 {
     public function compose(View $view)
     {
-        $cart_count = Cart::getCount();
+        $cartCount = Cart::getCount();
 
         $menu = Cache::remember('HeaderMenu', env("CACHE_TIME", 0), function () {
             return Menu::where('location', 'header')->with('items')->first();
         });
 
         $view->with('menu', $menu);
-        $view->with('cart_count', $cart_count);
+        $view->with('cartCount', $cartCount);
     }
 }

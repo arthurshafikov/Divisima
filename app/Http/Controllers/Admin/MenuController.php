@@ -24,14 +24,14 @@ class MenuController extends CRUDController
 
         $menu = Menu::create($request->only('name', 'location'));
 
-        $item_names = $request->item_names;
-        $item_links = $request->item_links;
+        $itemNames = $request->item_names;
+        $itemLinks = $request->item_links;
 
-        for ($i = 0; $i < count($item_names); $i++) {
+        for ($i = 0; $i < count($itemNames); $i++) {
             MenuItems::create([
                 'menu_id' => $menu->id,
-                'name' => $item_names[$i],
-                'path' => $item_links[$i],
+                'name' => $itemNames[$i],
+                'path' => $itemLinks[$i],
             ]);
         }
 
@@ -46,17 +46,17 @@ class MenuController extends CRUDController
         $menu = Menu::findOrFail($id);
         $menu->update($request->only('name', 'location'));
 
-        $item_names = $request->item_names;
-        $item_links = $request->item_links;
+        $itemNames = $request->item_names;
+        $itemLinks = $request->item_links;
 
         foreach ($menu->items as $item) {
             MenuItems::destroy($item->id);
         }
-        for ($i = 0; $i < count($item_names); $i++) {
+        for ($i = 0; $i < count($itemNames); $i++) {
             MenuItems::create([
                 'menu_id' => $menu->id,
-                'name' => $item_names[$i],
-                'path' => $item_links[$i],
+                'name' => $itemNames[$i],
+                'path' => $itemLinks[$i],
             ]);
         }
 

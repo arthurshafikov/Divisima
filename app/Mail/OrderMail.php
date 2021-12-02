@@ -14,13 +14,13 @@ class OrderMail extends Mailable
 
     public Order $order;
     public string $title;
-    public string $site_url;
+    public string $siteUrl;
 
     public function __construct(Order $order, string $title)
     {
         $this->order = $order;
         $this->title = $title;
-        $this->site_url = app()->make('url')->to('/');
+        $this->siteUrl = app()->make('url')->to('/');
     }
 
     public function build()

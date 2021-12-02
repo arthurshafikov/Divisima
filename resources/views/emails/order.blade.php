@@ -319,12 +319,12 @@
 					    <th width="80%" style="text-align:left; padding: 0 2.5em; color: #000; padding-bottom: 20px">Item</th>
 					    <th width="20%" style="text-align:right; padding: 0 2.5em; color: #000; padding-bottom: 20px">Price</th>
             </tr>
-            
+
             @foreach ($order->products as $product)
               <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
                 <td valign="middle" width="70%" style="text-align:left; padding: 0 2.5em;">
                   <div class="product-entry">
-                    <img src="{{$site_url . $product->image->img}}" alt="Image" style="width: 100px; max-width: 600px; height: auto; margin-bottom: 20px; display: block;">
+                    <img src="{{$siteUrl . $product->image->img}}" alt="Image" style="width: 100px; max-width: 600px; height: auto; margin-bottom: 20px; display: block;">
                     <div class="text">
                       <h3>{{$product->name}}</h3>
                       <span>x{{$product->pivot->qty}} qty</span>
@@ -337,7 +337,7 @@
                 </td>
               </tr>
             @endforeach
-            
+
 					  <tr>
 					  	<td valign="middle" style="text-align:left; padding: 1em 2.5em;">
                 <!-- <p><a href="#" class="btn btn-primary">Continur your order</a></p> -->
@@ -364,7 +364,7 @@
                     <tr>
                       <td style="text-align: left; padding-right: 10px;">
                         <!-- <h3 class="heading">Divisima</h3> -->
-                        <img src="{{ $site_url . '/img/logo.png' }}" alt="Divisima logo">
+                        <img src="{{ $siteUrl . '/img/logo.png' }}" alt="Divisima logo">
                       </td>
                     </tr>
                   </table>
@@ -388,7 +388,7 @@
                       <td style="text-align: left; padding-left: 10px;">
                       	<h3 class="heading">Useful Links</h3>
                       	<ul>
-					                <li><a href="{{ $site_url }}">Home</a></li>
+					                <li><a href="{{ $siteUrl }}">Home</a></li>
 					                <li><a href="{{ route('account') }}">Account</a></li>
 					                <li><a href="{{ route('account') }}">Wishlist</a></li>
 					                <li><a href="{{ route('order',$order->id) }}">Order</a></li>

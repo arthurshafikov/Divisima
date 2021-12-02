@@ -51,7 +51,7 @@ class OrderControllerTest extends TestCase
     {
         $product = Product::factory()->create();
         $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
-        $order_info = [
+        $orderInfo = [
             "address" => "testAddress",
             "country" => "testCountry",
             "zip" => "12412142",
@@ -61,7 +61,7 @@ class OrderControllerTest extends TestCase
             "surname" => "testSurname",
         ];
 
-        $response = $this->withCookie('cart', $cart)->post(route('checkout'), $order_info);
+        $response = $this->withCookie('cart', $cart)->post(route('checkout'), $orderInfo);
 
         $response->assertSessionHasErrors(['name','email']);
         $response->assertRedirect();
@@ -73,7 +73,7 @@ class OrderControllerTest extends TestCase
         $product = Product::factory()->create();
         $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
         $user = User::factory()->make();
-        $order_info = [
+        $orderInfo = [
             "address" => "testAddress",
             "country" => "testCountry",
             "zip" => "12412142",
@@ -87,7 +87,7 @@ class OrderControllerTest extends TestCase
             'password_confirmation' => '12345678',
         ];
 
-        $response = $this->withCookie('cart', $cart)->post(route('checkout'), $order_info);
+        $response = $this->withCookie('cart', $cart)->post(route('checkout'), $orderInfo);
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();

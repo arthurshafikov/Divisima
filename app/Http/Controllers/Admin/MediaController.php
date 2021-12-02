@@ -44,8 +44,8 @@ class MediaController extends Controller
 
     public function deleteImages(Request $request)
     {
-        $image_ids = $request->ids;
-        $res = Image::destroy($image_ids);
+        $imageIds = $request->ids;
+        $res = Image::destroy($imageIds);
 
         return response()->json($res);
     }
