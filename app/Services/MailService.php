@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Jobs\SendEmail;
+use App\Jobs\SendEmailJob;
 
 class MailService
 {
     public function sendContactEmail(array $data): void
     {
-        dispatch(new SendEmail($data));
+        dispatch(new SendEmailJob($data));
     }
 }
