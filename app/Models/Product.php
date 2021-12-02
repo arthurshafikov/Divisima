@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filters\QueryFilter;
+use App\Models\Attributes\AttributeVariation;
 use App\Models\Traits\HasImage;
 use App\Models\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,13 +42,13 @@ class Product extends Model
 
     public function category(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Category')->using('App\Models\Pivots\CategoryProduct');
+        return $this->belongsToMany(Category::class);
     }
 
     public function attributes(): BelongsToMany
     {
         return $this->belongsToMany(
-            Attributes\AttributeVariation::class,
+            AttributeVariation::class,
             'product_variations',
             null,
             'variation_id'

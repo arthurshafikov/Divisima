@@ -2,6 +2,7 @@
 
 namespace App\Models\Attributes;
 
+use App\Models\Product;
 use App\Models\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,6 +31,6 @@ class AttributeVariation extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Product', 'product_variations', 'variation_id', null);
+        return $this->belongsToMany(Product::class, 'product_variations', 'variation_id');
     }
 }

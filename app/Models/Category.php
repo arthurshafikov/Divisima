@@ -24,12 +24,12 @@ class Category extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Product')->using('App\Models\Pivots\CategoryProduct');
+        return $this->belongsToMany(Product::class);
     }
 
     public function childs(): HasMany
     {
-        return $this->hasMany('App\Models\Category', 'parent_id', 'id') ;
+        return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
     public function parent(): BelongsTo
