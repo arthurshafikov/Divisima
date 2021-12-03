@@ -50,10 +50,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasVerifiedEmail();
     }
-
-    public function scopeAdmin()
-    {
-        // todo remove
-        return $this->factory()->create()->assignRole(Role::ADMIN);
-    }
 }

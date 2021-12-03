@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class ProductControllerTest extends TestCase
 
     public function testStore()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $product = Product::factory()->make();
 
         $response = $this->actingAs($admin)
@@ -28,7 +29,7 @@ class ProductControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $product = Product::factory()->create();
         $product->name = 'New Name';
 
@@ -41,7 +42,7 @@ class ProductControllerTest extends TestCase
 
     public function testDestroy()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $product = Product::factory()->create();
 
         $response = $this->actingAs($admin)
@@ -53,7 +54,7 @@ class ProductControllerTest extends TestCase
 
     public function testTrash()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $product = Product::factory()->create();
         $product->delete();
 
@@ -65,7 +66,7 @@ class ProductControllerTest extends TestCase
 
     public function testRestore()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $product = Product::factory()->create();
         $product->delete();
 
@@ -77,7 +78,7 @@ class ProductControllerTest extends TestCase
 
     public function testForceDelete()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $product = Product::factory()->create();
         $product->delete();
 

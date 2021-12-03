@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Notifications\EmailChangedUserNotification;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -18,7 +19,7 @@ class UserControllerTest extends TestCase
     public function testUpdate()
     {
         Notification::fake();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $user = User::factory()->create();
         $user->email = $this->faker->safeEmail;
 
@@ -34,7 +35,7 @@ class UserControllerTest extends TestCase
     public function testDestroy()
     {
         $user = User::factory()->create();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($admin)
             ->delete(route('users.destroy', $user->id));

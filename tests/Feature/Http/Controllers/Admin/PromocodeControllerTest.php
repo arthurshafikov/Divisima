@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Promocode;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class PromocodeControllerTest extends TestCase
 
     public function testCreate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $promocode = Promocode::factory()->make();
 
         $response = $this->actingAs($admin)
@@ -25,7 +26,7 @@ class PromocodeControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $promocode = Promocode::factory()->create();
         $promocode->promocode = 'New title';
 
@@ -39,7 +40,7 @@ class PromocodeControllerTest extends TestCase
     public function testDestroy()
     {
         $promocode = Promocode::factory()->create();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($admin)
             ->delete(route('promocodes.destroy', $promocode->id));

@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -97,7 +98,7 @@ class OrderControllerTest extends TestCase
     public function testEdit()
     {
         $order = Order::factory()->create();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($admin)
             ->patch(route('orders.update', $order->id), [

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
+use App\Models\Role;
 use App\Models\Slide;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -13,7 +14,7 @@ class SlideControllerTest extends TestCase
 
     public function testStore()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $slide = Slide::factory()->make();
 
         $response = $this->actingAs($admin)
@@ -25,7 +26,7 @@ class SlideControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $slide = Slide::factory()->create();
         $slide->title = 'New Name';
 
@@ -38,7 +39,7 @@ class SlideControllerTest extends TestCase
 
     public function testDestroy()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $slide = Slide::factory()->create();
 
         $response = $this->actingAs($admin)

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Attributes\Attribute as Attribute;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class AttributeControllerTest extends TestCase
 
     public function testStore()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $newAttr = [
             'name' => 'test_attr',
             'variation' => [
@@ -30,7 +31,7 @@ class AttributeControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $attribute = Attribute::factory()->create();
         $updateAttr = [
             'name' => 'test_new_name_update',
@@ -49,7 +50,7 @@ class AttributeControllerTest extends TestCase
     public function testDestroy()
     {
         $attribute = Attribute::factory()->create();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($admin)
             ->delete(route('attributes.destroy', $attribute->id));

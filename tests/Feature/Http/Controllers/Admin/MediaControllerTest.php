@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Image;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -22,7 +23,7 @@ class MediaControllerTest extends TestCase
         $images = [
             $file,
         ];
-        $user = User::admin();
+        $user = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($user)
             ->post(route('upload-image'), [
@@ -35,7 +36,7 @@ class MediaControllerTest extends TestCase
     public function testDeleteImages()
     {
         $image = Image::factory()->create();
-        $user = User::admin();
+        $user = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($user)
             ->delete(route('deleteImages'), [
@@ -51,7 +52,7 @@ class MediaControllerTest extends TestCase
     public function testLoadGallery()
     {
         $gallery = Image::factory()->count(4)->create()->pluck('id')->toArray();
-        $user = User::admin();
+        $user = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($user)
             ->get(route('loadGallery', [
@@ -64,7 +65,7 @@ class MediaControllerTest extends TestCase
 
     public function testLoadMediaImages()
     {
-        $user = User::admin();
+        $user = User::factory()->create()->assignRole(Role::ADMIN);
         Image::factory()->count(5)->create();
 
         $response = $this->actingAs($user)

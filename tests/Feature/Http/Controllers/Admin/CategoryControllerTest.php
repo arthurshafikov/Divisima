@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -13,7 +14,7 @@ class CategoryControllerTest extends TestCase
 
     public function testStore()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $category = Category::factory()->make();
 
         $response = $this->actingAs($admin)
@@ -25,7 +26,7 @@ class CategoryControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $category = Category::factory()->create();
         $category->name = 'New Name';
 
@@ -39,7 +40,7 @@ class CategoryControllerTest extends TestCase
     public function testDestroy()
     {
         $category = Category::factory()->create();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($admin)
             ->delete(route('categories.destroy', $category->id));

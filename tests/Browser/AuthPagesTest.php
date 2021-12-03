@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\Role;
 use App\Models\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -41,7 +42,7 @@ class AuthPagesTest extends DuskTestCase
      */
     public function testLogin()
     {
-        $user = User::admin();
+        $user = User::factory()->create()->assignRole(Role::ADMIN);
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visitRoute('login')

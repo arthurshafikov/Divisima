@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -22,7 +23,7 @@ class PostControllerTest extends TestCase
 
     public function testStore()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $post = Post::factory()->make();
 
         $response = $this->actingAs($admin)
@@ -34,7 +35,7 @@ class PostControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $post = Post::factory()->create();
         $post->title = 'New title';
 
@@ -48,7 +49,7 @@ class PostControllerTest extends TestCase
     public function testDestroy()
     {
         $post = Post::factory()->create();
-        $admin = User::admin();
+        $admin = User::factory()->create()->assignRole(Role::ADMIN);
 
         $response = $this->actingAs($admin)
             ->delete(route('posts.destroy', $post->id));
