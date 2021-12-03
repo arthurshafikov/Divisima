@@ -12,11 +12,4 @@ class Controller extends BaseController
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
-
-    protected static $productsPerPage;
-
-    public function __construct()
-    {
-        self::$productsPerPage = getOption('products_per_page');
-    }
 }

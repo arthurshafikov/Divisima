@@ -47,7 +47,7 @@ class ProductController extends Controller
     {
         $products = Product::filter($filters)
             ->with('image')
-            ->paginate(self::$productsPerPage)
+            ->paginate(getOption('products_per_page'))
             ->appends(request()->input());
 
         return view('shop')->with([
