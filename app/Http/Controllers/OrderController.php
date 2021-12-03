@@ -17,7 +17,7 @@ class OrderController extends Controller
     {
         $profile = optional(Auth::user())->profile;
 
-        extract(Cart::getCartData());
+        extract(Cart::getCart());
 
         if (count($items) < 1) {
             return redirect()->route('cart')->with('err', 'You have no products in your cart!');
@@ -53,7 +53,7 @@ class OrderController extends Controller
         ]);
         $user->profile()->updateOrCreate($profileData);
 
-        extract(Cart::getCartData());
+        extract(Cart::getCart());
 
         $data['subtotal'] = $subtotal;
         $data['discount'] = $discount;

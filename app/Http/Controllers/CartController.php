@@ -12,32 +12,40 @@ class CartController extends Controller
 {
     public function cart(): View
     {
-        extract(Cart::getCartData());
-        $title = 'Shopping Cart';
-
-        return view('cart')->with(compact(Cart::CART_COMPACT_VARS, 'title'));
+        return view('cart')->with(array_merge(Cart::getCart(), [
+            'title' => 'Shopping Cart',
+        ]));
     }
 
     public function addToCart($id): Response
     {
-        $items = Cart::addToCart($id);
-        $response = new Response(Cart::getCartQtyCount($items));
+        Cart::addToCart($id);
 
-        return $response->cookie(Cart::CART_COOKIE_NAME, json_encode($items), Cart::CART_COOKIE_TIME);
+        return new Response(Cart::getCartQtySum());
     }
 
     public function updateCart(): JsonResponse
     {
-        extract(Cart::updateCart());
+        $items = collect(request()->input('items'));
 
-        return response()
-            ->json(['html' => $html, 'count' => $count])
-            ->withCookie(Cart::CART_COOKIE_NAME, json_encode($cart), Cart::CART_COOKIE_TIME);
+        $cart = Cart::updateCart($items);
+
+        $cartData = $cart['cartData'];
+
+        $html = view('parts.cart.cart', [
+            'items' => $cartData['items'],
+            'cart'  => $cartData['cart'],
+            'total' => $cartData['total'],
+            'promocode' => $cartData['promocode'],
+        ])->render();
+
+        return response()->json(['html' => $html, 'count' => $cart['count']]);
     }
 
     public static function resetCart(): RedirectResponse
     {
         Cart::resetCart();
-        return redirect()->back()->with('msg', 'Cart was resetted!');
+
+        return redirect()->back()->with('msg', __('cart.reset'));
     }
 }
