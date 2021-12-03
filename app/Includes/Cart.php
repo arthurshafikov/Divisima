@@ -3,23 +3,18 @@
 namespace App\Includes;
 
 use App\Models\Product;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 
 class Cart
 {
-    public const CART_COMPACT_VARS = [
-        'items',
-        'cart',
-        'subtotal',
-        'discount',
-        'total',
-        'promocode',
-        'numeric_total',
-    ];
-    public const CART_COOKIE_NAME = 'cart';
-    public const CART_COOKIE_TIME = 60 * 24;
+    private const CART_COOKIE_NAME = 'cart';
+    private const CART_COOKIE_TIME = 60 * 24;
+    private const CART_COOKIE_ITEM_QTY = 'qty';
+    private const CART_COOKIE_ITEM_SIZE = 'size';
+    private const CART_COOKIE_ITEM_COLOR = 'color';
 
-    public static function addToCart($id): array
+    public static function addToCart(int $id): void
     {
         Product::findOrFail($id);
         $qty = request()->qty ?? 1;
@@ -29,7 +24,7 @@ class Cart
         $items = self::getCartCookie();
         if (!array_key_exists($id, $items)) {
             if ($color !== '' || $size !== '') {
-                $attributes = getProductAttributes(['size','color'], $id);
+                $attributes = getProductAttributes(['size', 'color'], $id);
                 $variations = $attributes->pluck('name')->toArray();
 
                 if (
@@ -40,62 +35,33 @@ class Cart
                 }
             }
             $items[$id] = [
-                'qty' => $qty,
-                'size' => $size,
-                'color' => $color,
+                self::CART_COOKIE_ITEM_QTY => $qty,
+                self::CART_COOKIE_ITEM_SIZE => $size,
+                self::CART_COOKIE_ITEM_COLOR => $color,
             ];
         } else {
-            $items[$id]['qty'] += $qty;
+            $items[$id][self::CART_COOKIE_ITEM_QTY] += $qty;
         }
-        return $items;
+
+        CookieHelper::setJSONCookie(self::CART_COOKIE_NAME, $items, self::CART_COOKIE_TIME);
     }
 
-    public static function updateCart(): array
+    public static function updateCart(Collection $items): array
     {
-        $items = request()->input('items');
-        $cart = [];
-        foreach ($items as $item) {
-            if ($item['qty'] < 1) {
-                continue;
-            }
-            $cart[$item['id']] = [
-                'qty' => $item['qty'],
-                'size' => $item['size'],
-                'color' => $item['color'],
-            ];
+        $cart = $items->keyBy('id')->toArray();
+
+        $cartData = Cart::getCart($cart);
+
+        if ($items->isEmpty()) {
+            self::resetCart();
+        } else {
+            CookieHelper::setJSONCookie(self::CART_COOKIE_NAME, $cartData['cart'], self::CART_COOKIE_TIME);
         }
-
-        extract(Cart::countCartTotal($cart));
-
-        $html = view('parts.cart.cart', [
-            'items' => $items,
-            'cart'  => $cart,
-            'total' => $total,
-            'promocode' => $promocode,
-        ])->render();
 
         return [
-            'html' => $html,
-            'cart' => $cart,
-            'count' => self::getCartQtyCount($cart),
+            'cartData' => $cartData,
+            'count' => self::getCartQtySum(),
         ];
-    }
-
-    public static function getCount()
-    {
-        $cart = self::getCartCookie();
-        if (!is_array($cart)) {
-            return 0;
-        }
-        $qty = self::getCartQtyCount($cart);
-        return $qty > 99 ? '99+' : strval($qty);
-    }
-
-    public static function getCartData(): array
-    {
-        $cart = self::getCartCookie();
-        extract(self::countCartTotal($cart));
-        return compact(self::CART_COMPACT_VARS);
     }
 
     public static function resetCart(): void
@@ -105,22 +71,21 @@ class Cart
 
     public static function getCartCookie(): array
     {
-        $cookie = self::CART_COOKIE_NAME;
-        $items = CookieHelper::getJSONCookie($cookie);
+        $items = CookieHelper::getJSONCookie(self::CART_COOKIE_NAME);
         if (!is_array($items)) {
-            Cookie::queue($cookie, json_encode([]), self::CART_COOKIE_TIME);
+            self::resetCart();
             return [];
         }
 
         if (count($items) > 0) {
-            foreach ($items as $id => $item) {
+            foreach ($items as $item) {
                 if (
                     !is_array($item) ||
-                    !array_key_exists('qty', $item) ||
-                    !array_key_exists('size', $item) ||
-                    !array_key_exists('color', $item)
+                    !array_key_exists(self::CART_COOKIE_ITEM_QTY, $item) ||
+                    !array_key_exists(self::CART_COOKIE_ITEM_SIZE, $item) ||
+                    !array_key_exists(self::CART_COOKIE_ITEM_COLOR, $item)
                 ) {
-                    Cookie::queue($cookie, json_encode([]), self::CART_COOKIE_TIME);
+                    self::resetCart();
                     return [];
                 }
             }
@@ -128,33 +93,36 @@ class Cart
         return $items;
     }
 
-    public static function getCartQtyCount(array $cart): int
+    public static function getCartQtySum(): int
     {
         $qty = 0;
-        foreach ($cart as $el) {
-            $qty += $el['qty'];
+        foreach (self::getCartCookie() as $el) {
+            $qty += $el[self::CART_COOKIE_ITEM_QTY];
         }
+
         return $qty;
     }
 
-    public static function countCartTotal(array $cart): array
+    public static function getCart(?array $cart = null): array
     {
-        $ids = array_keys($cart);
-        $items = Product::with('image')->whereIn('id', $ids)->get();
-
-        $cartTotal = 0;
-        foreach ($items as $product) {
-            $total = $product->price * $cart[$product->id]['qty'];
-            $product['total'] = number_format($total, 2);
-            $product['number_subtotal'] = $total;
-            $product['size'] = $cart[$product->id]['size'];
-            $product['color'] = $cart[$product->id]['color'];
-            $product['qty'] = $cart[$product->id]['qty'];
-            $cartTotal += $total;
+        if (is_null($cart)) {
+            $cart = self::getCartCookie();
         }
 
-        $promocode = false;
-        $discount = 0;
+        $ids = array_keys($cart);
+        $products = Product::with('image')->whereIn('id', $ids)->get();
+
+        $cartTotal = 0;
+        $products->each(function (Product $product) use ($cart, &$cartTotal) {
+            $total = $product->price * $cart[$product->id][self::CART_COOKIE_ITEM_QTY];
+            $product['total'] = number_format($total, 2);
+            $product['number_subtotal'] = $total;
+            $product['size'] = $cart[$product->id][self::CART_COOKIE_ITEM_SIZE];
+            $product['color'] = $cart[$product->id][self::CART_COOKIE_ITEM_COLOR];
+            $product['qty'] = $cart[$product->id][self::CART_COOKIE_ITEM_QTY];
+            $cartTotal += $total;
+        });
+
         $subtotal = $cartTotal;
         if ($discount = session('promocode')) {
             $cartTotal = $cartTotal * ( 1 - $discount / 100);
@@ -164,6 +132,14 @@ class Cart
         $total = number_format($cartTotal, 2);
         $numeric_total = round($cartTotal);
 
-        return compact(self::CART_COMPACT_VARS);
+        return [
+            'items' => $products,
+            'cart' => $cart,
+            'subtotal' => $subtotal,
+            'discount' => $discount,
+            'total' => $total,
+            'promocode' => $promocode ?? false,
+            'numeric_total' => $numeric_total,
+        ];
     }
 }

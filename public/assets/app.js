@@ -19722,9 +19722,15 @@ $(document).ready(function () {
     var url = $(this).attr('href');
     var data = [];
     products.each(function (key, product) {
+      var qty = $(product).find('.pro-qty input').val();
+
+      if (qty < 1) {
+        return;
+      }
+
       data.push({
         id: $(product).data('id'),
-        qty: $(product).find('.pro-qty input').val(),
+        qty: qty,
         size: $(product).find('select[name="size"]').val(),
         color: $(product).find('select[name="color"]').val()
       });

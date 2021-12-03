@@ -24,11 +24,6 @@ class CookieHelper
         return null;
     }
 
-    private static function setJSONCookie(string $cookieName, $value, int $minutes): void
-    {
-        Cookie::queue($cookieName, json_encode($value), $minutes);
-    }
-
     public static function updateArrayCookie(
         string $cookieName,
         $value,
@@ -44,7 +39,7 @@ class CookieHelper
             return;
         }
         $cookie[] = $value;
-        self::setJSONCookie($cookieName, $cookie, $minutes, true);
+        self::setJSONCookie($cookieName, $cookie, $minutes);
     }
 
     public static function removeFromArrayCookie(string $cookieName, $value, ?int $minutes = null): void
@@ -57,6 +52,11 @@ class CookieHelper
         if (in_array($value, $cookie)) {
             $cookie = array_diff($cookie, array($value));
         }
-        self::setJSONCookie($cookieName, $cookie, $minutes, true);
+        self::setJSONCookie($cookieName, $cookie, $minutes);
+    }
+
+    public static function setJSONCookie(string $cookieName, $value, int $minutes): void
+    {
+        Cookie::queue($cookieName, json_encode($value), $minutes);
     }
 }
