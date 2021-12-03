@@ -37,7 +37,7 @@ abstract class CRUDController extends Controller
         $this->myValidate($request);
         $post = $this->model::create($request->all());
         return redirect()->route($this->essense . '.edit', $post->id)
-            ->with('message', $this->oneText . ' has been created successfully!');
+            ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
     }
 
     public function show()
@@ -58,7 +58,7 @@ abstract class CRUDController extends Controller
         $this->myValidate($request);
         $post = $this->model::findOrFail($id);
         $post->update($request->all());
-        return redirect()->back()->with('message', $this->oneText . ' has been updated successfully!');
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
     public function destroy($id)
@@ -66,7 +66,7 @@ abstract class CRUDController extends Controller
         $this->model::destroy($id);
 
         return redirect()->route($this->essense . '.index')
-            ->with('message', $this->oneText . ' has been deleted successfully!');
+            ->with('message', __('admin/crud.deleted', ['name' => $this->oneText]));
     }
 
     protected function myValidate(Request $request)

@@ -27,6 +27,6 @@ class OptionController extends Controller
             );
         }
 
-        return redirect()->back()->with('message', 'Options has been saved successfully!');
+        return redirect()->back()->with('message', __('admin/crud.saved', ['name' => 'Options']));
     }
 }

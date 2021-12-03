@@ -13,7 +13,7 @@ class CartController extends Controller
     public function cart(): View
     {
         return view('cart')->with(array_merge(Cart::getCart(), [
-            'title' => 'Shopping Cart',
+            'title' => __('cart.title'),
         ]));
     }
 

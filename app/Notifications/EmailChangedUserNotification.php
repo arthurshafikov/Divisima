@@ -26,10 +26,8 @@ class EmailChangedUserNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage())
-            ->subject('Email was changed')
-            ->line(
-                "Your email {$notifiable->email} on " . env('APP_NAME')
-                . " had been changed. If you want to return it back, you should contact website administrator."
-            )->action('Contact Form', route('contact'));
+            ->subject(__('email.changed.subject'))
+            ->line(__('email.changed.text', ['email' => $notifiable->email, 'app' => env('APP_NAME')]))
+            ->action(__('email.changed.action'), route('contact'));
     }
 }

@@ -20,7 +20,7 @@ class ContactMail extends Mailable
 
     public function build()
     {
-        return $this->from(config('mail.admin.address'), 'Divisima')
+        return $this->from(config('mail.admin.address'), env("APP_NAME"))
             ->subject($this->data['subject'])
             ->view('emails.contact');
     }

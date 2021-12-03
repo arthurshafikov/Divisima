@@ -32,7 +32,7 @@ class AttributeController extends CRUDController
 
         return redirect()
             ->route('attributes.edit', $attr->id)
-            ->with('message', 'Attribute has been created successfully!');
+            ->with('message', __('admin/crud.created', ['name' => 'Attribute']));
     }
 
 
@@ -57,7 +57,7 @@ class AttributeController extends CRUDController
             );
         }
 
-        return redirect()->back()->with('message', 'Attribute has been updated successfully!');
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => 'Attribute']));
     }
 
     public function destroy($id)

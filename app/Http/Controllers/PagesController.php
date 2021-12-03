@@ -9,7 +9,7 @@ class PagesController extends Controller
     public function contact(): View
     {
         return view('pages.contact')->with([
-            'title' => 'Contact us',
+            'title' => __('pages.contact.title'),
         ]);
     }
 }

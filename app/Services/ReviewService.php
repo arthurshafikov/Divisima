@@ -18,7 +18,7 @@ class ReviewService
         ])->exists();
 
         if ($userAlreadyHasReview) {
-            return 'You already have a review here';
+            return __('review.have');
         }
 
         Review::create($validated);
@@ -30,7 +30,7 @@ class ReviewService
     {
         $review = Review::findOrFail($id);
         if ($review->user->id !== Auth::id()) {
-            return 'You are not allowed to delete this review!';
+            return __('review.cant_delete');
         }
 
         $review->delete();

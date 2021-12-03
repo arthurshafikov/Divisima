@@ -12,65 +12,65 @@ class AdminMenuComposer
             'Core' => [
                 [
                     'link' => 'admin',
-                    'text' => 'Dashboard',
+                    'text' => __('admin/menu.dashboard'),
                     'icon' => 'fa-toolbox',
                 ],
             ],
             'Interface' => [
                 [
-                    'text' => 'Products',
+                    'text' => __('admin/menu.products.title'),
                     'link' => [
-                        'products.index' => 'All Products',
-                        'products.trash' => 'Trash',
-                        'products.create' => 'Add Products',
-                        'attributes.index' => 'Attributes',
-                        'categories.index' => 'Categories',
+                        'products.index' => __('admin/menu.products.index'),
+                        'products.trash' => __('admin/menu.products.trash'),
+                        'products.create' => __('admin/menu.products.create'),
+                        'attributes.index' => __('admin/menu.attributes.index'),
+                        'categories.index' => __('admin/menu.categories.index'),
                     ],
                     'icon' => 'fa-boxes',
                 ],
                 [
-                    'text' => 'Posts',
+                    'text' => __('admin/menu.posts.title'),
                     'link' => [
-                        'posts.index' => 'All Posts',
-                        'posts.create' => 'Add Post',
+                        'posts.index' => __('admin/menu.posts.index'),
+                        'posts.create' => __('admin/menu.posts.create'),
                     ],
                     'icon' => 'fa-thumbtack',
                 ],
                 [
-                    'text' => 'Slider',
+                    'text' => __('admin/menu.slider.title'),
                     'link' => [
-                        'slider.index' => 'All Slides',
-                        'slider.create' => 'Add Slide',
+                        'slider.index' => __('admin/menu.slider.index'),
+                        'slider.create' => __('admin/menu.slider.create'),
                     ],
                     'icon' => 'fa-image',
                 ],
                 [
-                    'text' => 'Promocodes',
+                    'text' => __('admin/menu.promocodes.title'),
                     'link' => [
-                        'promocodes.index' => 'All Promocodes',
-                        'promocodes.create' => 'Add Promocode',
+                        'promocodes.index' => __('admin/menu.promocodes.index'),
+                        'promocodes.create' => __('admin/menu.promocodes.create'),
                     ],
                     'icon' => 'fa-tags',
                 ],
             ],
             'Pages' => [
                 [
-                    'text' => 'Orders',
+                    'text' => __('admin/menu.pages.orders'),
                     'link' => 'orders.index',
                     'icon' => 'fa-money-check-alt',
                 ],
                 [
-                    'text' => 'Users',
+                    'text' => __('admin/menu.pages.users'),
                     'link' => 'users.index',
                     'icon' => 'fa-users',
                 ],
                 [
-                    'text' => 'Menus',
+                    'text' => __('admin/menu.pages.menus'),
                     'link' => 'menus.index',
                     'icon' => 'fa-bars',
                 ],
                 [
-                    'text' => 'Options',
+                    'text' => __('admin/menu.pages.options'),
                     'link' => 'options',
                     'icon' => 'fa-cogs',
                 ],

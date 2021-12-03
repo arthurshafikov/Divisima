@@ -17,7 +17,7 @@ class WishlistController extends Controller
         $productIds = $this->getWishlistCookie();
         $products = Product::whereIn('id', $productIds)->get();
         return view('pages.wishlist', [
-            'title' => 'Wishlist',
+            'title' => __('pages.wishlist.title'),
             'products' => $products,
         ]);
     }

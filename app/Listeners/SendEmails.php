@@ -11,9 +11,9 @@ class SendEmails
     public function handle(OrderPlaced $event)
     {
         $order = $event->order;
-        $title = 'New client order!';
+        $title = __('email.admin.title');
         Mail::to(config('mail.admin.address'))->send(new OrderMail($order, $title));
-        $title = 'Thank you for your order!';
+        $title = __('email.client.title');
         Mail::to($order->user->email)->send(new OrderMail($order, $title));
     }
 }

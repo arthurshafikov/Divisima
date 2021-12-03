@@ -43,7 +43,7 @@ class LoginController extends Controller
     public function showLoginForm(): View
     {
         return view('auth.login')->with([
-            'title' => 'Sign-in Page',
+            'title' => __('auth.title'),
         ]);
     }
 }

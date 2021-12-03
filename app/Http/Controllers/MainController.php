@@ -12,7 +12,7 @@ class MainController extends Controller
         $posts = Product::with('image')->take(10)->get();
 
         return view('main')->with([
-            'title' => 'Divisima Shop',
+            'title' => env("APP_NAME"),
             'posts' => $posts,
         ]);
     }

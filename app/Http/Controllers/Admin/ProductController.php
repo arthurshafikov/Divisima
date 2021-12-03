@@ -44,7 +44,7 @@ class ProductController extends CRUDController
         }
         $product->attributes()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
-        return redirect()->back()->with('message', $this->oneText . ' has been updated successfully!');
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
     public function trash(): View

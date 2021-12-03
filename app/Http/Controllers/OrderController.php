@@ -20,7 +20,7 @@ class OrderController extends Controller
         $cartData = Cart::getCart();
 
         if (count($cartData['items']) < 1) {
-            return redirect()->route('cart')->with('err', 'You have no products in your cart!');
+            return redirect()->route('cart')->with('err', __('cart.empty'));
         }
 
         return view('checkout', [
@@ -88,7 +88,7 @@ class OrderController extends Controller
         $this->checkOrderOwner($id);
 
         return view('pages.thank-you', [
-            'title' => 'Thank you for the order!',
+            'title' => __('order.thanks-title'),
             'id' => $id,
         ]);
     }

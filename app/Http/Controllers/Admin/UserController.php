@@ -59,7 +59,7 @@ class UserController extends CRUDController
                 $user->sendEmailVerificationNotification();
             }
         }
-        return redirect()->back()->with('message', $this->oneText . ' has been updated successfully!');
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
     protected function myValidate(Request $request)

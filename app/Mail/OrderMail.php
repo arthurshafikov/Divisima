@@ -25,7 +25,7 @@ class OrderMail extends Mailable
 
     public function build()
     {
-        return $this->subject('New order!')
+        return $this->subject(__('email.order.new'))
             ->view('emails.order');
     }
 }

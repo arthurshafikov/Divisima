@@ -30,6 +30,6 @@ class SendEmailJob implements ShouldQueue
 
     public function failed()
     {
-        Log::alert('SendEmail has failed to execute!');
+        Log::alert(__('email.job.failed'));
     }
 }
