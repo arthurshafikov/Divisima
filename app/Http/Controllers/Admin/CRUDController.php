@@ -8,11 +8,11 @@ use Illuminate\View\View;
 
 abstract class CRUDController extends Controller
 {
-    protected $model;
-    protected $essense;
-    protected $th;
-    protected $td;
-    protected $oneText;
+    protected string $model;
+    protected string $essense;
+    protected array $th;
+    protected array $td;
+    protected string $oneText;
 
     public function index(): View
     {

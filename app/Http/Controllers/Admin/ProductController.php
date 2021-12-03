@@ -11,7 +11,6 @@ class ProductController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Product::class;
         $this->essense = 'products';
         $this->td = ['id','name','image_tag','formatted_price','stock_status'];

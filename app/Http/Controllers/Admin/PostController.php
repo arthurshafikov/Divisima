@@ -9,7 +9,6 @@ class PostController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Post::class;
         $this->essense = 'posts';
         $this->td = ['id','title','image_tag'];

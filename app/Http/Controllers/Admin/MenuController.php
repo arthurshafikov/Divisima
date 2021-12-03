@@ -10,7 +10,6 @@ class MenuController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Menu::class;
         $this->essense = 'menus';
         $this->td = ['id','name','location'];

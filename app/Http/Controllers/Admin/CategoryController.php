@@ -9,7 +9,6 @@ class CategoryController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Category::class;
         $this->essense = 'categories';
         $this->td = ['id','name'];

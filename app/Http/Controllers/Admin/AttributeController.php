@@ -10,7 +10,6 @@ class AttributeController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Attribute::class;
         $this->essense = 'attributes';
         $this->td = ['id','name','slug'];

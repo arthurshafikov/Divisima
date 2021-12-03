@@ -9,7 +9,6 @@ class PromocodeController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Promocode::class;
         $this->essense = 'promocodes';
         $this->td = ['id','promocode','discount','expired_at'];

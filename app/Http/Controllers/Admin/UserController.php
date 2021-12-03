@@ -11,7 +11,6 @@ class UserController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = User::class;
         $this->essense = 'users';
         $this->td = ['id','name','email','email_verified_at','created_at'];

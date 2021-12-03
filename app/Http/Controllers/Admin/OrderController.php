@@ -10,7 +10,6 @@ class OrderController extends CRUDController
 {
     public function __construct()
     {
-        parent::__construct();
         $this->model = Order::class;
         $this->essense = 'orders';
         $this->td = ['id','status_text','delivery_text','formatted_total'];
