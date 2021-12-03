@@ -53,8 +53,6 @@ class ProductController extends Controller
         return view('shop')->with([
             'title'   =>  'Shop page',
             'products' => $products,
-            'minPrice' => Product::min('price'),
-            'maxPrice' => Product::max('price'),
         ]);
     }
 

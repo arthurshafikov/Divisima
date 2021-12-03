@@ -20,8 +20,6 @@ class CategoryController extends Controller
         return view('shop')->with([
             'title'   =>  $category->name,
             'products' => $products,
-            'minPrice' => Product::min('price'),
-            'maxPrice' => Product::max('price'),
         ]);
     }
 }
