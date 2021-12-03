@@ -12,6 +12,7 @@ use App\Http\ViewComposers\RecentlyViewed;
 use App\Http\ViewComposers\ShopViewComposer;
 use App\Http\ViewComposers\SliderViewComposer;
 use App\Http\ViewComposers\TopSellingViewComposer;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-//        Paginator::defaultView('vendor.pagination.bootstrap-4');
+        Paginator::defaultView('vendor.pagination.bootstrap-4');
 
         view()->share('defaultAvatar', '/img/default-avatar.png');
 
