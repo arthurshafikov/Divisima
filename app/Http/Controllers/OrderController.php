@@ -17,19 +17,19 @@ class OrderController extends Controller
     {
         $profile = optional(Auth::user())->profile;
 
-        extract(Cart::getCart());
+        $cartData = Cart::getCart();
 
-        if (count($items) < 1) {
+        if (count($cartData['items']) < 1) {
             return redirect()->route('cart')->with('err', 'You have no products in your cart!');
         }
 
         return view('checkout', [
             'title' => 'Checkout',
-            'items' => $items,
-            'cart'  => $cart,
-            'subtotal' => $subtotal,
-            'discount' => $discount,
-            'total' => $total,
+            'items' => $cartData['items'],
+            'cart'  => $cartData['cart'],
+            'subtotal' => $cartData['subtotal'],
+            'discount' => $cartData['discount'],
+            'total' => $cartData['total'],
             'profile' => $profile,
             'delivery' => Order::ORDER_DELIVERY_METHODS,
         ]);
@@ -53,12 +53,13 @@ class OrderController extends Controller
         ]);
         $user->profile()->updateOrCreate($profileData);
 
-        extract(Cart::getCart());
+        $cartData = Cart::getCart();
 
-        $data['subtotal'] = $subtotal;
-        $data['discount'] = $discount;
-        $data['total'] = $numeric_total;
-        $ids = $items->pluck('id')->toArray();
+        $data['subtotal'] = $cartData['subtotal'];
+        $data['discount'] = $cartData['discount'];
+        $data['total'] = $cartData['numericTotal'];
+        $ids = $cartData['items']->pluck('id')->toArray();
+        $items = $cartData['items'];
 
         Product::whereIn('id', $ids)->each(function ($product) use ($items) {
             $product->total_sales += $items->where('id', $product->id)->first()['qty'];

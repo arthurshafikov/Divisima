@@ -29,12 +29,8 @@ class ChartsComposer
             return compact('dates', 'revenue');
         });
 
-        extract($shopRevenue);
-
-        $view->with('revenue', $revenue);
-        $view->with('dates', $dates);
-
-
+        $view->with('dates', $shopRevenue['dates']);
+        $view->with('revenue', $shopRevenue['revenue']);
 
         $shopOrders = Cache::remember('shop_orders', env("CACHE_TIME", 0), function () {
             $orders = [];
@@ -51,9 +47,7 @@ class ChartsComposer
             return compact('orders', 'months');
         });
 
-        extract($shopOrders);
-
-        $view->with('months', $months);
-        $view->with('orders', $orders);
+        $view->with('orders', $shopOrders['orders']);
+        $view->with('months', $shopOrders['months']);
     }
 }

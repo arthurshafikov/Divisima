@@ -130,7 +130,7 @@ class Cart
             $promocode = session('promocode');
         }
         $total = number_format($cartTotal, 2);
-        $numeric_total = round($cartTotal);
+        $numericTotal = round($cartTotal);
 
         return [
             'items' => $products,
@@ -139,7 +139,7 @@ class Cart
             'discount' => $discount,
             'total' => $total,
             'promocode' => $promocode ?? false,
-            'numeric_total' => $numeric_total,
+            'numericTotal' => $numericTotal,
         ];
     }
 }
