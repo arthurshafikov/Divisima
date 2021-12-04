@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Includes;
+namespace App\Services;
 
 use App\Models\Option;
 
-class OptionHelper
+class OptionService
 {
     protected static array $options = [];
 

@@ -44,10 +44,10 @@ if (!function_exists('getProductAttributes')) {
 }
 
 if (!function_exists('getOption')) {
-    function getOption($option, $val = false)
+    function getOption(string $option, $val = false)
     {
         return \Cache::remember($option, env("CACHE_TIME", 0), function () use ($option, $val) {
-            return \App\Includes\OptionHelper::getOption($option, $val);
+            return \App\Services\OptionService::getOption($option, $val);
         });
     }
 }
