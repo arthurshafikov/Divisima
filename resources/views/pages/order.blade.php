@@ -19,7 +19,7 @@
                 </div>
                 <div class="order-products col-md-6">
                     <h3>Order products:</h3>
-                    @if ($products != false)
+                    @if ($order->products != false)
                         <table class="table order-products">
                             <thead>
                                 <tr>
@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($products as $product)
+                                @foreach ($order->products as $product)
                                     <tr>
                                         <td><img src="{{$product->image->img}}" alt="product"></td>
                                         <td><a href="{{ route('product', $product->slug ) }}">{{$product->name}}</a></td>

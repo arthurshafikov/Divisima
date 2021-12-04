@@ -6,7 +6,7 @@ use App\Models\Order;
 
 class OrderPlaced
 {
-    public $order;
+    public Order $order;
 
     public function __construct(Order $order)
     {

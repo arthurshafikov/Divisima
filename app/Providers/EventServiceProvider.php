@@ -6,6 +6,7 @@ use App\Events\OrderPlaced;
 use App\Events\ProductViewed;
 use App\Events\UserEmailHadChanged;
 use App\Listeners\AddViewedCookie;
+use App\Listeners\IncrementProductsTotalSales;
 use App\Listeners\NotifyUserAboutChangedEmail;
 use App\Listeners\SendEmails;
 use Illuminate\Auth\Events\Registered;
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
             AddViewedCookie::class,
         ],
         OrderPlaced::class => [
+            IncrementProductsTotalSales::class,
             SendEmails::class,
         ],
         UserEmailHadChanged::class => [
