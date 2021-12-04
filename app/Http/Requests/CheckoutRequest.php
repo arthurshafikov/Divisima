@@ -20,6 +20,10 @@ class CheckoutRequest extends FormRequest
                 "required",
                 Rule::in(Order::ORDER_DELIVERY_METHODS),
             ],
+            "additional" => [
+                "nullable",
+                "string",
+            ],
         ];
         if (Auth::id() === null) {
             $rules = array_merge($rules, [

@@ -13,7 +13,6 @@
 					<form action="{{ route('submitOrder') }}" class="checkout-form" method="POST">
 						@csrf
 
-
 						@if ($errors->any())
 							<div class="error-wrapper col-md-12">
 								{!! implode('', $errors->all('<p>:message</p>')) !!}
@@ -24,18 +23,6 @@
 							<div class="col-md-7">
 								<p>*Billing Information</p>
 							</div>
-							<!-- <div class="col-md-5">
-								<div class="cf-radio-btns address-rb">
-									<div class="cfr-item">
-										<input type="radio" name="pm" id="one">
-										<label for="one">Use my regular address</label>
-									</div>
-									<div class="cfr-item">
-										<input type="radio" name="pm" id="two">
-										<label for="two">Use a different address</label>
-									</div>
-								</div>
-							</div> -->
 						</div>
 						<div class="row address-inputs">
 							<div class="col-md-12">
@@ -76,7 +63,7 @@
 								@endguest
 							</div>
 
-						@if ($delivery)
+						@if ($delivery = \App\Models\Order::ORDER_DELIVERY_METHODS)
 							<div class="cf-title">Delievery Info</div>
 							<div class="row shipping-btns">
 								@foreach ($delivery as $id => $del)
@@ -112,7 +99,7 @@
 					<div class="checkout-cart">
 						<h3>Your Cart</h3>
 						<ul class="product-list">
-                            @foreach ($items as $product)
+                            @foreach ($cartData['items'] as $product)
                                 <li>
                                     <div class="pl-thumb"><img src="{{ $product->img() }}" alt=""></div>
                                     <h6>{{ $product->name }}</h6>
@@ -123,10 +110,10 @@
                             @endforeach
 						</ul>
 						<ul class="price-list">
-							<li>Subtotal<span>${{ number_format($subtotal,2) }}</span></li>
-							<li>Discount<span>${{ number_format($discount,2) }}</span></li>
+							<li>Subtotal<span>${{ number_format($cartData['subtotal'], 2) }}</span></li>
+							<li>Discount<span>${{ number_format($cartData['discount'], 2) }}</span></li>
 							<li>Shipping<span>free</span></li>
-							<li class="total">Total<span>${{ $total }}</span></li>
+							<li class="total">Total<span>${{ $cartData['total'] }}</span></li>
 						</ul>
 					</div>
 				</div>

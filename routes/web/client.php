@@ -33,8 +33,11 @@ Route::prefix('cart')->group(function () {
 Route::prefix('checkout')->group(function () {
     Route::get('', [OrderController::class, 'checkout'])->name('checkout');
     Route::post('', [OrderController::class, 'submit'])->name('submitOrder');
-    Route::get('thank-you/{id}', [OrderController::class, 'thank'])->name('thank-you');
-    Route::get('order/{id}', [OrderController::class, 'order'])->name('order');
+
+    Route::middleware('order.checkOwner')->group(function () {
+        Route::get('thank-you/{orderId}', [OrderController::class, 'thank'])->name('thank-you');
+        Route::get('order/{orderId}', [OrderController::class, 'order'])->name('order');
+    });
 });
 
 Route::get('/category/{slug}', [CategoryController::class, 'category'])->name('category');

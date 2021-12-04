@@ -2,8 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AdminCheck;
-use App\Http\Middleware\AjaxCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -70,7 +68,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'ajax' =>  AjaxCheck::class,
-        'admin' =>  AdminCheck::class,
+        'ajax' =>  \App\Http\Middleware\AjaxCheck::class,
+        'admin' =>  \App\Http\Middleware\AdminCheck::class,
+        'order.checkOwner' =>  \App\Http\Middleware\OrderOwnerCheck::class,
     ];
 }
