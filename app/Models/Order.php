@@ -45,6 +45,12 @@ class Order extends Model
         'additional',
     ];
 
+    protected $attributes = [
+        'status' => self::ORDER_IN_PROGRESS_STATUS,
+        'subtotal' => 0,
+        'total' => 0,
+    ];
+
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class)->withPivot('qty', 'size', 'color', 'subtotal');

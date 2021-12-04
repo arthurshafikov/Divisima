@@ -14,17 +14,8 @@ class CreateImageablesTable extends Migration
     public function up()
     {
         Schema::create('imageables', function (Blueprint $table) {
-            $table->bigInteger('image_id')->unsigned();
-
-            $table->foreign('image_id')
-                    ->references('id')
-                    ->on('images')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
-
+            $table->foreignId('image_id')->constrained('images')->cascadeOnDelete();
             $table->morphs('imageable');
-            // $table->bigInteger('imageable_id')->unsigned();
-            // $table->string('imageable_type');
         });
     }
 

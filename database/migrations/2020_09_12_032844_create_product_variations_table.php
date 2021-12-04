@@ -14,17 +14,8 @@ class CreateProductVariationsTable extends Migration
     public function up()
     {
         Schema::create('product_variations', function (Blueprint $table) {
-            $table->bigInteger('product_id')->unsigned();
-
-            $table->foreign('product_id')
-                ->references('id')->on('products')
-                ->onDelete('cascade');
-
-            $table->bigInteger('variation_id')->unsigned();
-
-            $table->foreign('variation_id')
-                ->references('id')->on('attribute_variations')
-                ->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->foreignId('variation_id')->constrained('attribute_variations')->cascadeOnDelete();
         });
     }
 

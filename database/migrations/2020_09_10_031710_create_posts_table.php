@@ -17,12 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-
-            $table->bigInteger('img')->unsigned()->nullable();
-            $table->foreign('img')
-                ->references('id')->on('images')
-                ->onDelete('set null');
-
+            $table->foreignId('img')->nullable()->constrained('images')->nullOnDelete();
             $table->string('slug')->unique();
             $table->timestamps();
         });

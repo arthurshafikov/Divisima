@@ -15,10 +15,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')
-                ->references('id')->on('categories')
-                ->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
         });
@@ -31,11 +28,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropForeign('category_parent_id_foreign');
-            $table->dropColumn(['parent_id']);
-        });
         Schema::dropIfExists('category');
     }
 }

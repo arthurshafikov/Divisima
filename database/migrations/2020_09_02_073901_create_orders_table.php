@@ -15,27 +15,18 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-
-            $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
-
-            $table->enum('status', ['in_progress', 'on_hold', 'completed', 'declined'])
-                ->default('in_progress');
-
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('status');
             $table->string('address');
             $table->string('zip');
             $table->string('phone');
             $table->string('country');
-            $table->enum('delivery', ['courier', 'post', 'post_express']);
+            $table->string('delivery');
 
             $table->string('additional')->nullable();
-
-            $table->string('subtotal')->default(0);
-            $table->string('discount')->nullable()->default(0);
-            $table->string('total')->default(0);
-
+            $table->string('subtotal');
+            $table->string('discount')->nullable();
+            $table->string('total');
 
             $table->timestamps();
         });

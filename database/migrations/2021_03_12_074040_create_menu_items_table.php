@@ -15,14 +15,7 @@ class CreateMenuItemsTable extends Migration
     {
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('menu_id')->unsigned();
-
-            $table->foreign('menu_id')
-                    ->references('id')
-                    ->on('menus')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
-
+            $table->foreignId('menu_id')->constrained('menus')->cascadeOnDelete();
             $table->string('name');
             $table->string('path');
             $table->timestamps();

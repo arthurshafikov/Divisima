@@ -17,15 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->bigInteger('img')->unsigned()->nullable();
-            $table->foreign('img')
-                ->references('id')->on('images')
-                ->onDelete('set null');
+            $table->foreignId('img')->nullable()->constrained('images')->nullOnDelete();
             $table->bigInteger('price');
-            $table->enum('stock', ['in_stock', 'pre_order', 'out_of_stock'])->default('in_stock');
+            $table->string('stock');
             $table->string('description')->nullable();
             $table->string('details')->nullable();
-
             $table->integer('total_sales')->default(0);
 
             $table->softDeletes();
@@ -39,7 +35,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('products');
     }
 }

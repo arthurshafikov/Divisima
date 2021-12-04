@@ -40,6 +40,10 @@ class Product extends Model
         'description',
     ];
 
+    protected $attributes = [
+        'total_sales' => 0,
+    ];
+
     public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
