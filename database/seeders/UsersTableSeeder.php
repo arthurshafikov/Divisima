@@ -10,8 +10,17 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        User::factory()->admin()->create()->assignRole(Role::ADMIN);
-        User::factory()->testUser()->create();
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'wolf-front@yandex.ru',
+            'password' => '123',
+            'email_verified_at' => now(),
+        ])->assignRole(Role::ADMIN);
+        User::factory()->create([
+            'name' => 'test',
+            'email' => 'test@yandex.ru',
+            'password' => '123',
+        ]);
         User::factory()->count(10)->create();
     }
 }

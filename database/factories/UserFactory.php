@@ -25,27 +25,4 @@ class UserFactory extends Factory
             Profile::factory()->for($user)->create();
         });
     }
-
-    public function admin(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'name' => 'admin',
-                'email' => 'wolf-front@yandex.ru',
-                'password' => '123',
-                'email_verified_at' => now(),
-            ];
-        });
-    }
-
-    public function testUser(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'name' => 'test',
-                'email' => 'test@yandex.ru',
-                'password' => '123',
-            ];
-        });
-    }
 }
