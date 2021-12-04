@@ -56,7 +56,7 @@
         <label class="small mb-1">Categories</label>
         <div class="attributes-wrapper">
             <ul>
-            @foreach (getAllParentCategories() as $category)
+            @foreach (\App\Models\Category::parents()->with('childs')->get() as $category)
                 <li class="attribute-name"><input type="checkbox" name="category[]" id="cat_{{ $category->id }}" value="{{ $category->id }}" {{ echoCheckedIfModelHas($category->id,$post,'category') }}> <label for="cat_{{ $category->id }}">{{ $category->name }}</label></li>
                 @if (count($category->childs) > 0 )
                     <ul class="sub-menu">

@@ -52,30 +52,11 @@ if (!function_exists('getOption')) {
     }
 }
 
-if (!function_exists('getOptions')) {
-    function getOptions($option)
-    {
-        return \Cache::remember($option . '_ALL', env("CACHE_TIME", 0), function () use ($option) {
-            return \App\Includes\OptionHelper::getOption($option);
-        });
-    }
-}
-
 if (!function_exists('getAllAttributes')) {
     function getAllAttributes()
     {
         return \Cache::remember('AllAttributes', env("CACHE_TIME", 0), function () {
             return \App\Models\Attributes\Attribute::with('variations')->get();
-        });
-    }
-}
-
-if (!function_exists('getAllParentCategories')) {
-    function getAllParentCategories()
-    {
-        return \Cache::remember('AllParentCategories', env("CACHE_TIME", 0), function () {
-            $cats = \App\Models\Category::where('parent_id', null)->get();
-            return $cats;
         });
     }
 }

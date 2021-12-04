@@ -28,11 +28,11 @@
         </div>
 
     </div>
-    
+
     <x-input type="number" name="price" :value="old('price')" placeholder="Price of the product" label="Price" />
-    
+
     <x-textarea label="Details" name="details" placeholder="Details of the product" :value="old('details')" />
-    
+
     <x-textarea label="Description" name="description" placeholder="Description of the product" :value="old('description')" />
 
 
@@ -59,7 +59,7 @@
         <label class="small mb-1">Categories</label>
         <div class="attributes-wrapper">
             <ul>
-                @foreach (getAllParentCategories() as $category)
+                @foreach (\App\Models\Category::parents()->with('childs')->get() as $category)
                 <li class="attribute-name"><input type="checkbox" name="category[]" id="cat_{{ $category->id }}" value="{{ $category->id }}" {{ echoCheckedIfOldHas($category->id,'category') }} >
                  <label for="cat_{{ $category->id }}">{{ $category->name }}</label>
                 </li>
@@ -77,7 +77,7 @@
 
     <x-select name="stock" label="Stock" :array="App\Models\Product::PRODUCT_STOCK_STATUSES" :compared="old('stock')"/>
 
-    
+
     @include('admin.parts.form.button')
 </form>
 @endsection
