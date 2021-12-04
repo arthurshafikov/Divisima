@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\ViewComposers;
+namespace App\ViewComposers;
 
 use App\Includes\BreadCrumbs;
 use Illuminate\Contracts\View\View;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\ViewComposers\Admin;
+namespace App\ViewComposers\Admin;
 
 use Illuminate\Contracts\View\View;
 

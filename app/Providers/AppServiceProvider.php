@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use App\Http\ViewComposers\Admin\AdminMenuComposer;
-use App\Http\ViewComposers\Admin\ChartsComposer;
-use App\Http\ViewComposers\Admin\MediaComposer;
-use App\Http\ViewComposers\BreadCrumbsViewComposer;
-use App\Http\ViewComposers\FooterViewComposer;
-use App\Http\ViewComposers\HeaderViewComposer;
-use App\Http\ViewComposers\RecentlyViewed;
-use App\Http\ViewComposers\ShopViewComposer;
-use App\Http\ViewComposers\SliderViewComposer;
-use App\Http\ViewComposers\TopSellingViewComposer;
+use App\ViewComposers\Admin\AdminMenuComposer;
+use App\ViewComposers\Admin\ChartsComposer;
+use App\ViewComposers\Admin\MediaComposer;
+use App\ViewComposers\BreadCrumbsViewComposer;
+use App\ViewComposers\FooterViewComposer;
+use App\ViewComposers\HeaderViewComposer;
+use App\ViewComposers\RecentlyViewed;
+use App\ViewComposers\ShopViewComposer;
+use App\ViewComposers\SliderViewComposer;
+use App\ViewComposers\TopSellingViewComposer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
