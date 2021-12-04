@@ -5,7 +5,6 @@
 @section('content')
     @include('parts.page-info')
 
-
     <!-- Category section -->
     <section class="category-section spad">
         <div class="container">
@@ -15,7 +14,30 @@
                     <form action="" class='filter-form' method="GET">
                         <div class="filter-widget">
                             <h2 class="fw-title">Categories</h2>
-                            {!! $menu !!}
+
+                            <ul class="category-menu">
+                                @forelse($categories as $category)
+                                    <li>
+                                        <a href="{{ route("category", $category["slug"]) }}"
+                                           title="{{ $category->name }}">
+                                            {{ $category->name }}
+                                        </a>
+                                        @if($category->childs->isNotEmpty())
+                                            <ul class="sub-menu">
+                                                @foreach($category->childs as $childCategory)
+                                                    <li>
+                                                        <a href="{{ route("category", $childCategory["slug"]) }}"
+                                                           title="{{ $childCategory->name }}">
+                                                            {{ $childCategory->name }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @empty
+                                @endforelse
+                            </ul>
                         </div>
 
                         <div class="filter-widget mb-0">

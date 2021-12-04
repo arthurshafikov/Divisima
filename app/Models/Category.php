@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\SluggableTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +36,11 @@ class Category extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function scopeParents(Builder $query): Builder
+    {
+        return $query->whereNull('parent_id');
     }
 
     public function getNameAttribute($value): string
