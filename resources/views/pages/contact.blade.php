@@ -11,15 +11,15 @@
 			<div class="row">
 				<div class="col-lg-6 contact-info">
 					<h3>Get in touch</h3>
-					<p>{{ getOption('company_address') }}</p>
-					<p>{{ getOption('company_phone') }}</p>
-					<p>{{ getOption('company_email') }}</p>
+					<p>{{ setting('company_address') }}</p>
+					<p>{{ setting('company_phone') }}</p>
+					<p>{{ setting('company_email') }}</p>
 					<div class="contact-social">
-						<a href="{{ getOption('pinterest_link') }}"><i class="fa fa-pinterest"></i></a>
-						<a href="{{ getOption('facebook_link') }}"><i class="fa fa-facebook"></i></a>
-						<a href="{{ getOption('twitter_link') }}"><i class="fa fa-twitter"></i></a>
-						<a href="{{ getOption('instagram_link') }}"><i class="fa fa-instagram"></i></a>
-						<a href="{{ getOption('google_link') }}"><i class="fa fa-google-plus"></i></a>
+						<a href="{{ setting('pinterest_link') }}"><i class="fa fa-pinterest"></i></a>
+						<a href="{{ setting('facebook_link') }}"><i class="fa fa-facebook"></i></a>
+						<a href="{{ setting('twitter_link') }}"><i class="fa fa-twitter"></i></a>
+						<a href="{{ setting('instagram_link') }}"><i class="fa fa-instagram"></i></a>
+						<a href="{{ setting('google_link') }}"><i class="fa fa-google-plus"></i></a>
 					</div>
 					<form class="contact-form" action="{{ route('contactEmail') }}">
 						<div class="preloader">

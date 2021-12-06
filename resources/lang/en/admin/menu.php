@@ -35,6 +35,6 @@ return [
         'orders' => 'Orders',
         'users' => 'Users',
         'menus' => 'Menus',
-        'options' => 'Options'
+        'settings' => 'Settings'
     ],
 ];

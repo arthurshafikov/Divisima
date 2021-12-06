@@ -8,7 +8,7 @@
             <div class="col-lg-3 col-sm-6">
                 <div class="footer-widget about-widget">
                     <h2>About</h2>
-                    <p>{{ getOption('footer_about') }}</p>
+                    <p>{{ setting('footer_about') }}</p>
                     <img src="/img/cards.png" alt="">
                 </div>
             </div>
@@ -46,19 +46,19 @@
                     <h2>Questions</h2>
                     <div class="con-info">
                         <span>C.</span>
-                        <p>{{ getOption('company_name') }}</p>
+                        <p>{{ setting('company_name') }}</p>
                     </div>
                     <div class="con-info">
                         <span>B.</span>
-                        <p>{{ getOption('company_address') }}</p>
+                        <p>{{ setting('company_address') }}</p>
                     </div>
                     <div class="con-info">
                         <span>T.</span>
-                        <p>{{ getOption('company_phone') }}</p>
+                        <p>{{ setting('company_phone') }}</p>
                     </div>
                     <div class="con-info">
                         <span>E.</span>
-                        <p>{{ getOption('company_email') }}</p>
+                        <p>{{ setting('company_email') }}</p>
                     </div>
                 </div>
             </div>
@@ -67,13 +67,13 @@
     <div class="social-links-warp">
         <div class="container">
             <div class="social-links">
-                <a href="{{ getOption('instagram_link') }}" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
-                <a href="{{ getOption('google_link') }}" class="google-plus"><i class="fa fa-google-plus"></i><span>g+plus</span></a>
-                <a href="{{ getOption('pinterest_link') }}" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a>
-                <a href="{{ getOption('facebook_link') }}" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
-                <a href="{{ getOption('twitter_link') }}" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
-                <a href="{{ getOption('youtube_link') }}" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
-                <a href="{{ getOption('tumblr_link') }}" class="tumblr"><i class="fa fa-tumblr-square"></i><span>tumblr</span></a>
+                <a href="{{ setting('instagram_link') }}" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
+                <a href="{{ setting('google_link') }}" class="google-plus"><i class="fa fa-google-plus"></i><span>g+plus</span></a>
+                <a href="{{ setting('pinterest_link') }}" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a>
+                <a href="{{ setting('facebook_link') }}" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
+                <a href="{{ setting('twitter_link') }}" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
+                <a href="{{ setting('youtube_link') }}" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
+                <a href="{{ setting('tumblr_link') }}" class="tumblr"><i class="fa fa-tumblr-square"></i><span>tumblr</span></a>
             </div>
 
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

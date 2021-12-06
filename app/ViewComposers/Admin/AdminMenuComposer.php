@@ -70,8 +70,8 @@ class AdminMenuComposer
                     'icon' => 'fa-bars',
                 ],
                 [
-                    'text' => __('admin/menu.pages.options'),
-                    'link' => 'options',
+                    'text' => __('admin/menu.pages.settings'),
+                    'link' => 'settings',
                     'icon' => 'fa-cogs',
                 ],
             ],

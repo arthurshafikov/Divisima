@@ -5,11 +5,11 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromocodeController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -43,8 +43,8 @@ Route::group($group, function () {
         'create', 'store','show',
     ])->names('users');
 
-    Route::get('options', [OptionController::class, 'index'])->name('options');
-    Route::post('options', [OptionController::class, 'save'])->name('options.update');
+    Route::get('settings', [SettingsController::class, 'index'])->name('settings');
+    Route::post('settings', [SettingsController::class, 'save'])->name('settings.update');
 
     Route::middleware(['ajax'])->group(function () {
         Route::get('/gallery/load', [MediaController::class, 'loadGallery'])->name('loadGallery');

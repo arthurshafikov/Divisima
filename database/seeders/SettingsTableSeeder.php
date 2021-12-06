@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Option;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
-class OptionsTableSeeder extends Seeder
+class SettingsTableSeeder extends Seeder
 {
     public function run()
     {
@@ -38,10 +37,8 @@ class OptionsTableSeeder extends Seeder
             Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>',
         ];
         foreach ($options as $key => $value) {
-            Option::create([
-                'key' => $key,
-                'value' => $value,
-            ]);
+            setting([$key => $value]);
         }
+        setting()->save();
     }
 }

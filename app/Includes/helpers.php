@@ -43,15 +43,6 @@ if (!function_exists('getProductAttributes')) {
     }
 }
 
-if (!function_exists('getOption')) {
-    function getOption(string $option, $val = false)
-    {
-        return \Cache::remember($option, env("CACHE_TIME", 0), function () use ($option, $val) {
-            return \App\Services\OptionService::getOption($option, $val);
-        });
-    }
-}
-
 if (!function_exists('getAllAttributes')) {
     function getAllAttributes()
     {

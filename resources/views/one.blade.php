@@ -123,17 +123,17 @@
 									<!-- <h4>7 Days Returns</h4>
 									<p>Cash on Delivery Available<br>Home Delivery <span>3 - 4 days</span></p>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p> -->
-									{!! getOption('shipping_return_info') !!}
+									{!! setting('shipping_return_info') !!}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="social-sharing">
-						<a href="{{ getOption('google_link') }}"><i class="fa fa-google-plus"></i></a>
-						<a href="{{ getOption('pinterest_link') }}"><i class="fa fa-pinterest"></i></a>
-						<a href="{{ getOption('facebook_link') }}"><i class="fa fa-facebook"></i></a>
-						<a href="{{ getOption('twitter_link') }}"><i class="fa fa-twitter"></i></a>
-						<a href="{{ getOption('youtube_link') }}"><i class="fa fa-youtube"></i></a>
+						<a href="{{ setting('google_link') }}"><i class="fa fa-google-plus"></i></a>
+						<a href="{{ setting('pinterest_link') }}"><i class="fa fa-pinterest"></i></a>
+						<a href="{{ setting('facebook_link') }}"><i class="fa fa-facebook"></i></a>
+						<a href="{{ setting('twitter_link') }}"><i class="fa fa-twitter"></i></a>
+						<a href="{{ setting('youtube_link') }}"><i class="fa fa-youtube"></i></a>
 					</div>
 				</div>
 			</div>

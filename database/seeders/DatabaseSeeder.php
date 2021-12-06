@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             RoleTableSeeder::class,
             AttributesTableSeeder::class,
-            OptionsTableSeeder::class,
+            SettingsTableSeeder::class,
         ]);
 
         if (app()->environment('local', 'development')) {
