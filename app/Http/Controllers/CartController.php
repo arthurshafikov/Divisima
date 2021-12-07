@@ -20,9 +20,9 @@ class CartController extends Controller
 
     public function addToCart(AddToCartRequest $request, int $id): Response
     {
-        Cart::addToCart($request->validated(), $id);
+        $cartQuantity = Cart::addToCart($request->validated(), $id);
 
-        return new Response(Cart::getCartQtySum());
+        return new Response($cartQuantity);
     }
 
     public function updateCart(): JsonResponse

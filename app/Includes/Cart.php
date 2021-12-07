@@ -13,7 +13,7 @@ class Cart
     private const CART_COOKIE_ITEM_QTY = 'qty';
     private const CART_COOKIE_ITEM_ATTRIBUTES = 'attributes';
 
-    public static function addToCart(array $params, int $id): void
+    public static function addToCart(array $params, int $id): int
     {
         Product::findOrFail($id);
         $qty = $params['qty'];
@@ -31,6 +31,8 @@ class Cart
         }
 
         CookieHelper::setJSONCookie(self::CART_COOKIE_NAME, $items, self::CART_COOKIE_TIME);
+
+        return self::getCartQtySum($items);
     }
 
     public static function updateCart(Collection $items): array
@@ -85,11 +87,15 @@ class Cart
         return $items;
     }
 
-    public static function getCartQtySum(): int
+    public static function getCartQtySum(?array $cart = null): int
     {
+        if (is_null($cart)) {
+            $cart = self::getCartCookie();
+        }
+
         $qty = 0;
-        foreach (self::getCartCookie() as $el) {
-            $qty += $el[self::CART_COOKIE_ITEM_QTY];
+        foreach ($cart as $item) {
+            $qty += $item[self::CART_COOKIE_ITEM_QTY];
         }
 
         return $qty;
