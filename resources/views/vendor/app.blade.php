@@ -20,7 +20,8 @@
     @yield('content')
 
     @include ('parts.footer.footer')
-	@include('parts.messages.success')
-    
+	@include ('parts.messages.success')
+	@include ('parts.cart.attributes')
+
 	</body>
 </html>

@@ -19648,73 +19648,78 @@ $(document).ready(function () {
   });
   addQuantityChangeInCart();
   /* Add to cart */
-  // $(".add-cart").click(function(e){
 
-  $("body").on("click", ".add-cart", function (e) {
+  $("body").on("click", ".add-cart-open-modal", function (e) {
+    // rename
     e.preventDefault();
     var url = $(this).attr('href');
-    var qty = $(this).prev().find('input.qty').val();
-    var size, color;
-    var details = $(this).parents('.product-details');
+    $.ajax({
+      method: 'GET',
+      url: url,
+      success: function success(res) {
+        var attributesModal = $('.attributes-select');
+        attributesModal.modal('show');
+        attributesModal.find(".modal-content").html(res);
+      },
+      error: function error(xhr) {
+        log(xhr);
+        log('error');
+      }
+    });
+  });
+  $("body").on("click", ".add-to-cart", function (e) {
+    var url = $(this).attr('href');
+    var qty, size, color;
+    var attributes = $(this).parents(".modal-content").find(".product-attributes");
+    qty = attributes.find('input.qty').val();
 
-    if (details.length > 0) {
-      var size_check = details.find('.fw-size-choose input:checked');
-      var color_check = details.find('.fw-color-choose input:checked');
+    if (attributes.length > 0) {
+      var size_check = attributes.find('.fw-size-choose input:checked');
+      var color_check = attributes.find('.fw-color-choose input:checked');
       size = size_check.val();
       color = color_check.val();
     }
-
-    log(size);
-    log(color);
-    log('qty is ' + qty);
 
     if (qty === undefined) {
       qty = 1;
     }
 
-    log(url);
-    var $this = $(this); // if($this.hasClass('success')){
-    //  return false;
-    // }
-
+    var $this = $(this);
+    var data = {
+      qty: qty,
+      attributes: {
+        color: color,
+        size: size
+      }
+    };
+    log(data);
     $.ajax({
       method: 'GET',
       url: url,
-      data: {
-        qty: qty,
-        size: size,
-        color: color
-      },
-      // dataType:'json',
+      data: data,
+      dataType: 'json',
       beforeSend: function beforeSend(xhr) {
         $this.removeClass('error');
         $this.removeClass('success');
-        $this.find('span').text('Adding...');
+        $this.text('Adding...');
         $this.addClass('loading');
       },
       success: function success(res) {
         log(res);
         changeCartQuantity(res);
-        $this.find('span').text('Success!');
+        $this.text('Success!');
         $this.addClass('success');
       },
       error: function error(xhr) {
         log(xhr);
         log('error');
         $this.addClass('error');
-        $this.find('span').text('Error!');
+        $this.text('Error!');
       },
       complete: function complete(xhr) {
         $this.removeClass('loading');
       }
     });
-  });
-  $("body").on('change', '.color-col select', function (e) {
-    var parent = $(this).parents('.selectric-wrapper');
-    var btn = parent.find('.selectric .button');
-    btn[0].className = 'button';
-    var optionClass = $(this).find('option:selected')[0].className;
-    btn.addClass(optionClass); // $(this).addClass(optionClass);
   });
   $("body").on("click", ".cart-update", function (e) {
     e.preventDefault();
@@ -19730,9 +19735,7 @@ $(document).ready(function () {
 
       data.push({
         id: $(product).data('id'),
-        qty: qty,
-        size: $(product).find('select[name="size"]').val(),
-        color: $(product).find('select[name="color"]').val()
+        qty: qty
       });
     });
     log(data);

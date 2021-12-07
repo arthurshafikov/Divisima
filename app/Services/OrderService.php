@@ -35,8 +35,7 @@ class OrderService
         $cartData['items']->each(function ($item) use ($order) {
             $order->products()->attach($item->id, [
                 'qty' => $item['qty'],
-                'size' => $item['size'],
-                'color' => $item['color'],
+                'attributes' => $item['attributes'],
                 'subtotal' => $item['number_subtotal'],
             ]);
         });

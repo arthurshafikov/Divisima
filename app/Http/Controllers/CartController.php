@@ -17,7 +17,7 @@ class CartController extends Controller
         ]));
     }
 
-    public function addToCart($id): Response
+    public function addToCart(int $id): Response // todo add request
     {
         Cart::addToCart($id);
 

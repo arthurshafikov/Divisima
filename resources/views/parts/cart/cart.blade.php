@@ -1,11 +1,11 @@
 @include('parts.flashes')
 <div class="row">
-    @if (count($items) < 1) 
-        Your cart is empty! 
-    @else 
+    @if (count($items) < 1)
+        Your cart is empty!
+    @else
     <div class="col-lg-8">
         <div class="cart-table">
-            
+
             <div class="preloader">
                 <div class="loader"></div>
             </div>
@@ -40,25 +40,10 @@
                                     </div>
                                 </td>
                                 <td class="size-col">
-                                    
-                                    <select name="size">
-                                        @forelse (getProductAttribute('size',$item->id) as $attr)
-                                            <option value="{{ $attr->name }}" {{ $attr->name == $item->size ? 'selected' : ''}}><h4>{{ $attr->name }}</h4></option>
-                                        @empty 
-                                            123
-                                        @endforelse 
-                                    </select>
+                                    {{ mb_strtoupper(data_get($item->attributes, 'size')) }}
                                 </td>
                                 <td class="color-col">
-
-                                    <select name="color" class="color-select" data-color="{{ $item->color }}-color">
-                                        @forelse (getProductAttribute('color',$item->id) as $attr)
-                                            <option value="{{ $attr->name }}" class="{{ $attr->name }}-color" {{ $attr->name == $item->color ? 'selected' : ''}}>
-                                            </option>
-                                        @empty 
-                                            123
-                                        @endforelse 
-                                    </select>
+                                    <span class="{{ data_get($item->attributes, 'color') }}-color"></span>
                                 </td>
                                 <td class="total-col">
                                     <h4>${{ $item->total }}</h4>
@@ -77,14 +62,14 @@
                                 <td><h6>Promocode applied</h6></td>
                                 <td><h6><span>{{ $promocode }}%</span></h6></td>
                                 <td><form action="{{ route('removePromocode') }}" method="POST">
-                                        @csrf 
+                                        @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-primary">Delete</button>
 
                                     </form></td>
                             </tr>
                         @endif
-                        
+
                         <tr>
                             <td><h6>Total</h6></td>
                             <td><h6><span>${{ $total }}</span></h6></td>
@@ -92,7 +77,7 @@
                         </tr>
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
     </div>
