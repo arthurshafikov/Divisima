@@ -18,8 +18,7 @@ class CreateOrderProductsTable extends Migration
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
 
             $table->string('qty')->default(0);
-            $table->string('size')->nullable();
-            $table->string('color')->nullable();
+            $table->json('attributes');
             $table->string('subtotal')->default(0);
         });
     }

@@ -48,37 +48,6 @@
 					<div class="p-review">
 						<a data-src="#reviews" href="{{ route('getReviews',$id) }}" onclick="return false" class="reviews-load">{{ $ratingCount }} reviews</a>|<a data-fancybox data-src="#add-review" href="javascript:;"> Add your review</a>
                     </div>
-
-
-					@if ($sizes->count() > 0)
-						<div class="fw-size-choose choose-radio">
-
-							<p>Size</p>
-							@foreach ($sizes as $size)
-								<div class="sc-item choose-item">
-									<input type="radio" name="size" id="{{ $size->name }}-size" value="{{ $size->name }}">
-									<label for="{{ $size->name }}-size">{{ $size->name }}</label>
-								</div>
-							@endforeach
-
-
-						</div>
-					@endif
-
-					@if ($colors->count() > 0)
-						<div class="fw-color-choose choose-radio">
-
-							<p>Colors</p>
-							@foreach ($colors as $color)
-								<div class="cs-item choose-item">
-									<input type="radio" name="color" id="{{ $color->name }}-color" value="{{ $color->name }}">
-									<label for="{{ $color->name }}-color" class="{{ $color->name }}-color"></label>
-								</div>
-							@endforeach
-
-						</div>
-					@endif
-
 					@if ($brands->count() > 0)
 						<div class="product-brands">
 							<p>Brands: </p>
@@ -86,11 +55,7 @@
 						</div>
 					@endif
 					<br>
-					<div class="quantity">
-						<p>Quantity</p>
-                        <div class="pro-qty"><input type="text" value="1" class="qty"></div>
-                    </div>
-					<a href="{{ route('addToCart',$product->id) }}" class="add-cart site-btn"><span>ADD TO CART</span></a>
+					<a href="{{ route('loadAttributes', $product->id) }}" class="add-cart-open-modal site-btn"><span>ADD TO CART</span></a>
 					<div id="accordion" class="accordion-area">
 						<div class="panel">
 							<div class="panel-header" id="headingOne">

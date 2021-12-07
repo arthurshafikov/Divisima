@@ -26,8 +26,6 @@ class ProductController extends Controller
         $ratingCount = count($rating);
         $rating = round($rating->avg());
 
-        $sizes = getProductAttribute('size', $product->id);
-        $colors = getProductAttribute('color', $product->id);
         $brands = getProductAttribute('brand', $product->id);
 
         return view('one')->with([
@@ -37,8 +35,6 @@ class ProductController extends Controller
             'id'      => $product->id,
             'rating'  => $rating,
             'ratingCount' => $ratingCount,
-            'sizes' => $sizes,
-            'colors' => $colors,
             'brands' => $brands,
         ]);
     }
@@ -68,6 +64,16 @@ class ProductController extends Controller
 
         return view('parts.product.product-loop', [
             'products' => $products,
+        ])->render();
+    }
+
+    public function loadAttributes(int $id): string
+    {
+        $product = Product::findOrFail($id);
+        return view('parts.cart.attributes-select', [
+            'product' => $product,
+            'colors' => getProductAttribute('color', $product->id),
+            'sizes' => getProductAttribute('size', $product->id),
         ])->render();
     }
 }

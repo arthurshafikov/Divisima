@@ -263,79 +263,82 @@ $(document).ready(function () {
     addQuantityChangeInCart();
     /* Add to cart */
 
-    // $(".add-cart").click(function(e){
-    $("body").on("click", ".add-cart", function (e) {
+    $("body").on("click", ".add-cart-open-modal", function (e) { // rename
         e.preventDefault();
 
-        var url = $(this).attr('href');
-        var qty = $(this).prev().find('input.qty').val();
-        var size,color;
+        let url = $(this).attr('href');
+        $.ajax({
+            method: 'GET',
+            url: url,
+            success: function (res) {
+                let attributesModal = $('.attributes-select')
+                attributesModal.modal('show');
+                attributesModal.find(".modal-content").html(res);
+            },
+            error: function (xhr) {
+                log(xhr);
+                log('error');
+            }
+        });
+    });
 
-        var details = $(this).parents('.product-details');
-        if (details.length > 0) {
-            var size_check = details.find('.fw-size-choose input:checked');
-            var color_check = details.find('.fw-color-choose input:checked');
+    $("body").on("click", ".add-to-cart", function (e) {
+        let url = $(this).attr('href');
+        let qty, size, color;
+
+        let attributes = $(this).parents(".modal-content").find(".product-attributes");
+
+        qty = attributes.find('input.qty').val()
+
+        if (attributes.length > 0) {
+            let size_check = attributes.find('.fw-size-choose input:checked');
+            let color_check = attributes.find('.fw-color-choose input:checked');
 
             size = size_check.val();
             color = color_check.val();
         }
-        log(size);
-        log(color);
-        log('qty is ' + qty);
+
         if (qty === undefined) {
             qty = 1;
         }
-        log(url);
-        var $this = $(this);
-        // if($this.hasClass('success')){
-        //  return false;
-        // }
+        let $this = $(this);
+        let data = {
+            qty,
+            attributes: {
+                color,
+                size,
+            },
+        }
+        log(data)
         $.ajax({
             method: 'GET',
             url: url,
-            data: {
-                qty,
-                size,
-                color,
-            },
-            // dataType:'json',
+            data: data,
+            dataType:'json',
             beforeSend: function (xhr) {
                 $this.removeClass('error');
                 $this.removeClass('success');
-                $this.find('span').text('Adding...');
+                $this.text('Adding...');
                 $this.addClass('loading');
             },
             success: function (res) {
                 log(res);
                 changeCartQuantity(res);
-                $this.find('span').text('Success!');
+                $this.text('Success!');
                 $this.addClass('success');
             },
             error: function (xhr) {
                 log(xhr);
                 log('error');
                 $this.addClass('error');
-                $this.find('span').text('Error!');
+                $this.text('Error!');
             },
             complete:function (xhr) {
                 $this.removeClass('loading');
-
             },
         });
-    });
-    $("body").on('change','.color-col select',function (e) {
+    })
 
-        var parent = $(this).parents('.selectric-wrapper');
-        var btn = parent.find('.selectric .button');
-
-        btn[0].className = 'button';
-
-
-        var optionClass = $(this).find('option:selected')[0].className;
-
-        btn.addClass(optionClass);
-        // $(this).addClass(optionClass);
-    });
     $("body").on("click", ".cart-update", function (e) {
         e.preventDefault();
 
@@ -352,8 +355,6 @@ $(document).ready(function () {
             data.push({
                 id: $(product).data('id'),
                 qty: qty,
-                size: $(product).find('select[name="size"]').val(),
-                color: $(product).find('select[name="color"]').val(),
             });
         });
         log(data);

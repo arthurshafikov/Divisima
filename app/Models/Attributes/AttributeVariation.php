@@ -31,6 +31,6 @@ class AttributeVariation extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_variations', 'variation_id');
+        return $this->belongsToMany(Product::class)->using(AttributeVariationProduct::class);
     }
 }

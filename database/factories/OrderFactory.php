@@ -33,8 +33,10 @@ class OrderFactory extends Factory
             for ($i = 0; $i < 4; $i++) {
                 $order->products()->attach(Product::factory()->create(), [
                     'qty' => $this->faker->numberBetween(1, 20),
-                    'size' => 'M',
-                    'color' => 'black',
+                    'attributes' => [
+                        'size' => 'M',
+                        'color' => 'black',
+                    ],
                     'subtotal' => $this->faker->numberBetween(1, 9999),
                 ]);
             }

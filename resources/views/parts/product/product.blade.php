@@ -2,7 +2,7 @@
     <div class="pi-pic">
         <img src="{{ $product->img() }}" alt="">
         <div class="pi-links">
-            <a href="{{ route('addToCart',$product->id) }}" class="add-cart"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+            <a href="{{ route('loadAttributes',$product->id) }}" class="add-cart-open-modal"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
             <a href="{{ route('addToWishlist',$product->id) }}" class="wishlist-btn"><i class="flaticon-heart"></i></a>
         </div>
     </div>

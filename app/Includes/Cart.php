@@ -11,33 +11,20 @@ class Cart
     private const CART_COOKIE_NAME = 'cart';
     private const CART_COOKIE_TIME = 60 * 24;
     private const CART_COOKIE_ITEM_QTY = 'qty';
-    private const CART_COOKIE_ITEM_SIZE = 'size';
-    private const CART_COOKIE_ITEM_COLOR = 'color';
+    private const CART_COOKIE_ITEM_ATTRIBUTES = 'attributes';
 
     public static function addToCart(int $id): void
     {
         Product::findOrFail($id);
-        $qty = request()->qty ?? 1;
-        $size = request()->size ?? '';
-        $color = request()->color ?? '';
+        $qty = request()->input('qty', 1);
+        $attributes = request()->input('attributes', []);
 
         $items = self::getCartCookie();
         if (!array_key_exists($id, $items)) {
-            if ($color !== '' || $size !== '') {
-                $attributes = getProductAttributes(['size', 'color'], $id);
-                $variations = $attributes->pluck('name')->toArray();
-
-                if (
-                    ( !in_array($size, $variations) && $size !== '-' )
-                    || ( !in_array($color, $variations) && $color !== '-' )
-                ) {
-                    abort(500);
-                }
-            }
+            // todo make products with different attributes add normally
             $items[$id] = [
                 self::CART_COOKIE_ITEM_QTY => $qty,
-                self::CART_COOKIE_ITEM_SIZE => $size,
-                self::CART_COOKIE_ITEM_COLOR => $color,
+                self::CART_COOKIE_ITEM_ATTRIBUTES => $attributes,
             ];
         } else {
             $items[$id][self::CART_COOKIE_ITEM_QTY] += $qty;
@@ -48,9 +35,15 @@ class Cart
 
     public static function updateCart(Collection $items): array
     {
-        $cart = $items->keyBy('id')->toArray();
+        $cart = self::getCartCookie();
 
-        $cartData = Cart::getCart($cart);
+        $cart = array_intersect_key($cart, $items->keyBy('id')->toArray());
+
+        foreach ($items as $item) {
+            $cart[$item['id']][self::CART_COOKIE_ITEM_QTY] = $item['qty'];
+        }
+
+        $cartData = self::getCart($cart);
 
         if ($items->isEmpty()) {
             self::resetCart();
@@ -82,8 +75,7 @@ class Cart
                 if (
                     !is_array($item) ||
                     !array_key_exists(self::CART_COOKIE_ITEM_QTY, $item) ||
-                    !array_key_exists(self::CART_COOKIE_ITEM_SIZE, $item) ||
-                    !array_key_exists(self::CART_COOKIE_ITEM_COLOR, $item)
+                    !array_key_exists(self::CART_COOKIE_ITEM_ATTRIBUTES, $item)
                 ) {
                     self::resetCart();
                     return [];
@@ -117,8 +109,7 @@ class Cart
             $total = $product->price * $cart[$product->id][self::CART_COOKIE_ITEM_QTY];
             $product['total'] = number_format($total, 2);
             $product['number_subtotal'] = $total;
-            $product['size'] = $cart[$product->id][self::CART_COOKIE_ITEM_SIZE];
-            $product['color'] = $cart[$product->id][self::CART_COOKIE_ITEM_COLOR];
+            $product['attributes'] = data_get($cart, sprintf("%s.attributes", $product->id));
             $product['qty'] = $cart[$product->id][self::CART_COOKIE_ITEM_QTY];
             $cartTotal += $total;
         });

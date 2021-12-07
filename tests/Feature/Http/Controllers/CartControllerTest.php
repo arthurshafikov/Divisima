@@ -44,7 +44,7 @@ class CartControllerTest extends TestCase
     public function testGetCart()
     {
         $product = Product::factory()->create();
-        $cart = '{"' . $product->id . '":{"qty":"2","size":"","color":""} }';
+        $cart = '{"' . $product->id . '":{"qty":"2","attributes":{}} }';
 
         $response = $this->withCookie('cart', $cart)->get(route('cart'));
 
@@ -59,19 +59,6 @@ class CartControllerTest extends TestCase
             'id' => $product->id,
         ]));
         $response->assertOk();
-    }
-
-    public function testWrongAddToCart()
-    {
-        $product = Product::factory()->create();
-
-        $response = $this->get(route('addToCart', [
-            'id' => $product->id,
-            'size' => 'fasQ#J#!I@DSAF',
-            'color' => '12fasQ#412J1#24!1I@124124DSAF',
-        ]));
-
-        $response->assertStatus(500);
     }
 
     public function testResetCart()

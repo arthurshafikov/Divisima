@@ -19,8 +19,9 @@ Route::middleware(['ajax'])->group(function () {
     Route::get('/wishlist/remove/{id}', [WishlistController::class, 'removeFromWishlist'])->name('removeFromWishlist');
 
     Route::get('/getProducts/top-selling', [ProductController::class, 'getTopSellingProducts'])->name('getTopSellingProducts');
+    Route::get('/product/{id}/load-attributes', [ProductController::class, 'loadAttributes'])->name('loadAttributes');
 
-    Route::get('/add_to_cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('/cart/{id}/add', [CartController::class, 'addToCart'])->name('addToCart');
     Route::get('/cart/update_cart', [CartController::class, 'updateCart'])->name('updateCart');
 
     Route::post('/account/upload-avatar', [ProfileController::class, 'uploadAvatar'])->name('upload-avatar');

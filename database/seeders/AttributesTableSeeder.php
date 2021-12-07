@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Attributes\Attribute;
 use App\Models\Attributes\AttributeVariation;
-use App\Models\Product;
 
 class AttributesTableSeeder extends Seeder
 {
@@ -49,13 +48,5 @@ class AttributesTableSeeder extends Seeder
                 ]);
             }
         endforeach;
-
-        $products = Product::all();
-
-        $attributes = AttributeVariation::all();
-
-        foreach ($products as $product) {
-            $product->attributes()->attach($attributes->random(10)->pluck('id')->toArray());
-        }
     }
 }

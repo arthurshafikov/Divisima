@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pivot\OrderProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,7 +54,7 @@ class Order extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->withPivot('qty', 'size', 'color', 'subtotal');
+        return $this->belongsToMany(Product::class)->using(OrderProduct::class);
     }
 
     public function user(): BelongsTo

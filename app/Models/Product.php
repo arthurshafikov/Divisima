@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Filters\QueryFilter;
 use App\Models\Attributes\AttributeVariation;
+use App\Models\Attributes\AttributeVariationProduct;
+use App\Models\Pivot\OrderProduct;
 use App\Models\Traits\HasImage;
 use App\Models\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -51,12 +53,7 @@ class Product extends Model
 
     public function attributes(): BelongsToMany
     {
-        return $this->belongsToMany(
-            AttributeVariation::class,
-            'product_variations',
-            null,
-            'variation_id'
-        );
+        return $this->belongsToMany(AttributeVariation::class)->using(AttributeVariationProduct::class);
     }
 
     public function getFormattedPriceAttribute(): string
@@ -66,7 +63,7 @@ class Product extends Model
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class)->withPivot('qty', 'size', 'color', 'subtotal');
+        return $this->belongsToMany(Order::class)->using(OrderProduct::class);
     }
 
     public function getStockStatusAttribute(): string
