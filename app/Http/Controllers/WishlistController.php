@@ -25,7 +25,7 @@ class WishlistController extends Controller
     public function addToWishlist($id): void
     {
         Product::findOrFail($id);
-        CookieHelper::updateArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
+        CookieHelper::addToArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
     }
 
     public function removeFromWishlist($id): void

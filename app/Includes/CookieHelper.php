@@ -24,7 +24,7 @@ class CookieHelper
         return null;
     }
 
-    public static function updateArrayCookie(
+    public static function addToArrayCookie(
         string $cookieName,
         $value,
         ?int $minutes = null,
