@@ -7,21 +7,21 @@ use Illuminate\View\Component;
 class Select extends Component
 {
     public string $name;
-    public string $default;
-    public string $field;
-    public array $array;
+    public mixed $array;
     public mixed $compared;
     public string $label;
+    public string $default;
+    public string $field;
     public string $labelField;
 
     public function __construct(
-        $name,
-        $array,
-        $compared,
-        $label = '',
-        $default = false,
-        $field = 'id',
-        $labelField = 'name'
+        string $name,
+        mixed $array,
+        mixed $compared,
+        string $label = '',
+        string $default = '',
+        string $field = 'id',
+        string $labelField = 'name'
     ) {
         $this->name = $name;
         $this->array = $array;

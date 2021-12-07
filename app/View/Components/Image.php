@@ -15,13 +15,13 @@ class Image extends Component
     public string $imgId;
 
     public function __construct(
-        $label = 'Image',
-        $name = 'img',
-        $inputId = 'featured_img',
-        $value = '',
-        $selectText = 'Select Images',
-        $src = '',
-        $imgId = 'featured_preview'
+        string $label = 'Image',
+        string $name = 'img',
+        string $inputId = 'featured_img',
+        mixed $value = '',
+        string $selectText = 'Select Images',
+        mixed $src = '',
+        string $imgId = 'featured_preview'
     ) {
         $this->label = $label;
         $this->name = $name;

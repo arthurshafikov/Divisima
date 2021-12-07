@@ -7,12 +7,12 @@ use Illuminate\View\Component;
 class MultipleItems extends Component
 {
     public mixed $name;
-    public string $post;
-    public string $iterable;
-    public string $placeholder;
-    public string $columns;
+    public mixed $post;
+    public ?string $iterable;
+    public mixed $placeholder;
+    public mixed $columns;
 
-    public function __construct($name, $post, $iterable, $pholder, $columns = '')
+    public function __construct(mixed $name, mixed $post, ?string $iterable, mixed $pholder, mixed $columns = '')
     {
         $this->name = $name;
         $this->post = $post;

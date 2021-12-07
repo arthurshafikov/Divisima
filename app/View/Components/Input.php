@@ -14,11 +14,11 @@ class Input extends Component
     public string $class;
 
     public function __construct(
-        $name = 'name',
-        $value = '',
-        $type = 'text',
-        $pholder = '',
-        $label = ''
+        string $name = 'name',
+        mixed $value = '',
+        string $type = 'text',
+        string $pholder = '',
+        string $label = ''
     ) {
         $this->name = $name;
         $this->value = $value;
