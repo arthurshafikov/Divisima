@@ -57,6 +57,10 @@ class CartControllerTest extends TestCase
         $product = Product::factory()->create();
         $response = $this->get(route('addToCart', [
             'id' => $product->id,
+            'qty' => 5,
+            'attributes' => [
+                'size' => 'M',
+            ],
         ]));
         $response->assertOk();
     }

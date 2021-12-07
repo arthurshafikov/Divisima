@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddToCartRequest;
 use App\Includes\Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -17,9 +18,9 @@ class CartController extends Controller
         ]));
     }
 
-    public function addToCart(int $id): Response // todo add request
+    public function addToCart(AddToCartRequest $request, int $id): Response
     {
-        Cart::addToCart($id);
+        Cart::addToCart($request->validated(), $id);
 
         return new Response(Cart::getCartQtySum());
     }
