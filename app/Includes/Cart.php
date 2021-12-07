@@ -13,11 +13,11 @@ class Cart
     private const CART_COOKIE_ITEM_QTY = 'qty';
     private const CART_COOKIE_ITEM_ATTRIBUTES = 'attributes';
 
-    public static function addToCart(int $id): void
+    public static function addToCart(array $params, int $id): void
     {
         Product::findOrFail($id);
-        $qty = request()->input('qty', 1);
-        $attributes = request()->input('attributes', []);
+        $qty = $params['qty'];
+        $attributes = data_get($params, 'attributes', []);
 
         $items = self::getCartCookie();
         if (!array_key_exists($id, $items)) {
