@@ -12,6 +12,15 @@ class Attribute extends Model
     use SluggableTrait;
     use HasFactory;
 
+    public const SIZE_TYPE = 'size';
+    public const COLOR_TYPE = 'color';
+    public const BRAND_TYPE = 'brand';
+    public const TYPES = [
+        self::SIZE_TYPE,
+        self::COLOR_TYPE,
+        self::BRAND_TYPE,
+    ];
+
     public $timestamps = false;
 
     protected $fillable = [

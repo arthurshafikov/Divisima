@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Attributes\Attribute;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -59,7 +60,7 @@ class CartControllerTest extends TestCase
             'id' => $product->id,
             'qty' => 5,
             'attributes' => [
-                'size' => 'M',
+                Attribute::SIZE_TYPE => 'M',
             ],
         ]));
         $response->assertOk();
@@ -83,8 +84,10 @@ class CartControllerTest extends TestCase
             $items[] = [
                 'id' => $product->id,
                 'qty' => '1',
-                'size' => '',
-                'color' => '',
+                'attributes' => [
+                    Attribute::SIZE_TYPE => '',
+                    Attribute::COLOR_TYPE => '',
+                ],
             ];
         }
 

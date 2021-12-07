@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ProductViewed;
 use App\Filters\ProductFilter;
+use App\Models\Attributes\Attribute;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -72,8 +73,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         return view('parts.cart.attributes-select', [
             'product' => $product,
-            'colors' => getProductAttribute('color', $product->id),
-            'sizes' => getProductAttribute('size', $product->id),
+            'colors' => getProductAttribute(Attribute::COLOR_TYPE, $product->id),
+            'sizes' => getProductAttribute(Attribute::SIZE_TYPE, $product->id),
         ])->render();
     }
 }
