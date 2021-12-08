@@ -63,7 +63,9 @@ class Product extends Model
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class)->using(OrderProduct::class);
+        return $this->belongsToMany(Order::class)
+            ->using(OrderProduct::class)
+            ->withPivot(['qty', 'attributes', 'subtotal']);
     }
 
     public function getStockStatusAttribute(): string

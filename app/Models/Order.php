@@ -54,7 +54,9 @@ class Order extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->using(OrderProduct::class);
+        return $this->belongsToMany(Product::class)
+            ->using(OrderProduct::class)
+            ->withPivot(['qty', 'attributes', 'subtotal']);
     }
 
     public function user(): BelongsTo

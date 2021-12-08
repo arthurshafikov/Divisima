@@ -37,8 +37,8 @@
                                     <tr>
                                         <td><img src="{{$product->image->img}}" alt="product"></td>
                                         <td><a href="{{ route('product', $product->slug ) }}">{{$product->name}}</a></td>
-                                        <td>{{$product->pivot->color}}</td>
-                                        <td>{{$product->pivot->size}}</td>
+                                        <td>{{data_get($product->pivot->attributes, 'color')}}</td>
+                                        <td>{{data_get($product->pivot->attributes, 'size')}}</td>
                                         <td>{{$product->formatted_price}}</td>
                                         <td>{{$product->pivot->qty}}</td>
                                         <td>{{$product->formatted_subtotal}}</td>
