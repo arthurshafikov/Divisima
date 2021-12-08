@@ -25,6 +25,13 @@ class CartController extends Controller
         return new Response($cartQuantity);
     }
 
+    public function removeFromCart(int $id): Response
+    {
+        $cartQuantity = Cart::removeFromCart($id);
+
+        return new Response($cartQuantity);
+    }
+
     public function updateCart(): JsonResponse
     {
         $items = collect(request()->input('items'));

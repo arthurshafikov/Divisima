@@ -20,6 +20,7 @@
                             <th class="size-th">Size</th>
                             <th class="color-th">Color</th>
                             <th class="total-th">Price</th>
+                            <th class="total-th">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +48,15 @@
                                 </td>
                                 <td class="total-col">
                                     <h4>${{ $item->total }}</h4>
+                                </td>
+                                <td class="remove-col">
+                                    <form action="{{ route('removeFromCart', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="remove-from-cart" aria-label="Remove">
+                                            &times;
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -35,6 +35,17 @@ class Cart
         return self::getCartQtySum($items);
     }
 
+    public static function removeFromCart(int $id): int
+    {
+        $items = self::getCartCookie();
+        if (array_key_exists($id, $items)) {
+            unset($items[$id]);
+            CookieHelper::setJSONCookie(self::CART_COOKIE_NAME, $items, self::CART_COOKIE_TIME);
+        }
+
+        return self::getCartQtySum($items);
+    }
+
     public static function updateCart(Collection $items): array
     {
         $cart = self::getCartCookie();

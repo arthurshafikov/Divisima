@@ -344,6 +344,28 @@ $(document).ready(function () {
         });
     })
 
+    $("body").on("submit", ".remove-col form", function (e) {
+        e.preventDefault()
+
+        let cartProduct = $(this).parents(".cart-product")
+        let url = $(this).attr('action')
+        $.ajax({
+            method: 'DELETE',
+            data: {
+                _token: $(this).find('input[name="_token"]').val(),
+            },
+            url: url,
+            success: function (res) {
+                changeCartQuantity(res);
+                cartProduct.remove()
+            },
+            error: function (xhr) {
+                log(xhr);
+                log('error');
+            },
+        });
+    })
+
     $("body").on("click", ".cart-update", function (e) {
         e.preventDefault();
 

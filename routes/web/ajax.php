@@ -22,6 +22,7 @@ Route::middleware(['ajax'])->group(function () {
     Route::get('/product/{id}/load-attributes', [ProductController::class, 'loadAttributes'])->name('loadAttributes');
 
     Route::get('/cart/{id}/add', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::delete('/cart/{id}/delete', [CartController::class, 'removeFromCart'])->name('removeFromCart');
     Route::get('/cart/update_cart', [CartController::class, 'updateCart'])->name('updateCart');
 
     Route::post('/account/upload-avatar', [ProfileController::class, 'uploadAvatar'])->name('upload-avatar');

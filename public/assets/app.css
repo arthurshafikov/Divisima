@@ -82,6 +82,14 @@
   vertical-align: middle;
 }
 
+.cart-section.spad .remove-from-cart {
+  border: 0;
+  color: #f51167;
+  font-size: 3rem;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
 .rate-wrapper {
   display: flex;
   align-items: center;

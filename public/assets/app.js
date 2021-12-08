@@ -19726,6 +19726,26 @@ $(document).ready(function () {
       }
     });
   });
+  $("body").on("submit", ".remove-col form", function (e) {
+    e.preventDefault();
+    var cartProduct = $(this).parents(".cart-product");
+    var url = $(this).attr('action');
+    $.ajax({
+      method: 'DELETE',
+      data: {
+        _token: $(this).find('input[name="_token"]').val()
+      },
+      url: url,
+      success: function success(res) {
+        changeCartQuantity(res);
+        cartProduct.remove();
+      },
+      error: function error(xhr) {
+        log(xhr);
+        log('error');
+      }
+    });
+  });
   $("body").on("click", ".cart-update", function (e) {
     e.preventDefault();
     var products = $(".cart-product");
