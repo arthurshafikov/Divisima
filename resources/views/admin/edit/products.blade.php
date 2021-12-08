@@ -43,7 +43,7 @@
                 @if (count($attribute->variations) > 0 )
                     <ul class="sub-menu">
                         @foreach ($attribute->variations as $var)
-                            <li><input type="checkbox" name="attributes[]" id="var_{{ $var->id }}" value="{{ $var->id }}" {{ echoCheckedIfModelHas($var->id,$post,'attributes') }}> <label for="var_{{ $var->id }}">{{ $var->name }}</label>  </li>
+                            <li><input type="checkbox" name="attributes[]" id="var_{{ $var->id }}" value="{{ $var->id }}" {{ echoCheckedIfModelHas($var->id,$post,'attributeVariations') }}> <label for="var_{{ $var->id }}">{{ $var->name }}</label>  </li>
                         @endforeach
                     </ul>
                 @endif

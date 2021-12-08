@@ -849,8 +849,7 @@ ol {
 
 .product-attributes .choose-radio {
     border-bottom: none;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 }
 
 .product-attributes .choose-radio p,.product-attributes .choose-radio p {
@@ -886,6 +885,10 @@ ol {
 
 .product-attributes .quantity .pro-qty input {
     width: 100%;
+}
+
+.product-attributes > div {
+    margin: 20px 0;
 }
 
 .product-item .pi-text {

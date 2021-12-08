@@ -298,16 +298,21 @@ $(document).ready(function () {
             color = color_check.val();
         }
 
+        let attributesData = {
+            color,
+            size,
+        }
+        attributes.find(".select-attribute").each((a, el) => {
+            attributesData[$(el).attr('name')] = $(el).val()
+        })
+
         if (qty === undefined) {
             qty = 1;
         }
         let $this = $(this);
         let data = {
             qty,
-            attributes: {
-                color,
-                size,
-            },
+            attributes: attributesData,
         }
         log(data)
         $.ajax({

@@ -19680,6 +19680,14 @@ $(document).ready(function () {
       color = color_check.val();
     }
 
+    var attributesData = {
+      color: color,
+      size: size
+    };
+    attributes.find(".select-attribute").each(function (a, el) {
+      attributesData[$(el).attr('name')] = $(el).val();
+    });
+
     if (qty === undefined) {
       qty = 1;
     }
@@ -19687,10 +19695,7 @@ $(document).ready(function () {
     var $this = $(this);
     var data = {
       qty: qty,
-      attributes: {
-        color: color,
-        size: size
-      }
+      attributes: attributesData
     };
     log(data);
     $.ajax({
