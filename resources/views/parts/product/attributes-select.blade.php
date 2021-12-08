@@ -9,11 +9,10 @@
         <p>Quantity</p>
         <div class="pro-qty"><input type="text" value="1" class="qty"></div>
     </div>
-    @if ($sizes->count() > 0)
+    @if ($attributeVariations['size']->count() > 0)
         <div class="fw-size-choose choose-radio">
-
             <p>Size</p>
-            @foreach ($sizes as $size)
+            @foreach ($attributeVariations['size'] as $size)
                 <div class="sc-item choose-item">
                     <input type="radio" name="size" id="{{ $size->name }}-size" value="{{ $size->name }}">
                     <label for="{{ $size->name }}-size">{{ $size->name }}</label>
@@ -24,11 +23,10 @@
         </div>
     @endif
 
-    @if ($colors->count() > 0)
+    @if ($attributeVariations['color']->count() > 0)
         <div class="fw-color-choose choose-radio">
-
             <p>Color</p>
-            @foreach ($colors as $color)
+            @foreach ($attributeVariations['color'] as $color)
                 <div class="cs-item choose-item">
                     <input type="radio" name="color" id="attr-{{ $color->name }}-color" value="{{ $color->name }}">
                     <label for="attr-{{ $color->name }}-color" class="{{ $color->name }}-color"></label>

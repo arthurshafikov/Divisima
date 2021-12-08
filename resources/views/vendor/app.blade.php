@@ -21,7 +21,7 @@
 
     @include ('parts.footer.footer')
 	@include ('parts.messages.success')
-	@include ('parts.cart.attributes')
+	@include ('parts.product.attributes')
 
 	</body>
 </html>

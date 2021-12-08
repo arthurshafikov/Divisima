@@ -62,7 +62,7 @@
                         <div class="filter-widget mb-0">
                             <h2 class="fw-title">color by</h2>
                             <div class="fw-color-choose choose-radio">
-                                @foreach (getAttributesByName('color') as $color)
+                                @foreach (getAttributeVariationsByName('color') as $color)
                                     <div class="cs-item choose-item">
                                         <input type="radio" name="color" value="{{ $color->slug }}" id="{{ $color->slug }}-color" @if($color->active === 1) {{'checked'}} @endif>
                                         <label class="cs-{{ $color->slug }}" for="{{ $color->slug }}-color">
@@ -75,7 +75,7 @@
                         <div class="filter-widget mb-0">
                             <h2 class="fw-title">Size</h2>
                             <div class="fw-size-choose choose-radio">
-                                @foreach (getAttributesByName('size') as $size)
+                                @foreach (getAttributeVariationsByName('size') as $size)
                                     <div class="sc-item choose-item">
                                         <input type="radio" name="size" value="{{ $size->slug }}" id="{{ $size->slug }}" @if($size->active === 1) {{'checked'}} @endif>
                                         <label for="{{ $size->slug }}">{{  $size->name }}</label>
@@ -87,7 +87,7 @@
                         <div class="filter-widget">
                             <h2 class="fw-title">Brand</h2>
                             <ul class="category-menu">
-                                @foreach (getAttributesByName('brand') as $brand)
+                                @foreach (getAttributeVariationsByName('brand') as $brand)
                                     <li>
                                         <input type="checkbox" name="brand[]" value="{{ $brand->slug }}" id="{{ $brand->slug }}" @if($brand->active === 1) {{'checked'}} @endif>
                                         <label for="{{ $brand->slug }}">{{ $brand->name }} <!--<span>({{-- $brand->products_count--}})</span>--></label>

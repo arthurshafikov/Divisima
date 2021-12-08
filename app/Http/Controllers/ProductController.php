@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Events\ProductViewed;
 use App\Filters\ProductFilter;
-use App\Models\Attributes\Attribute;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     public function one(string $slug): View
     {
-        $product = Product::whereSlug($slug)->with('images')->firstOrFail();
+        $product = Product::whereSlug($slug)->with(['images', 'attributeVariations.attribute'])->firstOrFail();
 
         event(new ProductViewed($product->id));
 
@@ -27,7 +27,7 @@ class ProductController extends Controller
         $ratingCount = count($rating);
         $rating = round($rating->avg());
 
-        $brands = getProductAttribute('brand', $product->id);
+        $brands = $this->getProductAttributeVariations($product)['brand'];
 
         return view('one')->with([
             'title'   => $product->name,
@@ -70,11 +70,18 @@ class ProductController extends Controller
 
     public function loadAttributes(int $id): string
     {
-        $product = Product::findOrFail($id);
-        return view('parts.cart.attributes-select', [
+        $product = Product::with('attributeVariations.attribute')->findOrFail($id);
+
+        return view('parts.product.attributes-select', [
             'product' => $product,
-            'colors' => getProductAttribute(Attribute::COLOR_TYPE, $product->id),
-            'sizes' => getProductAttribute(Attribute::SIZE_TYPE, $product->id),
+            'attributeVariations' => $this->getProductAttributeVariations($product),
         ])->render();
+    }
+
+    private function getProductAttributeVariations(Product $product): Collection
+    {
+        return $product->attributeVariations->groupBy(function ($attributeVariation) {
+            return $attributeVariation->attribute->name;
+        });
     }
 }

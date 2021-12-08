@@ -51,7 +51,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function attributes(): BelongsToMany
+    public function attributeVariations(): BelongsToMany
     {
         return $this->belongsToMany(AttributeVariation::class)->using(AttributeVariationProduct::class);
     }

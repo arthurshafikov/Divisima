@@ -26,7 +26,7 @@ class ProductController extends CRUDController
         if ($gallery = $request->gallery) {
             $product->images()->sync(explode(',', $gallery));
         }
-        $product->attributes()->sync($request->get('attributes'));
+        $product->attributeVariations()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
         return redirect()->route($this->essense . '.edit', $product->id)
             ->with('message', $this->oneText . ' has been created successfully!');
@@ -41,7 +41,7 @@ class ProductController extends CRUDController
         if ($gallery = $request->gallery) {
             $product->images()->sync(explode(',', $gallery));
         }
-        $product->attributes()->sync($request->get('attributes'));
+        $product->attributeVariations()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }

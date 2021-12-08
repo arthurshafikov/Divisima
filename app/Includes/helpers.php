@@ -1,45 +1,23 @@
 <?php
 
-if (!function_exists('getAttributesByName')) {
-    function getAttributesByName($name)
+if (!function_exists('getAttributeVariationsByName')) {
+    function getAttributeVariationsByName($name)
     {
         return \Cache::remember($name, env("CACHE_TIME", 0), function () use ($name) {
-            $attributes = \App\Models\Attributes\AttributeVariation::whereHas(
+            $attributeVariations = \App\Models\Attributes\AttributeVariation::whereHas(
                 'attribute',
                 function ($query) use ($name) {
                     $query->where('name', $name);
                 }
             )->withCount('products')->get();
             $value = explode(',', request()->input($name));
-            $attributes->each(function ($attr) use ($value) {
-                if (in_array($attr->slug, $value)) {
-                    $attr->fill(['active' => 1]);
+            $attributeVariations->each(function ($attrVar) use ($value) {
+                if (in_array($attrVar->slug, $value)) {
+                    $attrVar->fill(['active' => 1]);
                 }
             });
-            return $attributes;
+            return $attributeVariations;
         });
-    }
-}
-
-if (!function_exists('getProductAttribute')) {
-    function getProductAttribute($name, $id)
-    {
-        return \App\Models\Attributes\AttributeVariation::whereHas('attribute', function ($query) use ($name) {
-            $query->where('name', $name);
-        })->whereHas('products', function ($query) use ($id) {
-            $query->where('product_id', $id);
-        })->get();
-    }
-}
-
-if (!function_exists('getProductAttributes')) {
-    function getProductAttributes($attrs, $id)
-    {
-        return \App\Models\Attributes\AttributeVariation::whereHas('attribute', function ($query) use ($attrs) {
-            $query->whereIn('name', $attrs);
-        })->whereHas('products', function ($query) use ($id) {
-            $query->where('product_id', $id);
-        })->get();
     }
 }
 
