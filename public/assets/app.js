@@ -19835,6 +19835,9 @@ $(document).ready(function () {
 
           $("#avatar").attr('src', src);
           btn.text('Success');
+          $(thisForm).parents('.popup').find('.preloader').removeClass('active');
+          $.fancybox.close();
+          showSuccessMessage();
         } else {
           btn.text('Error!');
           $(thisForm).find(".form-errors").text(res.text);
@@ -19842,6 +19845,7 @@ $(document).ready(function () {
       },
       error: function error(data) {
         btn.text('Error!');
+        console.log(data);
 
         if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
           var errordata = data.responseJSON.errors.avatar;
@@ -19852,9 +19856,6 @@ $(document).ready(function () {
       },
       complete: function complete(xhr) {
         log('complete');
-        $(thisForm).parents('.popup').find('.preloader').removeClass('active');
-        $.fancybox.close();
-        showSuccessMessage();
       }
     });
   });

@@ -11,14 +11,14 @@ class ProfileService
     {
         $user = Auth::user();
         $res = [
-            'error' => false,
+            'error' => false, // todo remove useless
             'text'  => '',
         ];
         $image = Image::create([
             'src' => $file,
         ]);
         $user->profile()->update([
-            'avatar' => $image->id,
+            'image_id' => $image->id,
         ]);
         $res['text'] = $file;
 

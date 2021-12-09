@@ -457,6 +457,9 @@ $(document).ready(function () {
                     // src = src.replace(/avatars\/.*/, obj.text);
                     $("#avatar").attr('src', src);
                     btn.text('Success');
+                    $(thisForm).parents('.popup').find('.preloader').removeClass('active');
+                    $.fancybox.close();
+                    showSuccessMessage();
                 } else {
                     btn.text('Error!');
                     $(thisForm).find(".form-errors").text(res.text);
@@ -464,6 +467,7 @@ $(document).ready(function () {
             },
             error: function (data) {
                 btn.text('Error!');
+                console.log(data)
                 if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
                     var errordata = data.responseJSON.errors.avatar;
                     $(thisForm).find(".form-errors").text(errordata[0]);
@@ -473,9 +477,6 @@ $(document).ready(function () {
             },
             complete: function (xhr) {
                 log('complete');
-                $(thisForm).parents('.popup').find('.preloader').removeClass('active');
-                $.fancybox.close();
-                showSuccessMessage();
             },
         });
     });

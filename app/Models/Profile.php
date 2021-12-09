@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Profile extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'image_id',
         'first_name',
         'surname',
         'address',
@@ -25,8 +25,8 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function image(): HasOne
+    public function image(): BelongsTo
     {
-        return $this->hasOne(Image::class, 'id', 'avatar');
+        return $this->belongsTo(Image::class);
     }
 }

@@ -1,6 +1,6 @@
 <div class="review" data-id="{{ $review->id }}">
     <div class="review-author">
-        <img src="{{ $review->user->profile->image->src ?? $defaultAvatar}}" alt="avatar">
+        <img src="{{ $review->user->profile->avatar->src ?? $defaultAvatar}}" alt="avatar">
         <p>{{ $review->user->name }}</p>
     </div>
     <div class="rating-result">
