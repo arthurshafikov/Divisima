@@ -32,7 +32,7 @@
                             <div class="lp-item">
                                 <div class="lp-thumb set-bg" data-setbg="{{ $post->getImageString() }}"></div>
                                 <div class="lp-content">
-                                    <h6>{{$post->title}}</h6>
+                                    <h6>{{$post->name}}</h6>
                                     <span>{{$post->created_at}}</span>
                                     <a href="{{ route('post',$post->slug) }}" class="readmore">Read More</a>
                                 </div>

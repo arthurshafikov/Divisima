@@ -4,7 +4,7 @@
     <form method="POST" action="{{ route('posts.store') }}">
         @csrf
 
-        <x-input name="title" :value="old('title')" placeholder="Title of the post" label="Title" />
+        <x-input name="name" :value="old('name')" placeholder="Name of the post" label="Name" />
 
         <x-image :value="old('image_id')" :src="App\Models\Image::find(old('image_id'))?->src"/>
 

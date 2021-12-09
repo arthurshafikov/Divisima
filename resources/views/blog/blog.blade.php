@@ -19,7 +19,7 @@
                         </div>
                         <div class="single-content">
                             <div class="single-title">
-                                <a href="{{ route('post',$post->slug)}}">{{$post->title}}</a>
+                                <a href="{{ route('post',$post->slug)}}">{{$post->name}}</a>
                             </div>
                             <div class="content">
                                 <p>{{ substr($post->content,0,150) }}</p>

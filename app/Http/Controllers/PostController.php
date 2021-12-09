@@ -20,7 +20,7 @@ class PostController extends Controller
     {
         $post = Post::whereSlug($slug)->firstOrFail();
         return view('blog.one', [
-            'title' => $post->title,
+            'title' => $post->name,
             'post' => $post,
         ]);
     }

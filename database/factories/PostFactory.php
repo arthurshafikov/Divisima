@@ -13,7 +13,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->realText(50),
+            'name' => $this->faker->realText(50),
             'content' => $this->faker->realText(8000),
             'image_id' => fn() => self::factoryForModel(Image::class),
             'created_at' => $this->faker->dateTimeThisMonth(),

@@ -19,8 +19,8 @@ class PostController extends CRUDController
     protected function myValidate(Request $request)
     {
         return $request->validate([
-            'title' => 'required|string',
-            'img' => 'nullable',
+            'name' => 'required|string',
+            'image_id' => 'nullable',
             'content' => '',
         ]);
     }

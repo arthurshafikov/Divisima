@@ -37,7 +37,7 @@ class PostControllerTest extends TestCase
     {
         $admin = User::factory()->create()->assignRole(Role::ADMIN);
         $post = Post::factory()->create();
-        $post->title = 'New title';
+        $post->name = 'New title';
 
         $response = $this->actingAs($admin)
             ->patch(route('posts.update', $post->id), $post->toArray());

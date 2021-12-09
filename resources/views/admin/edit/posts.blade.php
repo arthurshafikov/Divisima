@@ -6,7 +6,7 @@
         @csrf
         @method('PATCH')
 
-        <x-input name="title" :value="$post->title" pholder="Title of the post" label="Title" />
+        <x-input name="name" :value="$post->name" pholder="Name of the post" label="Name" />
 
         <x-image :value="$post->image->id" :src="$post->getImageString()"/>
 

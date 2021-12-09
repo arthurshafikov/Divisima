@@ -15,19 +15,10 @@ class Post extends Model
     use HasImage;
 
     protected $fillable = [
-        'title',
+        'name',
         'content',
         'image_id',
     ];
-
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'title',
-            ],
-        ];
-    }
 
     public function getCreatedAtAttribute($value): string
     {

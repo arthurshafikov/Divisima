@@ -46,7 +46,7 @@ class ProfileControllerTest extends TestCase
                 'avatar' => $file,
             ]);
 
-        $response->assertJsonCount(2);
+        $response->assertJsonCount(1);
     }
 
     public function testChangeProfile()
