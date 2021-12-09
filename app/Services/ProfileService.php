@@ -10,19 +10,16 @@ class ProfileService
     public function uploadAvatar($file): array
     {
         $user = Auth::user();
-        $res = [
-            'error' => false, // todo remove useless
-            'text'  => '',
-        ];
         $image = Image::create([
             'src' => $file,
         ]);
         $user->profile()->update([
             'image_id' => $image->id,
         ]);
-        $res['text'] = $file;
 
-        return $res;
+        return [
+            'text'  => $file,
+        ];
     }
 
     public function updateProfileInfo(array $validated)

@@ -19828,20 +19828,13 @@ $(document).ready(function () {
       success: function success(res) {
         log('success');
         log(res);
-        var obj = res;
+        var src = '/storage/' + res.text; // src = src.replace(/avatars\/.*/, obj.text);
 
-        if (obj.error === false) {
-          var src = '/storage/' + obj.text; // src = src.replace(/avatars\/.*/, obj.text);
-
-          $("#avatar").attr('src', src);
-          btn.text('Success');
-          $(thisForm).parents('.popup').find('.preloader').removeClass('active');
-          $.fancybox.close();
-          showSuccessMessage();
-        } else {
-          btn.text('Error!');
-          $(thisForm).find(".form-errors").text(res.text);
-        }
+        $("#avatar").attr('src', src);
+        btn.text('Success');
+        $(thisForm).parents('.popup').find('.preloader').removeClass('active');
+        $.fancybox.close();
+        showSuccessMessage();
       },
       error: function error(data) {
         btn.text('Error!');
