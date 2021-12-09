@@ -13,7 +13,7 @@ class AttributeVariationProductTableSeeder extends Seeder
         $attributes = AttributeVariation::all();
 
         foreach (Product::all() as $product) {
-            $product->attributes()->attach($attributes->random(10)->pluck('id')->toArray());
+            $product->attributeVariations()->attach($attributes->random(10)->pluck('id')->toArray());
         }
     }
 }

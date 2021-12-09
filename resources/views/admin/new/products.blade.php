@@ -18,7 +18,7 @@
         <a data-fancybox data-src="#media" href="javascript:;" class="media-load">Select Images</a>
 
         <div class="gallery-wrapper">
-            <div class="gallery">
+            <div class="gallery" data-url="{{ route('loadGallery') }}">
                 @if (old('gallery'))
                     @foreach (\App\Models\Image::whereIn('id',explode(',',old('gallery')))->get() as $img)
                         @include('admin.parts.gallery-image')

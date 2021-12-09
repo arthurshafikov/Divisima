@@ -7,7 +7,7 @@
 
         <x-input name="title" :value="$post->title" pholder="Title of the slide" label="Title" />
 
-        <x-image :value="$post->img" :src="$post->img()"/>
+        <x-image :value="$post->image->id" :src="$post->getImageString()"/>
 
         <x-textarea label="Content" placeholder="Content of the slide" :value="$post->content" />
 

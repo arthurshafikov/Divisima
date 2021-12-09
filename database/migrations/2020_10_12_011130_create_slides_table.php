@@ -17,7 +17,7 @@ class CreateSlidesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->foreignId('img')->nullable()->constrained('images')->nullOnDelete();
+            $table->foreignId('image_id')->nullable()->constrained('images')->nullOnDelete();
         });
     }
 

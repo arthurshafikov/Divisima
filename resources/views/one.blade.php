@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="product-pic-zoom">
-						<img class="product-big-img" src="{{ $product->img() }}" alt="">
+						<img class="product-big-img" src="{{ $product->getImageString() }}" alt="">
                     </div>
 
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">

@@ -15,7 +15,7 @@ class SlideFactory extends Factory
         return [
             'title' => $this->faker->realText(50),
             'content' => $this->faker->realText(200),
-            'img' => Image::factory()->onlyJpeg()->create(),
+            'image_id' => fn() => Image::factory()->onlyJpeg()->create()->id,
         ];
     }
 }

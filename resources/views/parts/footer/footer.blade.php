@@ -30,7 +30,7 @@
                     <div class="fw-latest-post-widget">
                         @foreach ($posts as $post)
                             <div class="lp-item">
-                                <div class="lp-thumb set-bg" data-setbg="{{ $post->img() }}"></div>
+                                <div class="lp-thumb set-bg" data-setbg="{{ $post->getImageString() }}"></div>
                                 <div class="lp-content">
                                     <h6>{{$post->title}}</h6>
                                     <span>{{$post->created_at}}</span>

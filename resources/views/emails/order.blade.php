@@ -324,7 +324,7 @@
               <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
                 <td valign="middle" width="70%" style="text-align:left; padding: 0 2.5em;">
                   <div class="product-entry">
-                    <img src="{{$siteUrl . $product->image->img}}" alt="Image" style="width: 100px; max-width: 600px; height: auto; margin-bottom: 20px; display: block;">
+                    <img src="{{$siteUrl . $product->getImageString()}}" alt="Image" style="width: 100px; max-width: 600px; height: auto; margin-bottom: 20px; display: block;">
                     <div class="text">
                       <h3>{{$product->name}}</h3>
                       <span>x{{$product->pivot->qty}} qty</span>

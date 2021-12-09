@@ -101,7 +101,7 @@
 						<ul class="product-list">
                             @foreach ($cartData['items'] as $product)
                                 <li>
-                                    <div class="pl-thumb"><img src="{{ $product->img() }}" alt=""></div>
+                                    <div class="pl-thumb"><img src="{{ $product->getImageString() }}" alt=""></div>
                                     <h6>{{ $product->name }}</h6>
                                     <p>${{ $product['total'] }}</p>
                                     <p>Size: {{ $product['size'] ?? '-' }}</p>

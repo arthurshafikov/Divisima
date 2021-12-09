@@ -17,7 +17,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'img',
+        'image_id',
     ];
 
     public function sluggable(): array

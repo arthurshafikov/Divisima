@@ -31,7 +31,7 @@
             <tbody>
                 @foreach($post->products as $product)
                 <tr>
-                    <td><img src="{{$product->image->img}}" alt="product"></td>
+                    <td><img src="{{$product->getImageString()}}" alt="product"></td>
                     <td><a href="{{ route('product', $product->slug ) }}">{{$product->name}}</a></td>
                     <td>{{$product->pivot->color}}</td>
                     <td>{{$product->pivot->size}}</td>

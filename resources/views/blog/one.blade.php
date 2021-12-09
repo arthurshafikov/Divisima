@@ -10,7 +10,7 @@
             <div class="blog-post">
                 <div class="blog-image">
                     <figure>
-                        <img src="{{$post->img()}}" alt="">
+                        <img src="{{$post->getImageString()}}" alt="">
                     </figure>
                 </div>
                 <div class="blog-content">

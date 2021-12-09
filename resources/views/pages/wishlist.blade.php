@@ -27,7 +27,7 @@
                         <tbody>
                             @foreach ($products as $product)
                                 <tr>
-                                    <td><img src="{{$product->image->img}}" alt="product"></td>
+                                    <td><img src="{{$product->getImageString()}}" alt="product"></td>
                                     <td><a href="{{ route('product', $product->slug ) }}">{{$product->name}}</a></td>
                                     <td>{{$product->formatted_price}}</td>
                                     <td><a href="{{ route('addToCart',$product->id) }}" class="btn btn-primary add-cart"><i class="flaticon-bag"></i><span>ADD TO CART</span></a></td>

@@ -16,7 +16,7 @@ class Image extends Component
 
     public function __construct(
         string $label = 'Image',
-        string $name = 'img',
+        string $name = 'image_id',
         string $inputId = 'featured_img',
         mixed $value = '',
         string $selectText = 'Select Images',

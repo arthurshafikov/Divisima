@@ -27,7 +27,7 @@
                         @foreach ($items as $item)
                             <tr class="cart-product" data-id="{{ $item->id }}" >
                                 <td class="product-col" data-price="{{ $item->price }}">
-                                    <img src="{{ $item->img() }}" alt="">
+                                    <img src="{{ $item->getImageString() }}" alt="">
                                     <div class="pc-title">
                                         <h4><a href="{{ route('product',$item->slug)}}">{{ $item->name }}</a></h4>
                                         <p>{{ $item->formatted_price }}</p>

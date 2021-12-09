@@ -35,7 +35,7 @@ class Product extends Model
     public $timestamps = false;
     protected $fillable = [
         'name',
-        'img',
+        'image_id',
         'price',
         'stock',
         'details',

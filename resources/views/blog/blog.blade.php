@@ -13,7 +13,7 @@
                         <div class="single-image">
                             <a href="{{ route('post',$post->slug)}}">
                                 <figure>
-                                    <img src="{{ $post->img() }}" alt="">
+                                    <img src="{{ $post->getImageString() }}" alt="">
                                 </figure>
                             </a>
                         </div>

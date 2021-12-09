@@ -14,7 +14,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->realText(30),
-            'img'  => self::factoryForModel(Image::class),
+            'image_id' => fn() => self::factoryForModel(Image::class),
             'price' => $this->faker->numberBetween(1000, 9999),
             'stock' => $this->faker->randomElement(Product::PRODUCT_STOCK_STATUSES),
             'description' => $this->faker->realText(250),

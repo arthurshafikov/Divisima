@@ -15,7 +15,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->realText(50),
             'content' => $this->faker->realText(8000),
-            'img' => self::factoryForModel(Image::class),
+            'image_id' => fn() => self::factoryForModel(Image::class),
             'created_at' => $this->faker->dateTimeThisMonth(),
         ];
     }

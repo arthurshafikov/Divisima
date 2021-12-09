@@ -8,7 +8,7 @@
 
         <x-input name="title" :value="$post->title" pholder="Title of the post" label="Title" />
 
-        <x-image :value="$post->img" :src="$post->img()"/>
+        <x-image :value="$post->image->id" :src="$post->getImageString()"/>
 
         <x-textarea id="content" label="Content" pholder="Content of the post" :value="$post->content" />
 

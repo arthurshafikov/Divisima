@@ -2,7 +2,7 @@
 <section class="hero-section">
     <div class="hero-slider owl-carousel">
         @foreach ($slider as $slide)
-            <div class="hs-item set-bg" data-setbg="{{ $slide->img() ?? '' }}">
+            <div class="hs-item set-bg" data-setbg="{{ $slide->getImageString() ?? '' }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 text-white">
