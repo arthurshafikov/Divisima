@@ -8,7 +8,7 @@
 
     <x-input :value="old('name')" placeholder="Name of the product" label="Name" />
 
-    <x-image :value="old('img')" :src="App\Models\Image::find(old('img'))?->img"/>
+    <x-image :value="old('image_id')" :src="App\Models\Image::find(old('image_id'))?->src"/>
 
 
     <div class="form-group">

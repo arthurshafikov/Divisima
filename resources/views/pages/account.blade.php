@@ -12,7 +12,7 @@
 
                     <div class="row">
                         <div class="col-md-6 avatar-wrapper">
-                            <img src="{{ $profile->image->img ?? $defaultAvatar }}" alt="avatar" id="avatar">
+                            <img src="{{ $profile->image->src ?? $defaultAvatar }}" alt="avatar" id="avatar">
                             <button data-fancybox data-src="#upload-avatar" href="javascript:;" class="site-btn upload-avatar">Upload avatar</button>
                         </div>
                         <div class="col-md-6">
@@ -30,9 +30,9 @@
                             </p>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
                 @if ($orders != false)
                     <table class="table">
                         <thead>
@@ -58,18 +58,18 @@
                             @endforeach
                         </tbody>
                     </table>
-                @else 
+                @else
                     <h2>No orders!</h2>
                 @endif
             </div>
-        </div>  
+        </div>
     </section>
 
 
     <div style="display: none;" id="upload-avatar" class="popup">
 		<div class="preloader">
 			<div class="loader"></div>
-		</div>	
+		</div>
 		<h2>Upload:</h2>
 		<div class="upload-form">
             <form action="{{ route('upload-avatar') }}" id="upload-avatar-form">
@@ -90,12 +90,12 @@
     <div style="display: none;" id="change-profile" class="popup">
 		<div class="preloader">
 			<div class="loader"></div>
-		</div>	
+		</div>
 		<h2>Upload:</h2>
 		<div class="upload-forcx m">
             <form action="{{ route('change-profile') }}" method="POST" id="change-profile-form">
                 <div class="form-errors">
-                    
+
                 </div>
                 @csrf
                 <div class="form-group">

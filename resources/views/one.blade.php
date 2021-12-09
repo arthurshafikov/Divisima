@@ -20,7 +20,7 @@
 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
 							@foreach ($product->images as $img)
-								<div class="pt" data-imgbigurl="{{ $img->img }}"><img src="{{ $img->img }}" alt=""></div>
+								<div class="pt" data-imgbigurl="{{ $img->src }}"><img src="{{ $img->src }}" alt=""></div>
 							@endforeach
 						</div>
                     </div>

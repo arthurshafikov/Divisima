@@ -12,7 +12,7 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'img' => 'images/' . $this->faker->numberBetween(1, 19) . '.jpg',
+            'src' => 'images/' . $this->faker->numberBetween(1, 19) . '.jpg',
         ];
     }
 
@@ -20,7 +20,7 @@ class ImageFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'img' => 'images/' . $this->faker->numberBetween(1, 2) . '.jpeg',
+                'src' => 'images/' . $this->faker->numberBetween(1, 2) . '.jpeg',
             ];
         });
     }

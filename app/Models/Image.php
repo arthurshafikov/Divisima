@@ -11,10 +11,10 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
-        'img',
+        'src',
     ];
 
-    public function getImgAttribute($value): string
+    public function getSrcAttribute($value): string
     {
         return '/storage/' . $value;
     }

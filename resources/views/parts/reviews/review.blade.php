@@ -1,10 +1,10 @@
 <div class="review" data-id="{{ $review->id }}">
     <div class="review-author">
-        <img src="{{ $review->user->profile->image->img ?? $defaultAvatar}}" alt="avatar">
+        <img src="{{ $review->user->profile->image->src ?? $defaultAvatar}}" alt="avatar">
         <p>{{ $review->user->name }}</p>
     </div>
     <div class="rating-result">
-        @for ($i = 1; $i <= 5; $i++) 
+        @for ($i = 1; $i <= 5; $i++)
             @if ($i> $review->rating)
                 <span><i class="fa fa-star-o"></i></span>
             @else

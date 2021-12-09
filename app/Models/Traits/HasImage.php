@@ -14,7 +14,7 @@ trait HasImage
 
     public function getImageString(): string
     {
-        return $this->image ? $this->image->img : '';
+        return $this->image ? $this->image->src : '';
     }
 
     public function getImageTagAttribute(): string

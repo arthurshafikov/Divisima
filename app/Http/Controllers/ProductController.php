@@ -27,7 +27,7 @@ class ProductController extends Controller
         $ratingCount = count($rating);
         $rating = round($rating->avg());
 
-        $brands = $this->getProductAttributeVariations($product)['brand'];
+        $brands = $this->getProductAttributeVariations($product)['brand'] ?? collect([]);
 
         return view('one')->with([
             'title'   => $product->name,

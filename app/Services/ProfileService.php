@@ -15,7 +15,7 @@ class ProfileService
             'text'  => '',
         ];
         $image = Image::create([
-            'img' => $file,
+            'src' => $file,
         ]);
         $user->profile()->update([
             'avatar' => $image->id,

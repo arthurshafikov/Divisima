@@ -31,7 +31,7 @@ class MediaController extends Controller
         foreach ($files as $file) {
             $path = $file->store('images');
             $img = Image::create([
-                'img' => $path,
+                'src' => $path,
             ]);
             echo view('admin.parts.media-image', [
                 'img' => $img,
