@@ -1413,27 +1413,27 @@ ol {
 }
 
 .choose-radio label.cs-gray {
-	background: #d7d7d7;
+	background: gray;
 }
 
 .choose-radio label.cs-orange {
-	background: #6f91ff;
+	background: orange;
 }
 
 .choose-radio label.cs-yellow {
-	background: #6f91ff;
+	background: yellow;
 }
 
 .choose-radio label.cs-green {
-	background: #8fc99c;
+	background: green;
 }
 
 .choose-radio label.cs-purple {
-	background: #bc83b1;
+	background: purple;
 }
 
 .choose-radio label.cs-blue {
-	background: #9ee7f4;
+	background: skyblue;
 }
 
 .choose-radio label span {
