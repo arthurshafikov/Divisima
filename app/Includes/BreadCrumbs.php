@@ -2,8 +2,6 @@
 
 namespace App\Includes;
 
-use Illuminate\Support\Facades\Route;
-
 class BreadCrumbs
 {
     public static function getBreadCrumbs(): array
@@ -24,14 +22,6 @@ class BreadCrumbs
             $links[$link] = ucfirst($elem);
         };
 
-        $current = Route::currentRouteName();
-        if (preg_match('/^.*?\.edit$/', $current)) {
-            foreach ($links as $link => $text) {
-                if (preg_match('#^/dashboard/.*?/\d+$#', $link)) {
-                    unset($links[$link]);
-                }
-            }
-        }
         return $links;
     }
 }
