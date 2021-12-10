@@ -38,7 +38,7 @@
         <label class="small mb-1">Attributes</label>
         <div class="attributes-wrapper">
             <ul>
-            @foreach (getAllAttributes() as $attribute)
+            @foreach (\App\Models\Attributes\Attribute::with('variations')->get() as $attribute)
                 <li class="attribute-name">{{ $attribute->name }}</li>
                 @if (count($attribute->variations) > 0 )
                     <ul class="sub-menu">

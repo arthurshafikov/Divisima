@@ -21,15 +21,6 @@ if (!function_exists('getAttributeVariationsByName')) {
     }
 }
 
-if (!function_exists('getAllAttributes')) {
-    function getAllAttributes()
-    {
-        return \Cache::remember('AllAttributes', env("CACHE_TIME", 0), function () {
-            return \App\Models\Attributes\Attribute::with('variations')->get();
-        });
-    }
-}
-
 if (!function_exists('echoCheckedIfOldHas')) {
     function echoCheckedIfOldHas($value, $key)
     {
