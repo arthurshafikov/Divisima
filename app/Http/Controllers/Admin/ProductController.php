@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
+use App\Services\Admin\ProductService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -18,42 +20,25 @@ class ProductController extends CRUDController
         $this->oneText = 'Product';
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $this->myValidate($request);
-        $product = $this->model::create($request->all());
-
-        if ($gallery = $request->gallery) {
-            $product->images()->sync(explode(',', $gallery));
-        }
-        $product->attributeVariations()->sync($request->get('attributes'));
-        $product->category()->sync($request->get('category'));
+        $product = app(ProductService::class, ['product' => new Product()])->updateOrFill($this->myValidate($request));
 
         return redirect()->route($this->essense . '.edit', $product->id)
             ->with('message', $this->oneText . ' has been created successfully!');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
-        $this->myValidate($request);
-        $product = $this->model::findOrFail($id);
-        $product->update($request->all());
-
-        if ($gallery = $request->gallery) {
-            $product->images()->sync(explode(',', $gallery));
-        }
-        $product->attributeVariations()->sync($request->get('attributes'));
-        $product->category()->sync($request->get('category'));
+        app(ProductService::class, ['product' => Product::findOrFail($id)])->updateOrFill($this->myValidate($request));
 
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
     public function trash(): View
     {
-        $products = Product::onlyTrashed()->orderBy('deleted_at', 'DESC')->paginate(10);
-
         return view('admin.trash', [
-            'posts' => $products,
+            'posts' => Product::onlyTrashed()->orderBy('deleted_at', 'DESC')->paginate(10),
             'title' => ucfirst($this->essense) . ' Table',
             'th' => $this->th,
             'td' => $this->td,
@@ -61,31 +46,33 @@ class ProductController extends CRUDController
         ]);
     }
 
-    public function restore($id)
+    public function restore($id): RedirectResponse
     {
-        $product = Product::withTrashed()->findOrFail($id);
-        $product->restore();
+        app(ProductService::class, ['product' => Product::withTrashed()->findOrFail($id)])->restore();
 
         return redirect()->back()->with('message', $this->oneText . ' has been restored successfully!');
     }
 
-    public function forceDelete($id)
+    public function forceDelete($id): RedirectResponse
     {
-        $product = Product::withTrashed()->findOrFail($id);
-        $product->forceDelete();
+        app(ProductService::class, ['product' => Product::withTrashed()->findOrFail($id)])->forceDelete();
 
         return redirect()->back()->with('message', $this->oneText . ' has been deleted successfully!');
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'name' => 'required|string',
-            'img' => 'nullable',
+            'image_id' => 'nullable|numeric',
             'gallery' => 'nullable|string',
             'price' => 'required|numeric',
+            'details' => 'nullable|string',
+            'description' => 'nullable|string',
             'attributes' => 'array',
+            'attributes.*' => 'numeric',
             'category' => 'array',
+            'category.*' => 'numeric',
             'stock' => Rule::in(Product::PRODUCT_STOCK_STATUSES),
         ]);
     }

@@ -40,7 +40,7 @@ class MediaControllerTest extends TestCase
 
         $response = $this->actingAs($user)
             ->delete(route('deleteImages'), [
-                'ids' => [$image->id],
+                'image_ids' => [$image->id],
             ]);
 
         $response->assertOk();

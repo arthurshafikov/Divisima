@@ -16,7 +16,7 @@ class CategoryController extends CRUDController
         $this->oneText = 'Category';
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'name' => 'required|string',

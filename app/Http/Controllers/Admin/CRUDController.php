@@ -72,8 +72,8 @@ abstract class CRUDController extends Controller
             ->with('message', __('admin/crud.deleted', ['name' => $this->oneText]));
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
-        return $request->validate([]);
+        return [];
     }
 }

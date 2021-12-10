@@ -16,7 +16,7 @@ class SlideController extends CRUDController
         $this->oneText = 'Slide';
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'title' => 'required|string',

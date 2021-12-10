@@ -122,7 +122,7 @@ $(document).ready(function () {
             return false;
         }
         var data = {
-            ids,
+            image_ids: ids,
         };
         $.ajax({
             method: 'DELETE',
@@ -259,7 +259,7 @@ $(document).ready(function () {
                     page: page,
                     // query: query,
                 };
-                var url = '/dashboard/gallery/get';
+                var url = '/dashboard/gallery/get'; // todo remove hardcode
                 $.get(url, data, function (res) {
                     log('res');
                     media_block.find('.media-blocks').append(res);

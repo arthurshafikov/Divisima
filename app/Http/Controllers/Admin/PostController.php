@@ -16,7 +16,7 @@ class PostController extends CRUDController
         $this->oneText = 'Post';
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'name' => 'required|string',

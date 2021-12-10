@@ -10,10 +10,8 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        $users = User::orderBy('id', 'desc')->take(10)->get();
-
         return view('admin.dashboard', [
-            'users' => $users,
+            'users' => User::orderBy('id', 'desc')->take(10)->get(),
         ]);
     }
 

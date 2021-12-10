@@ -16,7 +16,7 @@ class PromocodeController extends CRUDController
         $this->oneText = 'Promocode';
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'promocode' => 'required|string',

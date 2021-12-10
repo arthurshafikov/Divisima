@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Attributes\Attribute;
 use App\Models\Attributes\AttributeVariation;
+use App\Services\Admin\AttributeService;
 use Illuminate\Http\Request;
 
 class AttributeController extends CRUDController
@@ -19,40 +20,17 @@ class AttributeController extends CRUDController
 
     public function store(Request $request)
     {
-        $this->myValidate($request);
-        $attr = Attribute::create(['name' => $request->name]);
-        foreach ($request->variation as $varname) {
-            AttributeVariation::updateOrCreate(
-                ['name' => $varname],
-                ['attribute_id' => $attr->id],
-            );
-        }
+        $attribute = app(AttributeService::class, ['attribute' => new Attribute()])->create($this->myValidate($request));
 
         return redirect()
-            ->route('attributes.edit', $attr->id)
+            ->route('attributes.edit', $attribute->id)
             ->with('message', __('admin/crud.created', ['name' => 'Attribute']));
     }
 
 
     public function update(Request $request, $id)
     {
-        $this->myValidate($request);
-        $attr = Attribute::findOrFail($id);
-        $attr->update([
-           'name' => $request->name,
-        ]);
-
-        $newVars = $request->variation;
-
-        AttributeVariation::where([
-            ['attribute_id','=',$id],
-        ])->whereNotIn('name', $newVars)->delete();
-
-        foreach ($newVars as $varname) {
-            AttributeVariation::updateOrCreate(
-                ['attribute_id' => $attr->id,'name' => $varname],
-            );
-        }
+        app(AttributeService::class, ['attribute' => Attribute::findOrFail($id)])->update($this->myValidate($request));
 
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => 'Attribute']));
     }
@@ -64,7 +42,7 @@ class AttributeController extends CRUDController
         return parent::destroy($id);
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'name' => 'required|string',

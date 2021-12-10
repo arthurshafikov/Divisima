@@ -10,7 +10,7 @@
 
     <x-input :value="$post->name" placeholder="Name of the product" label="Name" />
 
-    <x-image :value="$post->image->id" :src="$post->getImageString()"/>
+    <x-image :value="$post->image?->id" :src="$post->getImageString()"/>
 
     <div class="form-group">
         <label class="small mb-1">Product Gallery</label>

@@ -3,62 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DeleteImagesRequest;
+use App\Http\Requests\Admin\LoadGalleryRequest;
 use App\Http\Requests\MediaRequest;
-use App\Models\Image;
-use Illuminate\Http\Request;
+use App\Services\Admin\MediaService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class MediaController extends Controller
 {
-    public function loadGallery(Request $request)
+    public function loadGallery(LoadGalleryRequest $request): JsonResponse
     {
-        $images = $request->get('gallery');
+        $content = app(MediaService::class)->getGalleryImagesHtml($request->get('gallery'));
 
-        ob_start();
-        $images = Image::whereIn('id', $images)->get();
-        foreach ($images as $img) {
-            echo view('admin.parts.gallery-image', [
-                'img' => $img,
-            ])->render();
-        }
-
-        return response()->json(ob_get_clean());
+        return response()->json($content);
     }
 
-    public function uploadImage(MediaRequest $request)
+    public function uploadImage(MediaRequest $request): JsonResponse
     {
-        $files = $request->file('image');
+        $content = app(MediaService::class)->uploadImages($request->file('image'));
 
-        ob_start();
-        foreach ($files as $file) {
-            $path = $file->store('images');
-            $img = Image::create([
-                'src' => $path,
-            ]);
-            echo view('admin.parts.media-image', [
-                'img' => $img,
-            ])->render();
-        }
-        $res = ob_get_clean();
-
-        return response()->json($res);
+        return response()->json($content);
     }
 
-    public function deleteImages(Request $request)
+    public function deleteImages(DeleteImagesRequest $request): JsonResponse
     {
-        $imageIds = $request->ids;
-        $res = Image::destroy($imageIds);
+        $result = app(MediaService::class)->deleteImages($request->get('image_ids'));
 
-        return response()->json($res);
+        return response()->json($result);
     }
 
-    public function loadMediaImages()
+    public function loadMediaImages(): Response
     {
-        $images = Image::orderBy('created_at', 'desc')->paginate(20);
-        ob_start();
-        foreach ($images as $img) {
-            echo view('admin.parts.media-image', ['img' => $img])->render();
-        }
+        $content = app(MediaService::class)->loadMediaImages();
 
-        return ob_get_clean();
+        return response($content);
     }
 }

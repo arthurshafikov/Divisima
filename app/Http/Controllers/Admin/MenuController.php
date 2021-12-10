@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
-use App\Models\MenuItems;
+use App\Services\Admin\MenuService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MenuController extends CRUDController
@@ -17,22 +18,9 @@ class MenuController extends CRUDController
         $this->oneText = 'Menu';
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $this->myValidate($request);
-
-        $menu = Menu::create($request->only('name', 'location'));
-
-        $itemNames = $request->item_names;
-        $itemLinks = $request->item_links;
-
-        for ($i = 0; $i < count($itemNames); $i++) {
-            MenuItems::create([
-                'menu_id' => $menu->id,
-                'name' => $itemNames[$i],
-                'path' => $itemLinks[$i],
-            ]);
-        }
+        $menu = app(MenuService::class, ['menu' => new Menu()])->create($this->myValidate($request));
 
         return redirect()->route($this->essense . '.edit', $menu->id)
             ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
@@ -40,30 +28,12 @@ class MenuController extends CRUDController
 
     public function update(Request $request, $id)
     {
-        $this->myValidate($request);
-
-        $menu = Menu::findOrFail($id);
-        $menu->update($request->only('name', 'location'));
-
-        $itemNames = $request->item_names;
-        $itemLinks = $request->item_links;
-
-        foreach ($menu->items as $item) {
-            MenuItems::destroy($item->id);
-        }
-        for ($i = 0; $i < count($itemNames); $i++) {
-            MenuItems::create([
-                'menu_id' => $menu->id,
-                'name' => $itemNames[$i],
-                'path' => $itemLinks[$i],
-            ]);
-        }
+        app(MenuService::class, ['menu' => Menu::findOrFail($id)])->update($this->myValidate($request));
 
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
-
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'name' => 'required|string',

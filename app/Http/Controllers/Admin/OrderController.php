@@ -17,7 +17,7 @@ class OrderController extends CRUDController
         $this->oneText = 'Order';
     }
 
-    protected function myValidate(Request $request)
+    protected function myValidate(Request $request): array
     {
         return $request->validate([
             'status' => Rule::in(ORDER::ORDER_STATUSES),
