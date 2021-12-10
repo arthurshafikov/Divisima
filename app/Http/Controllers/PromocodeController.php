@@ -14,12 +14,14 @@ class PromocodeController extends Controller
             session(['promocode' => $promocode->discount]);
             return redirect()->back()->with('msg', __('promocode.applied'));
         }
+
         return redirect()->back()->with('err', 'Wrong promocode');
     }
 
     public function removePromocode()
     {
         request()->session()->forget('promocode');
+
         return redirect()->back()->with('msg', __('promocode.deleted'));
     }
 }

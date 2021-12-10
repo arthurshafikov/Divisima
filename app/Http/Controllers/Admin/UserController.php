@@ -21,6 +21,7 @@ class UserController extends CRUDController
     public function edit($id): View
     {
         $user = $this->model::findOrFail($id);
+
         return view('admin.edit.' . $this->essense, [
             'user' => $user,
         ]);
@@ -31,9 +32,7 @@ class UserController extends CRUDController
         $this->myValidate($request);
 
         $user = User::findOrFail($id);
-
         $verify = false;
-
         $data = $request->only('name');
 
         if ($request->password != false) {
@@ -44,13 +43,11 @@ class UserController extends CRUDController
             $verify = null;
             event(new UserEmailHadChanged($user));
         }
-
         if ($request->verify == "1") {
             $verify = now();
         }
 
         $user->update($data);
-
         if ($verify !== false) {
             $user->email_verified_at = $verify;
             $user->save();
@@ -58,6 +55,7 @@ class UserController extends CRUDController
                 $user->sendEmailVerificationNotification();
             }
         }
+
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 

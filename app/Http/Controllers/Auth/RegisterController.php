@@ -43,8 +43,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => $data['password'],
         ]);
-
         $user->profile()->create();
+
         return $user;
     }
 }

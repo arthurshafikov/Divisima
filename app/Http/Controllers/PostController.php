@@ -10,6 +10,7 @@ class PostController extends Controller
     public function blog(): View
     {
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+
         return view('blog.blog', [
             'title' => __('pages.blog.title'),
             'posts' => $posts,
@@ -19,6 +20,7 @@ class PostController extends Controller
     public function one(string $slug): View
     {
         $post = Post::whereSlug($slug)->firstOrFail();
+
         return view('blog.one', [
             'title' => $post->name,
             'post' => $post,

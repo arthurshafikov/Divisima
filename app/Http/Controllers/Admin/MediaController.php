@@ -20,6 +20,7 @@ class MediaController extends Controller
                 'img' => $img,
             ])->render();
         }
+
         return response()->json(ob_get_clean());
     }
 
@@ -57,6 +58,7 @@ class MediaController extends Controller
         foreach ($images as $img) {
             echo view('admin.parts.media-image', ['img' => $img])->render();
         }
+
         return ob_get_clean();
     }
 }

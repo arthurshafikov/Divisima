@@ -16,6 +16,7 @@ class WishlistController extends Controller
     {
         $productIds = $this->getWishlistCookie();
         $products = Product::whereIn('id', $productIds)->get();
+
         return view('pages.wishlist', [
             'title' => __('pages.wishlist.title'),
             'products' => $products,
@@ -38,11 +39,11 @@ class WishlistController extends Controller
         $minutes = self::WISHLIST_COOKIE_TIME;
         $cookie = self::WISHLIST_COOKIE_NAME;
         $items = CookieHelper::getJSONCookie($cookie);
-
         if (!is_array($items)) {
             Cookie::queue($cookie, json_encode([]), $minutes);
             return [];
         }
+
         return $items;
     }
 }

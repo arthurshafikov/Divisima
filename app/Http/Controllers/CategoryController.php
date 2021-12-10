@@ -11,7 +11,6 @@ class CategoryController extends Controller
     public function category(ProductFilter $filters, $slug): View
     {
         $category = Category::whereSlug($slug)->with('products')->firstOrFail();
-
         $products = $category
             ->products()
             ->filter($filters)

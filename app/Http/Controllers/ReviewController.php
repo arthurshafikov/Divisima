@@ -17,6 +17,7 @@ class ReviewController extends Controller
     public function getProductReviews($id): View
     {
         $reviews = Review::where('product_id', $id)->with('user')->orderBy('created_at', 'desc')->paginate(4);
+
         return view('parts.reviews.reviews', [
             'reviews' => $reviews,
             'id'      => $id,

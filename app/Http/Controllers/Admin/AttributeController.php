@@ -21,7 +21,6 @@ class AttributeController extends CRUDController
     {
         $this->myValidate($request);
         $attr = Attribute::create(['name' => $request->name]);
-
         foreach ($request->variation as $varname) {
             AttributeVariation::updateOrCreate(
                 ['name' => $varname],
@@ -39,7 +38,6 @@ class AttributeController extends CRUDController
     {
         $this->myValidate($request);
         $attr = Attribute::findOrFail($id);
-
         $attr->update([
            'name' => $request->name,
         ]);
@@ -62,6 +60,7 @@ class AttributeController extends CRUDController
     public function destroy($id)
     {
         AttributeVariation::where('attribute_id', $id)->delete();
+
         return parent::destroy($id);
     }
 

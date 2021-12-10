@@ -55,16 +55,15 @@ class ProductController extends Controller
 
     public function getTopSellingProducts(Request $request): string
     {
+        $productsQuery = Product::query();
         if ($category = $request->get('category')) {
-            $products = Product::whereHas('category', function ($query) use ($category) {
+            $productsQuery = $productsQuery->whereHas('category', function ($query) use ($category) {
                 $query->where('id', $category);
-            })->orderBy('total_sales', 'DESC')->paginate(8);
-        } else {
-            $products = Product::orderBy('total_sales', 'DESC')->paginate(8);
+            });
         }
 
         return view('parts.product.product-loop', [
-            'products' => $products,
+            'products' => $productsQuery->orderBy('total_sales', 'DESC')->paginate(8),
         ])->render();
     }
 

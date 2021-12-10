@@ -28,6 +28,7 @@ class ProductController extends CRUDController
         }
         $product->attributeVariations()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
+
         return redirect()->route($this->essense . '.edit', $product->id)
             ->with('message', $this->oneText . ' has been created successfully!');
     }
@@ -43,6 +44,7 @@ class ProductController extends CRUDController
         }
         $product->attributeVariations()->sync($request->get('attributes'));
         $product->category()->sync($request->get('category'));
+
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
@@ -63,6 +65,7 @@ class ProductController extends CRUDController
     {
         $product = Product::withTrashed()->findOrFail($id);
         $product->restore();
+
         return redirect()->back()->with('message', $this->oneText . ' has been restored successfully!');
     }
 
@@ -70,6 +73,7 @@ class ProductController extends CRUDController
     {
         $product = Product::withTrashed()->findOrFail($id);
         $product->forceDelete();
+
         return redirect()->back()->with('message', $this->oneText . ' has been deleted successfully!');
     }
 

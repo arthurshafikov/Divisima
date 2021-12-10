@@ -14,10 +14,7 @@ class OrderController extends Controller
 {
     public function checkout(): View|RedirectResponse
     {
-        $profile = optional(Auth::user())->profile;
-
         $cartData = Cart::getCart();
-
         if (count($cartData['items']) < 1) {
             return redirect()->route('cart')->with('err', __('cart.empty'));
         }
@@ -25,7 +22,7 @@ class OrderController extends Controller
         return view('checkout', [
             'title' => 'Checkout',
             'cartData' => $cartData,
-            'profile' => $profile,
+            'profile' => optional(Auth::user())->profile,
         ]);
     }
 
@@ -48,23 +45,21 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        $details = [
-            'country' => $order->country,
-            'address' => $order->address,
-            'zip' => $order->zip,
-            'phone' => $order->phone,
-            'status' => $order->status_text,
-            'delivery' => $order->delivery_text,
-            'subtotal' => $order->subtotal,
-            'discount' => $order->discount,
-            'total' => $order->formatted_total,
-            'details' => $order->details,
-        ];
-
         return view('pages.order', [
             'title' => 'Your Order:',
             'order' => $order,
-            'details' => $details,
+            'details' => [
+                'country' => $order->country,
+                'address' => $order->address,
+                'zip' => $order->zip,
+                'phone' => $order->phone,
+                'status' => $order->status_text,
+                'delivery' => $order->delivery_text,
+                'subtotal' => $order->subtotal,
+                'discount' => $order->discount,
+                'total' => $order->formatted_total,
+                'details' => $order->details,
+            ],
         ]);
     }
 }

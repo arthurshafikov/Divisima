@@ -36,6 +36,7 @@ abstract class CRUDController extends Controller
     {
         $this->myValidate($request);
         $post = $this->model::create($request->all());
+
         return redirect()->route($this->essense . '.edit', $post->id)
             ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
     }
@@ -48,6 +49,7 @@ abstract class CRUDController extends Controller
     public function edit($id): View
     {
         $post = $this->model::findOrFail($id);
+
         return view('admin.edit.' . $this->essense, [
             'post' => $post,
         ]);
@@ -58,6 +60,7 @@ abstract class CRUDController extends Controller
         $this->myValidate($request);
         $post = $this->model::findOrFail($id);
         $post->update($request->all());
+
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
