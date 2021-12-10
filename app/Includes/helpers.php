@@ -1,10 +1,14 @@
 <?php
 
+use App\Models\Attributes\AttributeVariation;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+
 if (!function_exists('getAttributeVariationsByName')) {
     function getAttributeVariationsByName($name)
     {
-        return \Cache::remember($name, env("CACHE_TIME", 0), function () use ($name) {
-            $attributeVariations = \App\Models\Attributes\AttributeVariation::whereHas(
+        return Cache::remember($name, env("CACHE_TIME", 0), function () use ($name) {
+            $attributeVariations = AttributeVariation::whereHas(
                 'attribute',
                 function ($query) use ($name) {
                     $query->where('name', $name);
@@ -21,21 +25,23 @@ if (!function_exists('getAttributeVariationsByName')) {
     }
 }
 
-if (!function_exists('echoCheckedIfOldHas')) {
-    function echoCheckedIfOldHas($value, $key)
+if (!function_exists('checkedIfOldHas')) {
+    function checkedIfOldHas(mixed $value, string $key): string
     {
         if (old($key) !== null && in_array($value, old($key))) {
-            echo 'checked';
+            return 'checked';
         }
+        return '';
     }
 }
 
-if (!function_exists('echoCheckedIfModelHas')) {
-    function echoCheckedIfModelHas($value, $model, $property)
+if (!function_exists('checkedIfModelHas')) {
+    function checkedIfModelHas(string $value, Model $model, string $property): string
     {
-        if ($model->$property->contains($value)) {
-            echo 'checked';
+        if ($model?->$property?->contains($value)) {
+            return 'checked';
         }
+        return '';
     }
 }
 

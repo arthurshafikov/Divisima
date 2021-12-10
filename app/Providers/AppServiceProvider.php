@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\View\Components\Product\Attributes;
+use App\View\Components\Product\Categories;
 use App\ViewComposers\Admin\AdminMenuComposer;
 use App\ViewComposers\Admin\ChartsComposer;
 use App\ViewComposers\Admin\MediaComposer;
@@ -13,6 +15,7 @@ use App\ViewComposers\ShopViewComposer;
 use App\ViewComposers\SliderViewComposer;
 use App\ViewComposers\TopSellingViewComposer;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 
@@ -45,5 +48,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('admin.vendor.admin', AdminMenuComposer::class);
         view()->composer('admin.parts.media', MediaComposer::class);
         view()->composer('admin.parts.charts', ChartsComposer::class);
+
+        // admin components
+        Blade::component('attributes', Attributes::class);
+        Blade::component('categories', Categories::class);
     }
 }
