@@ -52,5 +52,8 @@ class AppServiceProvider extends ServiceProvider
         // admin components
         Blade::component('attributes', Attributes::class);
         Blade::component('categories', Categories::class);
+
+        // helpers
+        require_once app_path("Includes/helpers.php");
     }
 }
