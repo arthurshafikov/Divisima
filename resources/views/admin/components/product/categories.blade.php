@@ -3,7 +3,12 @@
     <div class="attributes-wrapper">
         <ul>
             @foreach (\App\Models\Category::parents()->with('childs')->get() as $category)
-                <li class="attribute-name"><input type="checkbox" name="category[]" id="cat_{{ $category->id }}" value="{{ $category->id }}" {{ checkedIfOldHas($category->id,'category') }} >
+                <li class="attribute-name"><input type="checkbox" name="category[]" id="cat_{{ $category->id }}" value="{{ $category->id }}"
+                        @if (old('attributes') !== null && count(old('attributes')) > 0)
+                            {{ checkedIfOldHas($category->id, 'category') }}
+                        @else
+                            {{ checkedIfModelHas($category->id, $product, 'category') }}
+                        @endif >
                     <label for="cat_{{ $category->id }}">{{ $category->name }}</label>
                 </li>
                 @if (count($category->childs) > 0 )
@@ -14,7 +19,7 @@
                                     {{ checkedIfOldHas($cat->id, 'category') }}
                                 @else
                                     {{ checkedIfModelHas($cat->id, $product, 'category') }}
-                                @endif
+                                @endif>
                                 <label for="cat_{{ $cat->id }}"> {{ $cat->name }}</label>
                             </li>
                         @endforeach
