@@ -3,7 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Models\Menu;
-use App\Models\MenuItems;
+use App\Models\MenuItem;
 
 class MenuService
 {
@@ -23,7 +23,7 @@ class MenuService
         $menuItemLinks = $params['item_links'];
 
         for ($i = 0; $i < count($menuItemNames); $i++) {
-            MenuItems::create([
+            MenuItem::create([
                 'menu_id' => $this->menu->id,
                 'name' => $menuItemNames[$i],
                 'path' => $menuItemLinks[$i],
@@ -43,7 +43,7 @@ class MenuService
         $this->menu->items()->delete();
 
         for ($i = 0; $i < count($menuItemNames); $i++) {
-            MenuItems::create([
+            MenuItem::create([
                 'menu_id' => $this->menu->id,
                 'name' => $menuItemNames[$i],
                 'path' => $menuItemLinks[$i],

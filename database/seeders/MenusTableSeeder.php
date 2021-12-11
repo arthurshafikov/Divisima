@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Menu;
-use App\Models\MenuItems;
+use App\Models\MenuItem;
 use Illuminate\Database\Seeder;
 
 class MenusTableSeeder extends Seeder
@@ -99,7 +99,7 @@ class MenusTableSeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            MenuItems::create($item);
+            MenuItem::create($item);
         }
     }
 }
