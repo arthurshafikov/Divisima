@@ -6,6 +6,7 @@ use App\Http\Requests\CheckoutRequest;
 use App\Includes\Cart;
 use App\Models\Order;
 use App\Services\OrderService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -28,9 +29,13 @@ class OrderController extends Controller
 
     public function submit(CheckoutRequest $request): RedirectResponse
     {
-        $order = app(OrderService::class)->createOrder(collect($request->validated()));
+        try {
+            $order = app(OrderService::class)->createOrder(collect($request->validated()));
 
-        return redirect()->route('thank-you', $order->id);
+            return redirect()->route('thank-you', $order->id);
+        } catch (Exception $e) {
+            return redirect()->route('cart')->with('err', $e->getMessage());
+        }
     }
 
     public function thank($id): View
