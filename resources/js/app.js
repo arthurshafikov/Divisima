@@ -1,64 +1,49 @@
 require('./bootstrap');
 
-// app.blade.php -> enviroment
+// app.blade.php -> let enviroment
 
 $(document).ready(function () {
-
-    initializeSelectFields();
-
+    $('select').selectric();
 
     $("#add-review-form").submit(function (e) {
         e.preventDefault();
         log('submit');
-        var url = $(this).attr('action');
+        let url = $(this).attr('action');
         log(url);
-        var data = $(this).serialize();
-        var $this = $("#add-review .preloader");
-        var errorBox = $("#add-review .form-errors");
+        let data = $(this).serialize();
+        let $this = $("#add-review .preloader");
+        let errorBox = $("#add-review .form-errors");
         $.ajax({
             method: 'POST',
             url: url,
             data: data,
-            // dataType:'json',
             beforeSend: function (xhr) {
-                log('before');
                 $this.addClass('active');
                 errorBox.text('');
             },
             success: function (res) {
-                log('success');
                 if (res === '1') {
                     $.fancybox.close();
                     showSuccessMessage();
                 } else {
                     errorBox.html(res);
                 }
-                log(res);
             },
             error: function (xhr) {
-                var errors = xhr.responseJSON.errors;
-                var resp = '';
-                for (error in errors) {
-                    resp += '<p>' + errors[error] + '</p>';
-                }
-                errorBox.html(resp);
-                showSuccessMessage('Error!');
+                putErrorInErrorBox(xhr, errorBox)
                 log(xhr);
-                log('error');
             },
             complete: function (xhr) {
-                log('complete');
                 $this.removeClass('active');
             },
         });
     });
 
-    var page = 1;
+    let page = 1;
     $("body").on("click", ".reviews-load", function (e) {
-        // $(".reviews-load").click(function(e){
         e.preventDefault();
-        var reviewsBox = $('#reviews');
-        var preloader = $('#reviews .preloader');
+        let reviewsBox = $('#reviews');
+        let preloader = reviewsBox.find('.preloader');
         if ($(this).hasClass('load-more')) {
             $(this).remove();
         } else {
@@ -69,31 +54,23 @@ $(document).ready(function () {
                 return false;
             }
         }
-        var url = $(this).attr('href');
-        url += "?page=" + page;
+        let url = $(this).attr('href') + "?page=" + page;
 
         $.ajax({
             method: 'GET',
             url: url,
             data: {},
-            // dataType:'json',
             beforeSend: function (xhr) {
                 preloader.addClass('active');
-                log('before');
             },
             success: function (res) {
-                log('success');
                 log(res);
                 reviewsBox.find('.reviews-wrapper').append(res);
-
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
             },
             complete: function (xhr) {
-                log('complete');
-
                 preloader.removeClass("active");
                 page++;
             },
@@ -104,22 +81,18 @@ $(document).ready(function () {
     $("body").on("submit", ".delete-review-form", function (e) {
         e.preventDefault();
         log('submit');
-        var url = $(this).attr('action');
-        var data = $(this).serialize();
-        var review = $(this).parents('.review');
-        var preloader = $('#reviews .preloader');
+        let url = $(this).attr('action');
+        let data = $(this).serialize();
+        let review = $(this).parents('.review');
+        let preloader = $('#reviews .preloader');
         $.ajax({
             method: 'POST',
             url: url,
             data: data,
-            // dataType:'json',
             beforeSend: function (xhr) {
-                log('before');
                 preloader.addClass('active');
             },
             success: function (res) {
-                log('success');
-                log(res);
                 if (res === '1') {
                     review.slideUp();
                 } else {
@@ -128,142 +101,102 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
                 alert('500 error!');
             },
             complete: function (xhr) {
-                log('complete');
                 preloader.removeClass("active");
             },
         });
     });
 
     if ($(".top-products").length > 0) {
-        var preloader = $(".product-filter-section .preloader");
-        loadTopSellingProducts(preloader);
+        loadTopSellingProducts();
         $(".product-filter-menu .category-select a").click(function (e) {
             e.preventDefault();
-            log('click');
-            var select = $(this);
-            page = 1;
-            loadTopSellingProducts(preloader, select);
+            loadTopSellingProducts($(this));
         });
     }
 
     $(".contact-form").submit(function (e) {
         e.preventDefault();
-        var url = $(this).attr('action');
-        var errorBox = $(this).find('.form-errors');
-        var preloader = $(this).find('.preloader');
-        var data = $(this).serialize();
+        let url = $(this).attr('action');
+        let errorBox = $(this).find('.form-errors');
+        let preloader = $(this).find('.preloader');
+        let data = $(this).serialize();
         $.ajax({
             method: 'POST',
             url: url,
             data: data,
-            // dataType:'json',
             beforeSend: function (xhr) {
+                errorBox.html('');
                 preloader.addClass('active');
-                log('before');
             },
             success: function (res) {
                 showSuccessMessage();
-                log('success');
-                log(res);
-                errorBox.html('');
             },
             error: function (xhr) {
-                var errors = xhr.responseJSON.errors;
-                var resp = '';
-                for (error in errors) {
-                    resp += '<p>' + errors[error] + '</p>';
-                }
-                errorBox.html(resp);
+                putErrorInErrorBox(xhr, errorBox)
                 log(xhr);
-                log('error');
             },
             complete: function (xhr) {
                 preloader.removeClass('active');
-                log('complete');
             },
         });
 
     });
 
-
     $("body").on("click", ".wishlist-btn", function (e) {
         e.preventDefault();
-        var url = $(this).attr('href');
-        var btn = $(this);
+        let url = $(this).attr('href');
+        let btn = $(this);
         $.ajax({
             method: 'GET',
             url: url,
             data: {},
             success: function (res) {
-                log('success');
-                log(res);
                 btn.addClass('success');
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
-            },
-            complete: function (xhr) {
-                log('complete');
-            },
+            }
         });
     });
+
     $(".wishlist-remove").click(function (e) {
         e.preventDefault();
-        var url = $(this).attr('href');
-        var item = $(this).parents('tr');
+        let url = $(this).attr('href');
+        let item = $(this).parents('tr');
         $.ajax({
             method: 'GET',
             url: url,
             data: {},
-            // dataType:'json',
-            beforeSend: function (xhr) {
-                log('before');
-            },
             success: function (res) {
-                log('success');
                 log(res);
                 item.remove();
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
-            },
-            complete: function (xhr) {
-                log('complete');
-            },
+            }
         });
     });
 
     $('.filter-form').submit(function (e) {
         e.preventDefault();
 
-        var params = $(this).serialize();
-
+        let params = $(this).serialize();
         const urlParams = new URLSearchParams(params);
-
-        log(urlParams.toString());
-
-        var brands = urlParams.getAll('brand[]');
-
+        let brands = urlParams.getAll('brand[]');
         urlParams.delete('brand[]');
-
         urlParams.set('brand', brands.join(','));
 
-
-        var newurl = urlParams.toString();
-        location.assign(window.location.pathname + '?' + newurl);
+        let newUrl = urlParams.toString();
+        location.assign(window.location.pathname + '?' + newUrl);
     });
 
-
-    addQuantityChangeInCart();
+    addQuantityChangeButtonsInCart();
     /* Add to cart */
 
-    $("body").on("click", ".add-cart-open-modal", function (e) { // rename
+    $("body").on("click", ".add-cart-open-modal", function (e) {
         e.preventDefault();
 
         let url = $(this).attr('href');
@@ -277,18 +210,16 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
             }
         });
     });
 
     $("body").on("click", ".add-to-cart", function (e) {
         let url = $(this).attr('href');
-        let qty, size, color;
+        let size, color;
 
         let attributes = $(this).parents(".modal-content").find(".product-attributes");
-
-        qty = attributes.find('input.qty').val()
+        let qty = attributes.find('input.qty').val()
 
         if (attributes.length > 0) {
             let size_check = attributes.find('.fw-size-choose input:checked');
@@ -314,7 +245,6 @@ $(document).ready(function () {
             qty,
             attributes: attributesData,
         }
-        log(data)
         $.ajax({
             method: 'GET',
             url: url,
@@ -327,14 +257,12 @@ $(document).ready(function () {
                 $this.addClass('loading');
             },
             success: function (res) {
-                log(res);
                 changeCartQuantity(res);
                 $this.text('Success!');
                 $this.addClass('success');
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
                 $this.addClass('error');
                 $this.text('Error!');
             },
@@ -361,7 +289,6 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
             },
         });
     })
@@ -369,9 +296,9 @@ $(document).ready(function () {
     $("body").on("click", ".cart-update", function (e) {
         e.preventDefault();
 
-        var products = $(".cart-product");
-        var url = $(this).attr('href');
-        var data = [];
+        let products = $(".cart-product");
+        let url = $(this).attr('href');
+        let data = [];
 
         products.each(function (key, product) {
             let qty = $(product).find('.pro-qty input').val()
@@ -384,7 +311,6 @@ $(document).ready(function () {
                 qty: qty,
             });
         });
-        log(data);
 
         $.ajax({
             method: 'GET',
@@ -394,34 +320,24 @@ $(document).ready(function () {
             },
             dataType: 'json',
             beforeSend: function (xhr) {
-                log('before');
                 $(".cart-table .preloader").addClass('active');
             },
             success: function (res) {
-                log('success');
                 log(res);
                 $(".cart-section.spad > .container").html(res.html);
-                addQuantityChangeInCart();
+                addQuantityChangeButtonsInCart();
                 changeCartQuantity(res.count);
-                initializeSelectFields();
+                $('select').selectric();
             },
             error: function (xhr) {
                 log(xhr);
-                log('error');
             },
             complete: function (xhr) {
-                log('complete');
                 $(".cart-table .preloader").removeClass('active');
             },
         });
     });
 
-
-
-    // $('.upload-avatar').click(function (e) {
-    //     log('click-popup');
-
-    // });
     $('#upload-avatar-form #avatar-file').change(function (e) {
         previewFile(this, $('#preview-avatar'));
         $("#upload-avatar-form button").slideDown();
@@ -429,128 +345,96 @@ $(document).ready(function () {
 
     $('#upload-avatar-form').submit(function (e) {
         e.preventDefault();
-        var thisForm = $(this)[0];
-        var url = $(this).attr('action');
-        var formData = new FormData(thisForm);
-        var btn = $(thisForm).find('button[type="submit"]');
+        let thisForm = $(this)[0];
+        let url = $(this).attr('action');
+        let formData = new FormData(thisForm);
+        let btn = $(thisForm).find('button[type="submit"]');
         $.ajax({
             method: 'POST',
             url: url,
-            data: formData, // данные, которые передаем
-            cache: false, // кэш и прочие настройки писать именно так (для файлов)
-            // (связано это с кодировкой и всякой лабудой)
-            contentType: false, // нужно указать тип контента false для картинки(файла)
-            processData: false, // для передачи картинки(файла) нужно false
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
             dataType: 'json',
             beforeSend: function (xhr) {
-                log('before');
                 $(thisForm).parents('.popup').find('.preloader').addClass('active');
                 $(thisForm).find(".form-errors").html('');
                 btn.text('Sending...');
             },
             success: function (res) {
-                log('success');
-                log(res);
-                var src = '/storage/' + res.text;
-                // src = src.replace(/avatars\/.*/, obj.text);
-                $("#avatar").attr('src', src);
+                $("#avatar").attr('src', '/storage/' + res.text);
                 btn.text('Success');
-                $(thisForm).parents('.popup').find('.preloader').removeClass('active');
                 $.fancybox.close();
                 showSuccessMessage();
             },
-            error: function (data) {
+            error: function (xhr) {
                 btn.text('Error!');
-                console.log(data)
-                if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
-                    var errordata = data.responseJSON.errors.avatar;
-                    $(thisForm).find(".form-errors").text(errordata[0]);
-                } else {
-                    $(thisForm).find(".form-errors").text('500 error!');
-                }
+                console.log(xhr)
+                putErrorInErrorBox(xhr, $(thisForm).find(".form-errors"))
             },
             complete: function (xhr) {
-                log('complete');
+                $(thisForm).parents('.popup').find('.preloader').removeClass('active');
             },
         });
     });
 
     $('#change-profile-form').submit(function (e) {
         e.preventDefault();
-        var thisForm = $(this)[0];
-        var url = $(this).attr('action');
-        var formData = $(this).serialize();
-        var btn = $(thisForm).find('button[type="submit"]');
+        let thisForm = this;
+        let url = $(this).attr('action');
+        let formData = $(this).serialize();
+        let btn = $(thisForm).find('button[type="submit"]');
         $.ajax({
             method: 'POST',
             url: url,
             data: formData, // данные, которые передаем
-            // dataType: 'json',
             beforeSend: function (xhr) {
                 $(thisForm).find(".form-errors").html('');
                 $(thisForm).parents('.popup').find('.preloader').addClass('active');
                 btn.text('Sending...');
             },
             success: function (res) {
-                log('success');
-                log(res);
-                btn.text('Success!');
-            },
-            error: function (data) {
-                btn.text('Error!');
-                log(data);
-                if (data.responseJSON != undefined) {
-                    if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
-                        for (error in data.responseJSON.errors) {
-                            $(thisForm).find(".form-errors").append(data.responseJSON.errors[error] + '<br>');
-                        }
-                    } else {
-                        $(thisForm).find(".form-errors").text('500 error!');
-                    }
-                }
-
-            },
-            complete: function (xhr) {
-                log('complete');
-                $(thisForm).parents('.popup').find('.preloader').removeClass('active');
                 $.fancybox.close();
                 showSuccessMessage();
+                btn.text('Success!');
+            },
+            error: function (xhr) {
+                log(xhr);
+                putErrorInErrorBox(xhr, $(thisForm).find(".form-errors"))
+            },
+            complete: function (xhr) {
+                $(thisForm).parents('.popup').find('.preloader').removeClass('active');
             },
         });
     });
-
 });
 
-function loadTopSellingProducts(preloader, select = null, page = 1)
-{
+function loadTopSellingProducts(select = null) {
+    let preloader = $(".product-filter-section .preloader");
+    let category = null;
     if (select !== null) {
-        var category = select.data('cat-id');
+        category = select.data('cat-id');
     } else {
         select = $(".product-filter-section .category-select:first-child a");
-        var category = null;
     }
-    var url = $('.loadTopSellingProducts').data('action');
+    let url = $('.loadTopSellingProducts').data('action');
     $.ajax({
         method: 'GET',
         url: url,
         data: {
             category,
-            page,
         },
-        // dataType:'json',
         beforeSend: function (xhr) {
-            log('before');
             preloader.addClass('active');
             $(".product-filter-section .category-select a.active").removeClass('active');
         },
         success: function (res) {
-            log('success');
             $(".top-products").html(res);
             log(res);
         },
         error: function (xhr) {
             log(xhr);
-            log('error');
         },
         complete: function (xhr) {
             log('complete');
@@ -559,8 +443,8 @@ function loadTopSellingProducts(preloader, select = null, page = 1)
         },
     });
 }
-function showSuccessMessage(text = 'Success!')
-{
+
+function showSuccessMessage(text = 'Success!') {
     $("#suc-mes h2").text(text);
     $.fancybox.open({
         src: '#suc-mes',
@@ -572,8 +456,8 @@ function showSuccessMessage(text = 'Success!')
         }
     });
 }
-function log(variable)
-{
+
+function log(variable) {
     if (enviroment === 'production') {
         return '';
     }
@@ -581,44 +465,37 @@ function log(variable)
         console.log(variable);
     }
 }
+
 function changeCartQuantity(quantity)
 {
-    var count = $("#shopping-cart-count");
-    log(quantity);
-    log(Number.isInteger(parseInt(quantity)));
     if (Number.isInteger(parseInt(quantity))) {
-        count.text(quantity);
+        $("#shopping-cart-count").text(quantity);
     }
 }
 
-function addQuantityChangeInCart()
-{
-    /*-------------------
-        Quantity change asfasfs
-    --------------------- */
-    var proQty = $('.pro-qty');
+function addQuantityChangeButtonsInCart() {
+    let proQty = $('.pro-qty');
     proQty.prepend('<span class="dec qtybtn">-</span>');
     proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
-        var $button = $(this);
-        var oldValue = $button.parent().find('input').val();
+        let $button = $(this);
+        let oldValue = $button.parent().find('input').val();
+        let newVal = 0;
         if ($button.hasClass('inc')) {
-            var newVal = parseFloat(oldValue) + 1;
+            newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
+                newVal = parseFloat(oldValue) - 1;
             }
         }
         $button.parent().find('input').val(newVal);
     });
 }
-function previewFile(input,preview)
-{
-    var file    = input.files[0];
-    var reader  = new FileReader();
+
+function previewFile(input, preview) {
+    let file    = input.files[0];
+    let reader  = new FileReader();
     reader.onloadend = function () {
         preview.attr("src",reader.result);
     }
@@ -628,38 +505,16 @@ function previewFile(input,preview)
     } else {
         preview.src = "";
     }
-};
-function initializeSelectFields()
-{
-    $('select:not(.color-select)').selectric();
-
-    $('.color-select').selectric({
-        onInit: function () {
-            var colorClass = $(this).data('color');
-            var button = $(this).parents('.selectric-color-select').find('.button');
-            button.addClass(colorClass);
-        },
-    });
 }
-/*
-$.ajax({
-    method:'POST',
-    url: url,
-    data:{},
-    // dataType:'json',
-    beforeSend:function(xhr){
-        log('before');
-    },
-    success:function(res){
-        log('success');
-        log(res);
-    },
-    error:function(xhr){
-        log(xhr);
-        log('error');
-    },
-    complete:function(xhr){
-        log('complete');
-    },
-});
-*/
+
+function putErrorInErrorBox(xhr, errorBox) {
+    if (typeof xhr.responseJSON !== 'undefined') {
+        let resp = '';
+        for (let error in xhr.responseJSON.errors) {
+            resp += '<p>' + xhr.responseJSON.errors[error] + '</p>';
+        }
+        errorBox.html(resp);
+    } else {
+        errorBox.html(xhr.statusText);
+    }
+}

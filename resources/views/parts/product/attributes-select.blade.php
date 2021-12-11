@@ -52,5 +52,5 @@
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 </div>
 <script>
-    $('select:not(.color-select)').selectric();
+    $('select').selectric();
 </script>

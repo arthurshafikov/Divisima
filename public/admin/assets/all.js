@@ -127,7 +127,7 @@ $(document).ready(function () {
             return false;
         }
         var data = {
-            ids,
+            image_ids: ids,
         };
         $.ajax({
             method: 'DELETE',
@@ -156,10 +156,15 @@ $(document).ready(function () {
     });
 
     var loadGalleryImages = function (object, gallery) {
+        log(media);
+
         var url = $(object).data('url');
         var data = {
             gallery,
         };
+        log(url);
+        log(data);
+        log('TEST2223334445!!!!');
         $.ajax({
             method: 'GET',
             url: url,
@@ -259,7 +264,7 @@ $(document).ready(function () {
                     page: page,
                     // query: query,
                 };
-                var url = '/dashboard/gallery/get';
+                var url = '/dashboard/gallery/get'; // todo remove hardcode
                 $.get(url, data, function (res) {
                     log('res');
                     media_block.find('.media-blocks').append(res);

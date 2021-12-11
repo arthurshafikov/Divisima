@@ -19378,11 +19378,11 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // app.blade.php -> enviroment
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // app.blade.php -> let enviroment
 
 
 $(document).ready(function () {
-  initializeSelectFields();
+  $('select').selectric();
   $("#add-review-form").submit(function (e) {
     e.preventDefault();
     log('submit');
@@ -19395,59 +19395,32 @@ $(document).ready(function () {
       method: 'POST',
       url: url,
       data: data,
-      // dataType:'json',
       beforeSend: function beforeSend(xhr) {
-        log('before');
         $this.addClass('active');
         errorBox.text('');
       },
       success: function success(res) {
-        log('success');
-
         if (res === '1') {
           $.fancybox.close();
           showSuccessMessage();
         } else {
           errorBox.html(res);
         }
-
-        log(res);
       },
-      error: function (_error) {
-        function error(_x) {
-          return _error.apply(this, arguments);
-        }
-
-        error.toString = function () {
-          return _error.toString();
-        };
-
-        return error;
-      }(function (xhr) {
-        var errors = xhr.responseJSON.errors;
-        var resp = '';
-
-        for (error in errors) {
-          resp += '<p>' + errors[error] + '</p>';
-        }
-
-        errorBox.html(resp);
-        showSuccessMessage('Error!');
+      error: function error(xhr) {
+        putErrorInErrorBox(xhr, errorBox);
         log(xhr);
-        log('error');
-      }),
+      },
       complete: function complete(xhr) {
-        log('complete');
         $this.removeClass('active');
       }
     });
   });
   var page = 1;
   $("body").on("click", ".reviews-load", function (e) {
-    // $(".reviews-load").click(function(e){
     e.preventDefault();
     var reviewsBox = $('#reviews');
-    var preloader = $('#reviews .preloader');
+    var preloader = reviewsBox.find('.preloader');
 
     if ($(this).hasClass('load-more')) {
       $(this).remove();
@@ -19461,28 +19434,22 @@ $(document).ready(function () {
       }
     }
 
-    var url = $(this).attr('href');
-    url += "?page=" + page;
+    var url = $(this).attr('href') + "?page=" + page;
     $.ajax({
       method: 'GET',
       url: url,
       data: {},
-      // dataType:'json',
       beforeSend: function beforeSend(xhr) {
         preloader.addClass('active');
-        log('before');
       },
       success: function success(res) {
-        log('success');
         log(res);
         reviewsBox.find('.reviews-wrapper').append(res);
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
       },
       complete: function complete(xhr) {
-        log('complete');
         preloader.removeClass("active");
         page++;
       }
@@ -19499,15 +19466,10 @@ $(document).ready(function () {
       method: 'POST',
       url: url,
       data: data,
-      // dataType:'json',
       beforeSend: function beforeSend(xhr) {
-        log('before');
         preloader.addClass('active');
       },
       success: function success(res) {
-        log('success');
-        log(res);
-
         if (res === '1') {
           review.slideUp();
         } else {
@@ -19516,25 +19478,19 @@ $(document).ready(function () {
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
         alert('500 error!');
       },
       complete: function complete(xhr) {
-        log('complete');
         preloader.removeClass("active");
       }
     });
   });
 
   if ($(".top-products").length > 0) {
-    var preloader = $(".product-filter-section .preloader");
-    loadTopSellingProducts(preloader);
+    loadTopSellingProducts();
     $(".product-filter-menu .category-select a").click(function (e) {
       e.preventDefault();
-      log('click');
-      var select = $(this);
-      page = 1;
-      loadTopSellingProducts(preloader, select);
+      loadTopSellingProducts($(this));
     });
   }
 
@@ -19548,42 +19504,19 @@ $(document).ready(function () {
       method: 'POST',
       url: url,
       data: data,
-      // dataType:'json',
       beforeSend: function beforeSend(xhr) {
+        errorBox.html('');
         preloader.addClass('active');
-        log('before');
       },
       success: function success(res) {
         showSuccessMessage();
-        log('success');
-        log(res);
-        errorBox.html('');
       },
-      error: function (_error2) {
-        function error(_x2) {
-          return _error2.apply(this, arguments);
-        }
-
-        error.toString = function () {
-          return _error2.toString();
-        };
-
-        return error;
-      }(function (xhr) {
-        var errors = xhr.responseJSON.errors;
-        var resp = '';
-
-        for (error in errors) {
-          resp += '<p>' + errors[error] + '</p>';
-        }
-
-        errorBox.html(resp);
+      error: function error(xhr) {
+        putErrorInErrorBox(xhr, errorBox);
         log(xhr);
-        log('error');
-      }),
+      },
       complete: function complete(xhr) {
         preloader.removeClass('active');
-        log('complete');
       }
     });
   });
@@ -19596,16 +19529,10 @@ $(document).ready(function () {
       url: url,
       data: {},
       success: function success(res) {
-        log('success');
-        log(res);
         btn.addClass('success');
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
-      },
-      complete: function complete(xhr) {
-        log('complete');
       }
     });
   });
@@ -19617,21 +19544,12 @@ $(document).ready(function () {
       method: 'GET',
       url: url,
       data: {},
-      // dataType:'json',
-      beforeSend: function beforeSend(xhr) {
-        log('before');
-      },
       success: function success(res) {
-        log('success');
         log(res);
         item.remove();
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
-      },
-      complete: function complete(xhr) {
-        log('complete');
       }
     });
   });
@@ -19639,18 +19557,16 @@ $(document).ready(function () {
     e.preventDefault();
     var params = $(this).serialize();
     var urlParams = new URLSearchParams(params);
-    log(urlParams.toString());
     var brands = urlParams.getAll('brand[]');
     urlParams["delete"]('brand[]');
     urlParams.set('brand', brands.join(','));
-    var newurl = urlParams.toString();
-    location.assign(window.location.pathname + '?' + newurl);
+    var newUrl = urlParams.toString();
+    location.assign(window.location.pathname + '?' + newUrl);
   });
-  addQuantityChangeInCart();
+  addQuantityChangeButtonsInCart();
   /* Add to cart */
 
   $("body").on("click", ".add-cart-open-modal", function (e) {
-    // rename
     e.preventDefault();
     var url = $(this).attr('href');
     $.ajax({
@@ -19663,15 +19579,14 @@ $(document).ready(function () {
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
       }
     });
   });
   $("body").on("click", ".add-to-cart", function (e) {
     var url = $(this).attr('href');
-    var qty, size, color;
+    var size, color;
     var attributes = $(this).parents(".modal-content").find(".product-attributes");
-    qty = attributes.find('input.qty').val();
+    var qty = attributes.find('input.qty').val();
 
     if (attributes.length > 0) {
       var size_check = attributes.find('.fw-size-choose input:checked');
@@ -19697,7 +19612,6 @@ $(document).ready(function () {
       qty: qty,
       attributes: attributesData
     };
-    log(data);
     $.ajax({
       method: 'GET',
       url: url,
@@ -19710,14 +19624,12 @@ $(document).ready(function () {
         $this.addClass('loading');
       },
       success: function success(res) {
-        log(res);
         changeCartQuantity(res);
         $this.text('Success!');
         $this.addClass('success');
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
         $this.addClass('error');
         $this.text('Error!');
       },
@@ -19742,7 +19654,6 @@ $(document).ready(function () {
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
       }
     });
   });
@@ -19763,7 +19674,6 @@ $(document).ready(function () {
         qty: qty
       });
     });
-    log(data);
     $.ajax({
       method: 'GET',
       url: url,
@@ -19772,30 +19682,23 @@ $(document).ready(function () {
       },
       dataType: 'json',
       beforeSend: function beforeSend(xhr) {
-        log('before');
         $(".cart-table .preloader").addClass('active');
       },
       success: function success(res) {
-        log('success');
         log(res);
         $(".cart-section.spad > .container").html(res.html);
-        addQuantityChangeInCart();
+        addQuantityChangeButtonsInCart();
         changeCartQuantity(res.count);
-        initializeSelectFields();
+        $('select').selectric();
       },
       error: function error(xhr) {
         log(xhr);
-        log('error');
       },
       complete: function complete(xhr) {
-        log('complete');
         $(".cart-table .preloader").removeClass('active');
       }
     });
-  }); // $('.upload-avatar').click(function (e) {
-  //     log('click-popup');
-  // });
-
+  });
   $('#upload-avatar-form #avatar-file').change(function (e) {
     previewFile(this, $('#preview-avatar'));
     $("#upload-avatar-form button").slideDown();
@@ -19810,51 +19713,34 @@ $(document).ready(function () {
       method: 'POST',
       url: url,
       data: formData,
-      // данные, которые передаем
       cache: false,
-      // кэш и прочие настройки писать именно так (для файлов)
-      // (связано это с кодировкой и всякой лабудой)
       contentType: false,
-      // нужно указать тип контента false для картинки(файла)
       processData: false,
-      // для передачи картинки(файла) нужно false
       dataType: 'json',
       beforeSend: function beforeSend(xhr) {
-        log('before');
         $(thisForm).parents('.popup').find('.preloader').addClass('active');
         $(thisForm).find(".form-errors").html('');
         btn.text('Sending...');
       },
       success: function success(res) {
-        log('success');
-        log(res);
-        var src = '/storage/' + res.text; // src = src.replace(/avatars\/.*/, obj.text);
-
-        $("#avatar").attr('src', src);
+        $("#avatar").attr('src', '/storage/' + res.text);
         btn.text('Success');
-        $(thisForm).parents('.popup').find('.preloader').removeClass('active');
         $.fancybox.close();
         showSuccessMessage();
       },
-      error: function error(data) {
+      error: function error(xhr) {
         btn.text('Error!');
-        console.log(data);
-
-        if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
-          var errordata = data.responseJSON.errors.avatar;
-          $(thisForm).find(".form-errors").text(errordata[0]);
-        } else {
-          $(thisForm).find(".form-errors").text('500 error!');
-        }
+        console.log(xhr);
+        putErrorInErrorBox(xhr, $(thisForm).find(".form-errors"));
       },
       complete: function complete(xhr) {
-        log('complete');
+        $(thisForm).parents('.popup').find('.preloader').removeClass('active');
       }
     });
   });
   $('#change-profile-form').submit(function (e) {
     e.preventDefault();
-    var thisForm = $(this)[0];
+    var thisForm = this;
     var url = $(this).attr('action');
     var formData = $(this).serialize();
     var btn = $(thisForm).find('button[type="submit"]');
@@ -19863,60 +19749,36 @@ $(document).ready(function () {
       url: url,
       data: formData,
       // данные, которые передаем
-      // dataType: 'json',
       beforeSend: function beforeSend(xhr) {
         $(thisForm).find(".form-errors").html('');
         $(thisForm).parents('.popup').find('.preloader').addClass('active');
         btn.text('Sending...');
       },
       success: function success(res) {
-        log('success');
-        log(res);
-        btn.text('Success!');
-      },
-      error: function (_error3) {
-        function error(_x3) {
-          return _error3.apply(this, arguments);
-        }
-
-        error.toString = function () {
-          return _error3.toString();
-        };
-
-        return error;
-      }(function (data) {
-        btn.text('Error!');
-        log(data);
-
-        if (data.responseJSON != undefined) {
-          if (data.responseJSON.errors != false && data.responseJSON.errors != undefined) {
-            for (error in data.responseJSON.errors) {
-              $(thisForm).find(".form-errors").append(data.responseJSON.errors[error] + '<br>');
-            }
-          } else {
-            $(thisForm).find(".form-errors").text('500 error!');
-          }
-        }
-      }),
-      complete: function complete(xhr) {
-        log('complete');
-        $(thisForm).parents('.popup').find('.preloader').removeClass('active');
         $.fancybox.close();
         showSuccessMessage();
+        btn.text('Success!');
+      },
+      error: function error(xhr) {
+        log(xhr);
+        putErrorInErrorBox(xhr, $(thisForm).find(".form-errors"));
+      },
+      complete: function complete(xhr) {
+        $(thisForm).parents('.popup').find('.preloader').removeClass('active');
       }
     });
   });
 });
 
-function loadTopSellingProducts(preloader) {
-  var select = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+function loadTopSellingProducts() {
+  var select = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var preloader = $(".product-filter-section .preloader");
+  var category = null;
 
   if (select !== null) {
-    var category = select.data('cat-id');
+    category = select.data('cat-id');
   } else {
     select = $(".product-filter-section .category-select:first-child a");
-    var category = null;
   }
 
   var url = $('.loadTopSellingProducts').data('action');
@@ -19924,23 +19786,18 @@ function loadTopSellingProducts(preloader) {
     method: 'GET',
     url: url,
     data: {
-      category: category,
-      page: page
+      category: category
     },
-    // dataType:'json',
     beforeSend: function beforeSend(xhr) {
-      log('before');
       preloader.addClass('active');
       $(".product-filter-section .category-select a.active").removeClass('active');
     },
     success: function success(res) {
-      log('success');
       $(".top-products").html(res);
       log(res);
     },
     error: function error(xhr) {
       log(xhr);
-      log('error');
     },
     complete: function complete(xhr) {
       log('complete');
@@ -19975,34 +19832,26 @@ function log(variable) {
 }
 
 function changeCartQuantity(quantity) {
-  var count = $("#shopping-cart-count");
-  log(quantity);
-  log(Number.isInteger(parseInt(quantity)));
-
   if (Number.isInteger(parseInt(quantity))) {
-    count.text(quantity);
+    $("#shopping-cart-count").text(quantity);
   }
 }
 
-function addQuantityChangeInCart() {
-  /*-------------------
-      Quantity change asfasfs
-  --------------------- */
+function addQuantityChangeButtonsInCart() {
   var proQty = $('.pro-qty');
   proQty.prepend('<span class="dec qtybtn">-</span>');
   proQty.append('<span class="inc qtybtn">+</span>');
   proQty.on('click', '.qtybtn', function () {
     var $button = $(this);
     var oldValue = $button.parent().find('input').val();
+    var newVal = 0;
 
     if ($button.hasClass('inc')) {
-      var newVal = parseFloat(oldValue) + 1;
+      newVal = parseFloat(oldValue) + 1;
     } else {
       // Don't allow decrementing below zero
       if (oldValue > 0) {
-        var newVal = parseFloat(oldValue) - 1;
-      } else {
-        newVal = 0;
+        newVal = parseFloat(oldValue) - 1;
       }
     }
 
@@ -20025,40 +19874,19 @@ function previewFile(input, preview) {
   }
 }
 
-;
+function putErrorInErrorBox(xhr, errorBox) {
+  if (typeof xhr.responseJSON !== 'undefined') {
+    var resp = '';
 
-function initializeSelectFields() {
-  $('select:not(.color-select)').selectric();
-  $('.color-select').selectric({
-    onInit: function onInit() {
-      var colorClass = $(this).data('color');
-      var button = $(this).parents('.selectric-color-select').find('.button');
-      button.addClass(colorClass);
+    for (var error in xhr.responseJSON.errors) {
+      resp += '<p>' + xhr.responseJSON.errors[error] + '</p>';
     }
-  });
+
+    errorBox.html(resp);
+  } else {
+    errorBox.html(xhr.statusText);
+  }
 }
-/*
-$.ajax({
-    method:'POST',
-    url: url,
-    data:{},
-    // dataType:'json',
-    beforeSend:function(xhr){
-        log('before');
-    },
-    success:function(res){
-        log('success');
-        log(res);
-    },
-    error:function(xhr){
-        log(xhr);
-        log('error');
-    },
-    complete:function(xhr){
-        log('complete');
-    },
-});
-*/
 
 /***/ }),
 

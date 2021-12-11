@@ -21,7 +21,6 @@ class Cart
 
         $items = self::getCartCookie();
         if (!array_key_exists($id, $items)) {
-            // todo make products with different attributes add normally
             $items[$id] = [
                 self::CART_COOKIE_ITEM_QTY => $qty,
                 self::CART_COOKIE_ITEM_ATTRIBUTES => $attributes,
