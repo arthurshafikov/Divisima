@@ -7,6 +7,8 @@ use App\Includes\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +16,12 @@ class OrderService
 {
     public function createOrder(Collection $checkoutFields): Order
     {
+        $cartData = Cart::getCart();
+
+        if (!$this->checkItemsAreValid($cartData['items'])) {
+            throw new Exception(__('cart.invalid'));
+        }
+
         $user = Auth::user();
         if ($user === null) {
             $user = User::create($checkoutFields->only('email', 'name', 'password')->toArray());
@@ -21,8 +29,6 @@ class OrderService
         }
 
         $this->saveUserProfileInfoFromCheckoutFields($user, $checkoutFields);
-
-        $cartData = Cart::getCart();
 
         $orderData = $checkoutFields->only('address', 'zip', 'phone', 'country', 'delivery', 'additional');
         $orderData['user_id'] = $user->id;
@@ -64,5 +70,28 @@ class OrderService
             ],
         );
         $user->profile()->updateOrCreate($profileData);
+    }
+
+    private function checkItemsAreValid(Collection $cartItems): bool
+    {
+        $cartItemsAreValid = true;
+        foreach ($cartItems as $cartItem) {
+            $cartAttributes = $cartItem->attributes;
+            if (empty($cartAttributes)) {
+                continue;
+            }
+
+            foreach ($cartAttributes as $cartAttribute => $cartAttributeVariation) {
+                $res = $cartItem->attributeVariations()->whereHas('attribute', function (Builder $query) use ($cartAttribute) {
+                    $query->whereName($cartAttribute);
+                })->whereName($cartAttributeVariation)->exists();
+                if (!$res) {
+                    $cartItemsAreValid = false;
+                    app(Cart::class)->removeFromCart($cartItem->id);
+                }
+            }
+        }
+
+        return $cartItemsAreValid;
     }
 }

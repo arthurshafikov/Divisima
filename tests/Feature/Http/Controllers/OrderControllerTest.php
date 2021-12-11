@@ -40,12 +40,30 @@ class OrderControllerTest extends TestCase
     public function testSubmitWithWrongCart()
     {
         $product = Product::factory()->create();
-        $cart = '{"' . $product->id . '":{"qty":"2","attributes":{}} }';
+        $user = User::factory()->create();
+        $checkoutFields = [
+            "address" => "Moscow",
+            "country" => "Russia",
+            "zip" => "123456",
+            "phone" => "899999999999",
+            "delivery" => Order::ORDER_COURIER_DELIVERY_METHOD,
+        ];
+        $cart = [
+            $product->id => [
+                'qty' => 2,
+                'attributes' => [
+                    'color' => 'fsaafsfsa',
+                    'size' => 'fasija',
+                ],
+            ],
+        ];
 
-        $response = $this->withCookie('cart', $cart)->post(route('checkout'));
+        $response = $this->withCookie('cart', json_encode($cart))
+            ->actingAs($user)
+            ->post(route('checkout'), $checkoutFields);
 
-        $response->assertSessionHasErrors();
-        $response->assertRedirect();
+        $response->assertSessionHas('err');
+        $response->assertRedirect(route('cart'));
     }
 
     public function testSubmitWithoutNameAndEmail()
