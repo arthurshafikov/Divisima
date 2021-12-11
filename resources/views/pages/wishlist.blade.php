@@ -30,7 +30,7 @@
                                     <td><img src="{{$product->getImageString()}}" alt="product"></td>
                                     <td><a href="{{ route('product', $product->slug ) }}">{{$product->name}}</a></td>
                                     <td>{{$product->formatted_price}}</td>
-                                    <td><a href="{{ route('addToCart',$product->id) }}" class="btn btn-primary add-cart"><i class="flaticon-bag"></i><span>ADD TO CART</span></a></td>
+                                    <td><a href="{{ route('loadAttributes',$product->id) }}" class="btn btn-primary add-cart-open-modal"><i class="flaticon-bag"></i><span>ADD TO CART</span></a></td>
                                     <td><a href="{{ route('removeFromWishlist',$product->id) }}" class="wishlist-remove">&times;</a></td>
                                 </tr>
                             @endforeach
