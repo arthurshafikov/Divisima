@@ -11,9 +11,9 @@
 
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade active show" id="nav-media" role="tabpanel" aria-labelledby="nav-media-tab">
-            <h2>Media:</h2>  
+            <h2>Media:</h2>
             <div class="media-wrapper">
-            
+
                 <div class="media-fixed-tools">
                     <button class="btn btn-danger cancel-media">Cancel</button>
                     <button class="btn btn-primary accept-media" data-url="{{ route('loadGallery') }}">Accept</button>
@@ -24,22 +24,22 @@
                         @include('admin.parts.media-image')
                     @endforeach
 
-                    <div class="load-more"></div>
+                    <div class="load-more" data-url="{{ route('loadMediaImages') }}"></div>
                 </div>
 
             </div>
         </div>
 
         <div class="tab-pane fade" id="nav-upload" role="tabpanel" aria-labelledby="nav-upload-tab">
-            
+
             <form action="{{ route('upload-image') }}" method="POST" id="upload-file">
                 @csrf
                 <div class="form-group">
                     <label for="new-image">Load file</label>
                     <input type="file" name="image[]" multiple id="new-image" class="form-control" required>
-                
+
                 </div>
-                            
+
 
                 @include('admin.parts.form.button')
             </form>

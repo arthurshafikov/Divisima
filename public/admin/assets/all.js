@@ -11,15 +11,14 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
 $(document).ready(function () {
     "use strict";
 
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    // Add active state to sidbar nav links
-    var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+    // Add active state to sidebar nav links
+    let path = window.location.href;
     $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
         if (this.href === path) {
             $(this).addClass("active");
@@ -35,28 +34,22 @@ $(document).ready(function () {
 
     $(".new-item").click(function (e) {
         e.preventDefault();
-        log('click');
-        var example = $(".multipleItems .item-example");
-        log(example);
-        var clone = example.clone(true).removeClass('item-example');
-        // clone.find('input').attr('type', 'text');
+        let example = $(".multipleItems .item-example");
+        let clone = example.clone(true).removeClass('item-example');
         clone.find('input').attr('disabled', false);
-        log(clone);
         clone.appendTo(".multipleItems");
-
     });
+
     $(".remove-item").click(function (e) {
         e.preventDefault();
         $(this).parent('label').remove();
     });
 
-
     $("body").on('click', ".media-img", function (e) {
-        log('click');
         $(this).toggleClass('selected');
     });
 
-    var fancyBox_opener = null;
+    let fancyBox_opener = null;
     $(".media-load").click(function () {
         fancyBox_opener = $(this);
     });
@@ -65,22 +58,18 @@ $(document).ready(function () {
         preventCaptionOverlap: false,
         smallBtn: false,
         scrolling : 'yes',
-
     });
 
     $("body").on('click', ".accept-media", function (e) {
-        log('accept');
-        // var obj = $.fancybox.getInstance();
-        var parent = $(this).parents('.media-wrapper');
-        var media = parent.find('.media-blocks .media-img.selected');
-        var ids = [];
-        var srcs = [];
+        let parent = $(this).parents('.media-wrapper');
+        let media = parent.find('.media-blocks .media-img.selected');
+        let ids = [];
+        let srcs = [];
         media.each(function (index, item) {
             ids.push($(item).data('id'));
             srcs.push($(item).find('img').attr('src'));
         });
         media.removeClass('selected');
-
 
         if (fancyBox_opener === null) {
             srcs.forEach(element => $('#content').summernote('insertImage', element, 'test.jpg'));
@@ -89,13 +78,13 @@ $(document).ready(function () {
                 alert('You must select only one image!');
                 return false;
             }
-            var form_group = fancyBox_opener.parents('.form-group');
-            var hidden = form_group.find('input');
+            let form_group = fancyBox_opener.parents('.form-group');
+            let hidden = form_group.find('input');
 
             hidden.val(ids.join(','));
 
             //append gallery images
-            var object = form_group.find('.gallery');
+            let object = form_group.find('.gallery');
             if (object.length > 0) {
                 object.addClass('loading');
                 loadGalleryImages(object, ids);
@@ -103,145 +92,106 @@ $(document).ready(function () {
                 form_group.find('#featured_preview').attr('src', srcs[0]);
             }
         }
-
-
         fancyBox_opener = null;
         $.fancybox.close();
     });
 
 
     $("body").on('click', ".delete-media", function (e) {
-        log('delete');
-        var url = $(this).data('url');
-        var parent = $(this).parents('.media-wrapper');
-        var media = parent.find('.media-blocks .media-img.selected');
-        var ids = [];
-        var srcs = [];
+        let url = $(this).data('url');
+        let parent = $(this).parents('.media-wrapper');
+        let media = parent.find('.media-blocks .media-img.selected');
+        let ids = [];
         media.each(function (index, item) {
             ids.push($(item).data('id'));
-            srcs.push($(item).find('img').attr('src'));
         });
         if (ids.length < 1) {
             return false;
         } else if (!confirm('Are you sure to delete these ' + ids.length + ' images?')) {
             return false;
         }
-        var data = {
-            image_ids: ids,
-        };
         $.ajax({
             method: 'DELETE',
             url: url,
-            data: data,
+            data: {
+                image_ids: ids,
+            },
             dataType:'json',
             beforeSend: function (xhr) {
-
                 $(".media-popup .preloader").addClass('active');
             },
             success: function (res) {
-                log('success');
-                log(res);
                 media.remove();
-
             },
             error: function (xhr) {
-                log(xhr);
-                log('error');
+                console.log(xhr);
             },
             complete: function (xhr) {
-                log('complete');
                 $(".media-popup .preloader").removeClass('active');
             },
         });
     });
 
-    var loadGalleryImages = function (object, gallery) {
-        log(media);
-
-        var url = $(object).data('url');
-        var data = {
-            gallery,
-        };
-        log(url);
-        log(data);
-        log('TEST2223334445!!!!');
+    let loadGalleryImages = function (object, gallery) {
         $.ajax({
             method: 'GET',
-            url: url,
-            data: data,
+            url: $(object).data('url'),
+            data: {
+                gallery,
+            },
             dataType: 'json',
             success: function (res) {
-                log('success');
-                log(res);
                 object.html(res);
                 object.removeClass('loading');
             },
             error: function (xhr) {
-                log(xhr);
-                log('error');
-            },
-            complete: function (xhr) {
-                log('complete');
-            },
+                console.log(xhr);
+            }
         });
     }
 
     $("body").on('click', ".cancel-media", function (e) {
-        var parent = $(this).parents('.media-wrapper');
-        var media = parent.find('.media-blocks .media-img.selected');
+        let parent = $(this).parents('.media-wrapper');
+        let media = parent.find('.media-blocks .media-img.selected');
         media.removeClass('selected');
         fancyBox_opener = null;
         $.fancybox.close();
     });
 
-
-
     $("body").on('submit', '#upload-file', function (e) {
         e.preventDefault();
-        log('submit');
-
-        var url = $(this).attr('action');
-
-        var thisForm = $(this)[0];
-        var formData = new FormData(thisForm);
+        let url = $(this).attr('action');
+        let thisForm = this;
+        let formData = new FormData(thisForm);
 
         $.ajax({
             method: 'POST',
             url: url,
-            // data:data,
-            data: formData, // данные, которые передаем
-            cache: false, // кэш и прочие настройки писать именно так (для файлов)
-            // (связано это с кодировкой и всякой лабудой)
-            contentType: false, // нужно указать тип контента false для картинки(файла)
-            processData: false, // для передачи картинки(файла) нужно false
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
             dataType: 'json',
             beforeSend: function (xhr) {
-                log('before');
                 $(".media-popup .preloader").addClass('active');
             },
             success: function (res) {
-                log('success');
-                log(res);
                 $(".media-blocks").prepend(res);
             },
             error: function (xhr) {
-                log(xhr);
-                log('error');
+                console.log(xhr);
             },
             complete: function (xhr) {
-                log('complete');
                 $(".media-popup .preloader").removeClass('active');
             },
         });
     });
 
-
-
-    var media_block = $(".media-popup");
-    var button = media_block.find(".load-more");
-    var page = 2;
-    var loading = false;
-    var scrollHandling = {
+    let media_block = $(".media-popup");
+    let button = media_block.find(".load-more");
+    let page = 2;
+    let loading = false;
+    let scrollHandling = {
         allow: true,
         reallow: function () {
             scrollHandling.allow = true;
@@ -249,47 +199,31 @@ $(document).ready(function () {
         delay: 400,
     };
 
-    // $("body").on('scroll','.media-popup',function(e){
-    //     log('123');
-    //     mediaScroll;
-    // });
-    var mediaScroll = function () {
+    let mediaScroll = function () {
         if (!loading && scrollHandling.allow) {
             scrollHandling.allow = false;
             setTimeout(scrollHandling.reallow, scrollHandling.delay);
-            var offset = $(button).offset().top;// - $(window).scrollTop();
+            let offset = $(button).offset().top - $(window).scrollTop();
             if (1000 > offset) {
                 loading = true;
-                var data = {
+                let data = {
                     page: page,
-                    // query: query,
                 };
-                var url = '/dashboard/gallery/get'; // todo remove hardcode
+                let url = $(button).data('url');
                 $.get(url, data, function (res) {
-                    log('res');
                     media_block.find('.media-blocks').append(res);
                     media_block.find('.media-blocks').append(button);
 
-
-                    page = page + 1;
+                    page++;
                     loading = false;
-
                 }).fail(function (xhr, textStatus, e) {
-                    log(xhr.responseText);
-                    // log("fail");
+                    console.log(xhr);
                 });
             }
         }
     }
 
-
-    $(".media-popup").scroll(mediaScroll);
-
-
-    function log(variable)
-    {
-        console.log(variable);
-    }
+    media_block.scroll(mediaScroll);
 });
 
 /*! For license information please see summernote-lite.min.js.LICENSE.txt */
