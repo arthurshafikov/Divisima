@@ -18,7 +18,7 @@ class MediaControllerTest extends TestCase
 
     public function testUploadImage()
     {
-        Storage::fake('images');
+        Storage::fake();
         $file = UploadedFile::fake()->image('image.png');
         $images = [
             $file,

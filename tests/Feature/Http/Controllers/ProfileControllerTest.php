@@ -37,7 +37,7 @@ class ProfileControllerTest extends TestCase
 
     public function testUploadAvatar()
     {
-        Storage::fake('avatars');
+        Storage::fake();
         $file = UploadedFile::fake()->image('avatar.png');
         $user = User::factory()->create();
 
