@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -32,7 +33,7 @@ abstract class CRUDController extends Controller
         return view('admin.new.' . $this->essense);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->myValidate($request);
         $post = $this->model::create($request->all());
@@ -41,7 +42,7 @@ abstract class CRUDController extends Controller
             ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
     }
 
-    public function show()
+    public function show(): RedirectResponse
     {
         return redirect()->back();
     }
@@ -55,7 +56,7 @@ abstract class CRUDController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $this->myValidate($request);
         $post = $this->model::findOrFail($id);
@@ -64,7 +65,7 @@ abstract class CRUDController extends Controller
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $this->model::destroy($id);
 

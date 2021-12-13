@@ -26,7 +26,7 @@ class MenuController extends CRUDController
             ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         app(MenuService::class, ['menu' => Menu::findOrFail($id)])->update($this->myValidate($request));
 

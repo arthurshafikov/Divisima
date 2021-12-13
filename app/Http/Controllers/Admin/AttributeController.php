@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Attributes\Attribute;
 use App\Models\Attributes\AttributeVariation;
 use App\Services\Admin\AttributeService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AttributeController extends CRUDController
@@ -18,9 +19,9 @@ class AttributeController extends CRUDController
         $this->oneText = 'Attribute';
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        $attribute = app(AttributeService::class, ['attribute' => new Attribute()])->create($this->myValidate($request));
+        $attribute = app(AttributeService::class, ['attribute' => new $this->model()])->create($this->myValidate($request));
 
         return redirect()
             ->route('attributes.edit', $attribute->id)
@@ -28,14 +29,14 @@ class AttributeController extends CRUDController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         app(AttributeService::class, ['attribute' => Attribute::findOrFail($id)])->update($this->myValidate($request));
 
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => 'Attribute']));
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         AttributeVariation::where('attribute_id', $id)->delete();
 
