@@ -13,24 +13,24 @@ class UserController extends CRUDController
     public function __construct()
     {
         $this->model = User::class;
-        $this->essense = 'users';
-        $this->td = ['id','name','email','email_verified_at','created_at'];
-        $this->th = ['ID','Name','Email','Verified at','Registred At'];
-        $this->oneText = 'User';
+        $this->routePrefix = 'users';
+        $this->tableData = ['id','name','email','email_verified_at','created_at'];
+        $this->tableHeaders = ['ID','Name','Email','Verified at','Registred At'];
+        $this->title = 'User';
     }
 
-    public function edit($id): View
+    public function edit(int $id): View
     {
-        return view('admin.edit.' . $this->essense, [
+        return view('admin.edit.' . $this->routePrefix, [
             'user' => User::findOrFail($id),
         ]);
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
         app(UserService::class, ['user' => User::findOrFail($id)])->update($this->myValidate($request));
 
-        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->title]));
     }
 
     protected function myValidate(Request $request): array
@@ -39,6 +39,7 @@ class UserController extends CRUDController
             'name' => 'required|string',
             'email' => 'required|email',
             'verify' => 'nullable|numeric',
+            'password' => 'nullable|string',
         ]);
     }
 }

@@ -14,16 +14,16 @@ class MediaController extends Controller
 {
     public function loadGallery(LoadGalleryRequest $request): JsonResponse
     {
-        $content = app(MediaService::class)->getGalleryImagesHtml($request->get('gallery'));
+        $result = app(MediaService::class)->getGalleryImagesHtml($request->get('gallery'));
 
-        return response()->json($content);
+        return response()->json($result);
     }
 
     public function uploadImage(MediaRequest $request): JsonResponse
     {
-        $content = app(MediaService::class)->uploadImages($request->file('image'));
+        $result = app(MediaService::class)->uploadImages($request->file('image'));
 
-        return response()->json($content);
+        return response()->json($result);
     }
 
     public function deleteImages(DeleteImagesRequest $request): JsonResponse
@@ -35,8 +35,8 @@ class MediaController extends Controller
 
     public function loadMediaImages(): Response
     {
-        $content = app(MediaService::class)->loadMediaImages();
+        $result = app(MediaService::class)->loadMediaImages();
 
-        return response($content);
+        return response($result);
     }
 }

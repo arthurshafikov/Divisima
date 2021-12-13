@@ -13,10 +13,10 @@ class AttributeController extends CRUDController
     public function __construct()
     {
         $this->model = Attribute::class;
-        $this->essense = 'attributes';
-        $this->td = ['id','name','slug'];
-        $this->th = ['ID','Name','Slug'];
-        $this->oneText = 'Attribute';
+        $this->routePrefix = 'attributes';
+        $this->tableData = ['id','name','slug'];
+        $this->tableHeaders = ['ID','Name','Slug'];
+        $this->title = 'Attribute';
     }
 
     public function store(Request $request): RedirectResponse
@@ -29,14 +29,14 @@ class AttributeController extends CRUDController
     }
 
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
         app(AttributeService::class, ['attribute' => Attribute::findOrFail($id)])->update($this->myValidate($request));
 
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => 'Attribute']));
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         AttributeVariation::where('attribute_id', $id)->delete();
 
@@ -47,7 +47,7 @@ class AttributeController extends CRUDController
     {
         return $request->validate([
             'name' => 'required|string',
-            'variation' => 'array',
+            'variation' => 'nullable|array',
             'variation.*' => 'string',
         ]);
     }

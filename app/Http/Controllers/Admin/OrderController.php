@@ -11,16 +11,16 @@ class OrderController extends CRUDController
     public function __construct()
     {
         $this->model = Order::class;
-        $this->essense = 'orders';
-        $this->td = ['id','status_text','delivery_text','formatted_total'];
-        $this->th = ['ID','Status','Delivery','Total'];
-        $this->oneText = 'Order';
+        $this->routePrefix = 'orders';
+        $this->tableData = ['id','status_text','delivery_text','formatted_total'];
+        $this->tableHeaders = ['ID','Status','Delivery','Total'];
+        $this->title = 'Order';
     }
 
     protected function myValidate(Request $request): array
     {
         return $request->validate([
-            'status' => Rule::in(ORDER::ORDER_STATUSES),
+            'status' => ['required', Rule::in(ORDER::ORDER_STATUSES)],
         ]);
     }
 }

@@ -14,50 +14,50 @@ class ProductController extends CRUDController
     public function __construct()
     {
         $this->model = Product::class;
-        $this->essense = 'products';
-        $this->td = ['id','name','image_tag','formatted_price','stock_status'];
-        $this->th = ['ID','Name','Image','Price','Stock status'];
-        $this->oneText = 'Product';
+        $this->routePrefix = 'products';
+        $this->tableData = ['id','name','image_tag','formatted_price','stock_status'];
+        $this->tableHeaders = ['ID','Name','Image','Price','Stock status'];
+        $this->title = 'Product';
     }
 
     public function store(Request $request): RedirectResponse
     {
         $product = app(ProductService::class, ['product' => new Product()])->updateOrFill($this->myValidate($request));
 
-        return redirect()->route($this->essense . '.edit', $product->id)
-            ->with('message', $this->oneText . ' has been created successfully!');
+        return redirect()->route($this->routePrefix . '.edit', $product->id)
+            ->with('message', $this->title . ' has been created successfully!');
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
         app(ProductService::class, ['product' => Product::findOrFail($id)])->updateOrFill($this->myValidate($request));
 
-        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->title]));
     }
 
     public function trash(): View
     {
         return view('admin.trash', [
             'posts' => Product::onlyTrashed()->orderBy('deleted_at', 'DESC')->paginate(10),
-            'title' => ucfirst($this->essense) . ' Table',
-            'th' => $this->th,
-            'td' => $this->td,
-            'essence' => $this->essense,
+            'title' => ucfirst($this->routePrefix) . ' Table',
+            'th' => $this->tableHeaders,
+            'td' => $this->tableData,
+            'essence' => $this->routePrefix,
         ]);
     }
 
-    public function restore($id): RedirectResponse
+    public function restore(int $id): RedirectResponse
     {
         app(ProductService::class, ['product' => Product::withTrashed()->findOrFail($id)])->restore();
 
-        return redirect()->back()->with('message', $this->oneText . ' has been restored successfully!');
+        return redirect()->back()->with('message', $this->title . ' has been restored successfully!');
     }
 
-    public function forceDelete($id): RedirectResponse
+    public function forceDelete(int $id): RedirectResponse
     {
         app(ProductService::class, ['product' => Product::withTrashed()->findOrFail($id)])->forceDelete();
 
-        return redirect()->back()->with('message', $this->oneText . ' has been deleted successfully!');
+        return redirect()->back()->with('message', $this->title . ' has been deleted successfully!');
     }
 
     protected function myValidate(Request $request): array
@@ -69,9 +69,9 @@ class ProductController extends CRUDController
             'price' => 'required|numeric',
             'details' => 'nullable|string',
             'description' => 'nullable|string',
-            'attributes' => 'array',
+            'attributes' => 'nullable|array',
             'attributes.*' => 'numeric',
-            'category' => 'array',
+            'category' => 'nullable|array',
             'category.*' => 'numeric',
             'stock' => Rule::in(Product::PRODUCT_STOCK_STATUSES),
         ]);

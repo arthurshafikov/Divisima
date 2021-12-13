@@ -10,10 +10,10 @@ class PromocodeController extends CRUDController
     public function __construct()
     {
         $this->model = Promocode::class;
-        $this->essense = 'promocodes';
-        $this->td = ['id','promocode','discount','expired_at'];
-        $this->th = ['ID','Promocode','Discount','Expired At'];
-        $this->oneText = 'Promocode';
+        $this->routePrefix = 'promocodes';
+        $this->tableData = ['id','promocode','discount','expired_at'];
+        $this->tableHeaders = ['ID','Promocode','Discount','Expired At'];
+        $this->title = 'Promocode';
     }
 
     protected function myValidate(Request $request): array

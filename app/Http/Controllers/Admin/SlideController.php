@@ -10,17 +10,18 @@ class SlideController extends CRUDController
     public function __construct()
     {
         $this->model = Slide::class;
-        $this->essense = 'slider';
-        $this->td = ['id','title','image_tag'];
-        $this->th = ['ID','Title','Image'];
-        $this->oneText = 'Slide';
+        $this->routePrefix = 'slider';
+        $this->tableData = ['id','title','image_tag'];
+        $this->tableHeaders = ['ID','Title','Image'];
+        $this->title = 'Slide';
     }
 
     protected function myValidate(Request $request): array
     {
         return $request->validate([
             'title' => 'required|string',
-            'img' => 'nullable',
+            'content' => 'nullable|string',
+            'image_id' => 'nullable',
         ]);
     }
 }

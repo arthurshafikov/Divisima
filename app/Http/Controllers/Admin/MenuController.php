@@ -12,25 +12,25 @@ class MenuController extends CRUDController
     public function __construct()
     {
         $this->model = Menu::class;
-        $this->essense = 'menus';
-        $this->td = ['id','name','location'];
-        $this->th = ['ID','Name','Location'];
-        $this->oneText = 'Menu';
+        $this->routePrefix = 'menus';
+        $this->tableData = ['id','name','location'];
+        $this->tableHeaders = ['ID','Name','Location'];
+        $this->title = 'Menu';
     }
 
     public function store(Request $request): RedirectResponse
     {
         $menu = app(MenuService::class, ['menu' => new Menu()])->create($this->myValidate($request));
 
-        return redirect()->route($this->essense . '.edit', $menu->id)
-            ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
+        return redirect()->route($this->routePrefix . '.edit', $menu->id)
+            ->with('message', __('admin/crud.created', ['name' => $this->title]));
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
         app(MenuService::class, ['menu' => Menu::findOrFail($id)])->update($this->myValidate($request));
 
-        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->title]));
     }
 
     protected function myValidate(Request $request): array
@@ -38,9 +38,9 @@ class MenuController extends CRUDController
         return $request->validate([
             'name' => 'required|string',
             'location' => 'required|string',
-            'item_names' => 'array',
+            'item_names' => 'nullable|array',
             'item_names.*' => 'string',
-            'item_links' => 'array',
+            'item_links' => 'nullable|array',
             'item_links.*' => 'string',
         ]);
     }

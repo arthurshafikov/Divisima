@@ -10,10 +10,10 @@ use Illuminate\View\View;
 abstract class CRUDController extends Controller
 {
     protected string $model;
-    protected string $essense;
-    protected array $th;
-    protected array $td;
-    protected string $oneText;
+    protected string $routePrefix;
+    protected array $tableHeaders;
+    protected array $tableData;
+    protected string $title;
 
     public function index(): View
     {
@@ -21,25 +21,24 @@ abstract class CRUDController extends Controller
 
         return view('admin.table', [
             'posts' => $posts,
-            'title' => ucfirst($this->essense) . ' Table',
-            'th' => $this->th,
-            'td' => $this->td,
-            'essence' => $this->essense,
+            'title' => ucfirst($this->routePrefix) . ' Table',
+            'th' => $this->tableHeaders,
+            'td' => $this->tableData,
+            'essence' => $this->routePrefix,
         ]);
     }
 
     public function create(): View
     {
-        return view('admin.new.' . $this->essense);
+        return view('admin.new.' . $this->routePrefix);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $this->myValidate($request);
-        $post = $this->model::create($request->all());
+        $post = $this->model::create($this->myValidate($request));
 
-        return redirect()->route($this->essense . '.edit', $post->id)
-            ->with('message', __('admin/crud.created', ['name' => $this->oneText]));
+        return redirect()->route($this->routePrefix . '.edit', $post->id)
+            ->with('message', __('admin/crud.created', ['name' => $this->title]));
     }
 
     public function show(): RedirectResponse
@@ -47,30 +46,29 @@ abstract class CRUDController extends Controller
         return redirect()->back();
     }
 
-    public function edit($id): View
+    public function edit(int $id): View
     {
         $post = $this->model::findOrFail($id);
 
-        return view('admin.edit.' . $this->essense, [
+        return view('admin.edit.' . $this->routePrefix, [
             'post' => $post,
         ]);
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, int $id): RedirectResponse
     {
-        $this->myValidate($request);
         $post = $this->model::findOrFail($id);
-        $post->update($request->all());
+        $post->update($this->myValidate($request));
 
-        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->oneText]));
+        return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->title]));
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $this->model::destroy($id);
 
-        return redirect()->route($this->essense . '.index')
-            ->with('message', __('admin/crud.deleted', ['name' => $this->oneText]));
+        return redirect()->route($this->routePrefix . '.index')
+            ->with('message', __('admin/crud.deleted', ['name' => $this->title]));
     }
 
     protected function myValidate(Request $request): array

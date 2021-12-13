@@ -10,18 +10,18 @@ class PostController extends CRUDController
     public function __construct()
     {
         $this->model = Post::class;
-        $this->essense = 'posts';
-        $this->td = ['id','title','image_tag'];
-        $this->th = ['ID','Title','Image'];
-        $this->oneText = 'Post';
+        $this->routePrefix = 'posts';
+        $this->tableData = ['id','title','image_tag'];
+        $this->tableHeaders = ['ID','Title','Image'];
+        $this->title = 'Post';
     }
 
     protected function myValidate(Request $request): array
     {
         return $request->validate([
             'name' => 'required|string',
+            'content' => 'required|string',
             'image_id' => 'nullable',
-            'content' => '',
         ]);
     }
 }

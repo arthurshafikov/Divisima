@@ -10,15 +10,16 @@ class CategoryController extends CRUDController
     public function __construct()
     {
         $this->model = Category::class;
-        $this->essense = 'categories';
-        $this->td = ['id','name'];
-        $this->th = ['ID','Name'];
-        $this->oneText = 'Category';
+        $this->routePrefix = 'categories';
+        $this->tableData = ['id','name'];
+        $this->tableHeaders = ['ID','Name'];
+        $this->title = 'Category';
     }
 
     protected function myValidate(Request $request): array
     {
         return $request->validate([
+            'parent_id' => 'nullable|numeric',
             'name' => 'required|string',
         ]);
     }
