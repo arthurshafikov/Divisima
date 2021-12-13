@@ -23,15 +23,15 @@ class WishlistController extends Controller
         ]);
     }
 
-    public function addToWishlist($id): void
+    public function addToWishlist(int $productId): void
     {
-        Product::findOrFail($id);
-        CookieHelper::addToArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
+        Product::findOrFail($productId);
+        CookieHelper::addToArrayCookie(self::WISHLIST_COOKIE_NAME, $productId, self::WISHLIST_COOKIE_TIME);
     }
 
-    public function removeFromWishlist($id): void
+    public function removeFromWishlist(int $productId): void
     {
-        CookieHelper::removeFromArrayCookie(self::WISHLIST_COOKIE_NAME, $id, self::WISHLIST_COOKIE_TIME);
+        CookieHelper::removeFromArrayCookie(self::WISHLIST_COOKIE_NAME, $productId, self::WISHLIST_COOKIE_TIME);
     }
 
     private function getWishlistCookie(): array

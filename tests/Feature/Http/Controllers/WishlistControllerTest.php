@@ -14,7 +14,7 @@ class WishlistControllerTest extends TestCase
     {
         $product = Product::factory()->create();
         $expected = [
-            "$product->id",
+            $product->id,
         ];
 
         $response = $this->get(route('addToWishlist', [

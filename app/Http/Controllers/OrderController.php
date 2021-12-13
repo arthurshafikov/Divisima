@@ -38,17 +38,17 @@ class OrderController extends Controller
         }
     }
 
-    public function thank($id): View
+    public function thank(int $orderId): View
     {
         return view('pages.thank-you', [
             'title' => __('order.thanks-title'),
-            'id' => $id,
+            'orderId' => $orderId,
         ]);
     }
 
-    public function order($id): View
+    public function order(int $orderId): View
     {
-        $order = Order::findOrFail($id);
+        $order = Order::findOrFail($orderId);
 
         return view('pages.order', [
             'title' => 'Your Order:',

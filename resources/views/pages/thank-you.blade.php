@@ -9,11 +9,11 @@
 			<div class="row">
                 <div>
                     <h1>{{$title}}</h1>
-                    <p>Checkout your <a href="{{ route('order',$id) }}">order</a>!</p>
+                    <p>Checkout your <a href="{{ route('order', $orderId) }}">order</a>!</p>
                 </div>
 
             </div>
-        </div>  
+        </div>
     </section>
 
 	@include('parts.product.recently-viewed')

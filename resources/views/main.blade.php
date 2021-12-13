@@ -14,7 +14,7 @@
 				<h2>LATEST PRODUCTS</h2>
 			</div>
 			<div class="product-slider owl-carousel">
-				@forelse ($posts as $product)
+				@forelse ($products as $product)
 					@include('parts.product.product')
 				@empty
 					There is no products!

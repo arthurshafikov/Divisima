@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Events\ProductViewed;
 use App\Filters\ProductFilter;
 use App\Models\Product;
-use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -14,7 +13,9 @@ class ProductController extends Controller
 {
     public function one(string $slug): View
     {
-        $product = Product::whereSlug($slug)->with(['images', 'attributeVariations.attribute'])->firstOrFail();
+        $product = Product::whereSlug($slug)
+            ->with(['images', 'reviews', 'attributeVariations.attribute'])
+            ->firstOrFail();
 
         event(new ProductViewed($product->id));
 
@@ -23,26 +24,22 @@ class ProductController extends Controller
             $query->whereIn('id', $category);
         })->limit(10)->get();
 
-        $rating = Review::where('product_id', $product->id)->pluck('rating');
-        $ratingCount = count($rating);
-        $rating = round($rating->avg());
-
-        $brands = $this->getProductAttributeVariations($product)['brand'] ?? collect([]);
+        $rating = $product->reviews->pluck('rating');
 
         return view('one')->with([
             'title'   => $product->name,
             'product' => $product,
             'related' => $related,
             'id'      => $product->id,
-            'rating'  => $rating,
-            'ratingCount' => $ratingCount,
-            'brands' => $brands,
+            'rating'  => round($rating->avg()),
+            'ratingCount' => $rating->count(),
+            'brands' => $this->getProductAttributeVariations($product)['brand'] ?? collect([]),
         ]);
     }
 
-    public function shop(ProductFilter $filters): View
+    public function shop(): View
     {
-        $products = Product::filter($filters)
+        $products = Product::filter(app(ProductFilter::class))
             ->with('image')
             ->paginate(setting('products_per_page'))
             ->appends(request()->input());

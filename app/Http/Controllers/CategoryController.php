@@ -8,12 +8,12 @@ use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    public function category(ProductFilter $filters, $slug): View
+    public function category(string $slug): View
     {
-        $category = Category::whereSlug($slug)->with('products')->firstOrFail();
+        $category = Category::with('products')->whereSlug($slug)->firstOrFail();
         $products = $category
             ->products()
-            ->filter($filters)
+            ->filter(app(ProductFilter::class))
             ->with('image')
             ->paginate(setting('products_per_page'))
             ->appends(request()->input());

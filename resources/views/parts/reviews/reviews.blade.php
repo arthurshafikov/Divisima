@@ -2,5 +2,5 @@
     @foreach ($reviews as $review)
         @include('parts.reviews.review')
     @endforeach
-    <a href="{{ route('getReviews',$id) }}" class="reviews-load load-more">Load more</a>
+    <a href="{{ route('getReviews', $productId) }}" class="reviews-load load-more">Load more</a>
 @endif
