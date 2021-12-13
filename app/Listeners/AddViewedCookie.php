@@ -3,12 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\ProductViewed;
-use App\Includes\CookieHelper;
+use App\Services\ProductService;
 
 class AddViewedCookie
 {
     public function handle(ProductViewed $event)
     {
-        CookieHelper::addToArrayCookie('watched', $event->productId, 60 * 24, true);
+        app(ProductService::class)->addViewedCookie($event->productId);
     }
 }

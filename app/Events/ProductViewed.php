@@ -6,8 +6,8 @@ class ProductViewed
 {
     public int $productId;
 
-    public function __construct(int $id)
+    public function __construct(int $productId)
     {
-        $this->productId = $id;
+        $this->productId = $productId;
     }
 }
