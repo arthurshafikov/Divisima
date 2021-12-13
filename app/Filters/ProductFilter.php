@@ -2,49 +2,47 @@
 
 namespace App\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class ProductFilter extends QueryFilter
 {
-    public function priceMin($val)
+    public function priceMin(string $val): Builder
     {
-        return $this->builder->where([
-            ['price', '>=', $val],
-        ]);
+        return $this->builder->where('price', '>=', $val);
     }
 
-    public function priceMax($val)
+    public function priceMax(string $val): Builder
     {
-        return $this->builder->where([
-            ['price', '<=', $val],
-        ]);
+        return $this->builder->where('price', '<=', $val);
     }
 
-    public function brand($val)
+    public function brand(string $val): Builder
     {
-        return $this->builder->whereHas('attributeVariations', function ($query) use ($val) {
+        return $this->builder->whereHas('attributeVariations', function (Builder $query) use ($val) {
             $query->whereIn('slug', explode(',', $val));
         });
     }
 
-    public function size($val)
+    public function size(string $val): Builder
     {
-        return $this->builder->whereHas('attributeVariations', function ($query) use ($val) {
+        return $this->builder->whereHas('attributeVariations', function (Builder $query) use ($val) {
             $query->whereIn('slug', explode(',', $val));
         });
     }
 
-    public function color($val)
+    public function color(string $val): Builder
     {
-        return $this->builder->whereHas('attributeVariations', function ($query) use ($val) {
+        return $this->builder->whereHas('attributeVariations', function (Builder $query) use ($val) {
             $query->whereIn('slug', explode(',', $val));
         });
     }
 
-    public function search($search)
+    public function search(string $searchQuery): Builder
     {
-        $s = '%' . $search . '%';
+        $search = "%$searchQuery%";
 
-        return $this->builder->where('name', 'LIKE', $s)
-            ->orWhere('description', 'LIKE', $s)
-            ->orWhere('details', 'LIKE', $s);
+        return $this->builder->where('name', 'LIKE', $search)
+            ->orWhere('description', 'LIKE', $search)
+            ->orWhere('details', 'LIKE', $search);
     }
 }

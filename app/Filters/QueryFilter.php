@@ -16,12 +16,12 @@ abstract class QueryFilter
         $this->request = $request;
     }
 
-    public function filters()
+    public function filters(): array|null|string
     {
         return $this->request->query();
     }
 
-    public function apply(Builder $builder)
+    public function apply(Builder $builder): Builder
     {
         $this->builder = $builder;
 
@@ -34,10 +34,5 @@ abstract class QueryFilter
             }
         }
         return $this->builder;
-    }
-
-    protected function paramToArray(string $param): array
-    {
-        return explode($this->delimiter, $param);
     }
 }
