@@ -36,14 +36,13 @@ class CategoriesTableSeeder extends Seeder
             ],
         ];
         foreach ($categories as $parent => $childs) {
-            $ans = Category::create([
+            $category = Category::create([
                 'name' => $parent,
             ]);
             if (is_array($childs)) {
-                $id = $ans->id;
                 foreach ($childs as $name) {
                     Category::create([
-                        'parent_id' => $id,
+                        'parent_id' => $category->id,
                         'name' => $name,
                     ]);
                 }

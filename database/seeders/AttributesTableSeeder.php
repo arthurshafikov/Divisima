@@ -10,7 +10,7 @@ class AttributesTableSeeder extends Seeder
 {
     public function run()
     {
-        $arr = [
+        $attributeVariations = [
             'size' => [
                 'xs',
                 's',
@@ -35,18 +35,17 @@ class AttributesTableSeeder extends Seeder
                 'Zara',
             ],
         ];
-        foreach ($arr as $attribute => $variations) :
-            $ans = Attribute::create([
+        foreach ($attributeVariations as $attribute => $variations) {
+            $attributeModel = Attribute::create([
                 'name' => $attribute,
             ]);
-            $id = $ans->id;
 
-            foreach ($variations as $var) {
+            foreach ($variations as $variation) {
                 AttributeVariation::create([
-                    'attribute_id' => $id,
-                    'name'         => $var,
+                    'attribute_id' => $attributeModel->id,
+                    'name' => $variation,
                 ]);
             }
-        endforeach;
+        }
     }
 }

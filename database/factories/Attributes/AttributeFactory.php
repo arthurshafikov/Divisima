@@ -9,7 +9,7 @@ class AttributeFactory extends Factory
 {
     protected $model = Attribute::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->word,
