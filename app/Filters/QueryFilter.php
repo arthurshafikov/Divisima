@@ -24,15 +24,12 @@ abstract class QueryFilter
     public function apply(Builder $builder): Builder
     {
         $this->builder = $builder;
-
         foreach ($this->filters() as $name => $value) {
-            if ($value === '' || $value === null) {
-                continue;
-            }
-            if (method_exists($this, $name)) {
+            if ($value !== '' && $value !== null && method_exists($this, $name)) {
                 call_user_func_array([$this,$name], array_filter([$value]));
             }
         }
+
         return $this->builder;
     }
 }

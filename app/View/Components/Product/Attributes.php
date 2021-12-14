@@ -9,9 +9,8 @@ class Attributes extends Component
 {
     public ?Product $product;
 
-    public function __construct(
-        ?Product $product = null
-    ) {
+    public function __construct(?Product $product = null)
+    {
         $this->product = $product;
     }
 

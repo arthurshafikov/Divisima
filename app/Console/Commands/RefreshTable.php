@@ -49,9 +49,9 @@ class RefreshTable extends Command
         $this->info('Table ' . $table . ' was found...');
         DB::table($table)->truncate();
 
-        $seederName = ucfirst($table) . 'TableSeeder';
+        $seederClassName = ucfirst($table) . 'TableSeeder';
         $this->info('Table ' . $table . ' had been cleared...');
-        $this->call('db:seed', ['--class' => $seederName]);
+        $this->call('db:seed', ['--class' => $seederClassName]);
         return 0;
     }
 }

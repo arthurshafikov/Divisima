@@ -7,11 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewService
 {
-    public function addReview(array $validated, int $id): string
+    public function addReview(array $params, int $id): string
     {
-        $validated['product_id'] = $id;
-        $validated['user_id'] =  Auth::id();
-
         $userAlreadyHasReview = Review::where([
             ['user_id', Auth::id()],
             ['product_id', $id],
@@ -21,7 +18,9 @@ class ReviewService
             return __('review.have');
         }
 
-        Review::create($validated);
+        $params['product_id'] = $id;
+        $params['user_id'] =  Auth::id();
+        Review::create($params);
 
         return '1';
     }

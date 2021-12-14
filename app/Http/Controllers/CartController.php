@@ -34,8 +34,7 @@ class CartController extends Controller
 
     public function updateCart(): JsonResponse
     {
-        $items = collect(request()->input('items'));
-        $cart = Cart::updateCart($items);
+        $cart = Cart::updateCart(collect(request()->input('items')));
 
         $cartData = $cart['cartData'];
         $html = view('parts.cart.cart', [

@@ -8,9 +8,9 @@
         @endif
         @foreach ($array as $element)
             @if(is_object($element))
-                <option value="{{$element->$field}}" {{ $echoSelectedIfEquals($element->$field) }} >{{$element->$labelField}}</option>
-            @else 
-                <option value="{{$element}}" {{ $echoSelectedIfEquals($element) }} >{{snakeCaseToNormal($element)}}</option>
+                <option value="{{$element->$field}}" {{ $returnSelectedIfEquals($element->$field) }} >{{$element->$labelField}}</option>
+            @else
+                <option value="{{$element}}" {{ $returnSelectedIfEquals($element) }} >{{snakeCaseToNormal($element)}}</option>
             @endif
         @endforeach
     </select>

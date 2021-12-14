@@ -37,7 +37,7 @@ class Select extends Component
         return view('admin.components.select');
     }
 
-    public function echoSelectedIfEquals($option)
+    public function returnSelectedIfEquals($option): string
     {
         if ($option == $this->compared) {
             return 'selected';

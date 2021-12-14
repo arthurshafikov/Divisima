@@ -2,10 +2,8 @@
 
 namespace App\ViewComposers;
 
-use App\Models\Category;
 use App\Reporters\CategoryReporter;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 
 class TopSellingViewComposer
