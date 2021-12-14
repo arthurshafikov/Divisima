@@ -11,10 +11,10 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        @foreach ($adminMenu as $header => $array)
+                        @foreach ($adminMenu as $header => $adminMenuElements)
                             <div class="sb-sidenav-menu-heading">{{$header}}</div>
 
-                                @foreach ($array as $el)
+                                @foreach ($adminMenuElements as $el)
                                     @if (!is_array($el['link']))
                                         <a class="nav-link" href="{{ route($el['link']) }}">
                                             <div class="sb-nav-link-icon"><i class="fas {{$el['icon'] ?? ''}}"></i></div>

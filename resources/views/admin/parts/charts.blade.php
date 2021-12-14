@@ -26,9 +26,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <!-- <script src="/admin/assets/demo/chart-area-demo.js"></script> -->
-    <!-- <script src="/admin/assets/demo/chart-bar-demo.js"></script> -->
-    <!-- <script src="/admin/assets/demo/chart-pie-demo.js"></script> -->
-@endpush

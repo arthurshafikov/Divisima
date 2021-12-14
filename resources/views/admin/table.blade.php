@@ -5,14 +5,14 @@
 
     <h1 class="mt-4">Tables</h1>
     @include('admin.parts.breadcrumbs')
-    
+
     @if (session('message'))
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
     @endif
 
-    @if (\Route::has($essence . '.create'))
+    @if (\Illuminate\Support\Facades\Route::has($essence . '.create'))
         <a href="{{ route($essence . '.create')}}" class="btn btn-primary">
             New {{ ucfirst($essence) }}
         </a>
@@ -49,7 +49,7 @@
                             <tr>
                                 @foreach ($td as $col)
                                     <td>{!! $post->$col !!}</td>
-                                @endforeach 
+                                @endforeach
                                 <td><a href="{{ route($essence . '.edit',$post->id) }}" class="btn btn-primary">Edit</a></td>
                                 <td>
                                     <form method="POST" action="{{ route($essence . '.destroy',$post->id)}}" onSubmit="if(!confirm('Are you sure to delete this item?')){return false;}">
@@ -57,7 +57,7 @@
                                         @csrf
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
-                                
+
                                 </td>
                             </tr>
                         @endforeach

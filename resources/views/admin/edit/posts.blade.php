@@ -1,7 +1,7 @@
 @extends('admin.vendor.crud')
 
 @section('form')
-<a href="{{ route('post',$post->slug) }}" target="_blank">View post</a>
+    <a href="{{ route('post',$post->slug) }}" target="_blank">View post</a>
     <form method="POST" action="{{ route('posts.update',$post->id) }}">
         @csrf
         @method('PATCH')
