@@ -4,12 +4,14 @@ namespace App\Models\Attributes;
 
 use App\Models\Product;
 use App\Models\Traits\SluggableTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class AttributeVariation extends Model
 {
+    use HasFactory;
     use SluggableTrait;
 
     public $timestamps = false;
