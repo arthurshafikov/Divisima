@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileService
 {
-    public function uploadAvatar($file): array
+    public function uploadAvatar(string $file): array
     {
         $user = Auth::user();
         $image = Image::create([
@@ -22,7 +22,7 @@ class ProfileService
         ];
     }
 
-    public function updateProfileInfo(array $validated)
+    public function updateProfileInfo(array $validated): void
     {
         $user = Auth::user();
         $user->profile()->update($validated);
