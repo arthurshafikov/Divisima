@@ -11,7 +11,7 @@ class RecentlyViewed
     public function compose(View $view)
     {
         $viewedCookie = CookieHelper::getJSONCookie('watched');
-        if ($viewedCookie == false) {
+        if ($viewedCookie === null) {
             $viewedCookie = [];
         }
         $viewed = Product::with('image')->whereIn('id', $viewedCookie)->get();

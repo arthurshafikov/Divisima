@@ -18,17 +18,13 @@ class ChartsComposer
                 $day = strtotime("-{$diff} day");
                 $dates[] = date('M j', $day);
 
-                $ordersThisDay = Order::whereDay('created_at', date('d', $day))->with('products');
-
-                $income = 0;
-                $ordersThisDay->get()->each(function ($order) use (&$income) {
-                    $income += $order->total;
-                });
-                $revenue[] = $income;
+                $revenue[] = Order::with('products')
+                    ->whereDay('created_at', date('d', $day))
+                    ->get()
+                    ->sum('total');
             }
             return compact('dates', 'revenue');
         });
-
         $view->with('dates', $shopRevenue['dates']);
         $view->with('revenue', $shopRevenue['revenue']);
 
@@ -40,9 +36,9 @@ class ChartsComposer
                 $month = strtotime("-{$diff} month");
                 $months[] = date('F', $month);
 
-                $ordersThisMonth = Order::whereMonth('created_at', date('m', $month))->with('products');
-                $countOrders = $ordersThisMonth->count();
-                $orders[] = $countOrders;
+                $orders[] = Order::with('products')
+                    ->whereMonth('created_at', date('m', $month))
+                    ->count();
             }
             return compact('orders', 'months');
         });

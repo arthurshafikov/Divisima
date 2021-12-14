@@ -11,19 +11,19 @@ class ShopViewComposer
 {
     public function compose(View $view)
     {
-
         $minProductPrice = Cache::remember('minProductPrice', env("CACHE_TIME", 0), function () {
             return Product::min('price');
         });
+        $view->with('minPrice', $minProductPrice);
+
         $maxProductPrice = Cache::remember('minProductPrice', env("CACHE_TIME", 0), function () {
             return Product::max('price');
         });
+        $view->with('maxPrice', $maxProductPrice);
 
         $categories = Cache::remember('allCategoriesWithChilds', env("CACHE_TIME", 0), function () {
-            return Category::parents()->with('childs')->get();
+            return Category::with('childs')->parents()->get();
         });
         $view->with('categories', $categories);
-        $view->with('minPrice', $minProductPrice);
-        $view->with('maxPrice', $maxProductPrice);
     }
 }

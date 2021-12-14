@@ -9,7 +9,6 @@ class BreadCrumbsViewComposer
 {
     public function compose(View $view)
     {
-        $breadcrumbs = BreadCrumbs::getBreadCrumbs();
-        $view->with('breadcrumbs', $breadcrumbs);
+        $view->with('breadcrumbs', BreadCrumbs::getBreadCrumbs());
     }
 }
