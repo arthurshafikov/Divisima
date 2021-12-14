@@ -16,31 +16,23 @@ class MenuService
 
     public function create(array $params): Menu
     {
+        return $this->save($params);
+    }
+
+    public function update(array $params): Menu
+    {
+        $this->menu->items()->delete();
+
+        return $this->save($params);
+    }
+
+    private function save(array $params): Menu
+    {
         $this->menu->fill($params);
         $this->menu->save();
 
         $menuItemNames = $params['item_names'];
         $menuItemLinks = $params['item_links'];
-
-        for ($i = 0; $i < count($menuItemNames); $i++) {
-            MenuItem::create([
-                'menu_id' => $this->menu->id,
-                'name' => $menuItemNames[$i],
-                'path' => $menuItemLinks[$i],
-            ]);
-        }
-
-        return $this->menu;
-    }
-
-    public function update(array $params): Menu
-    {
-        $this->menu->update($params);
-
-        $menuItemNames = $params['item_names'];
-        $menuItemLinks = $params['item_links'];
-
-        $this->menu->items()->delete();
 
         for ($i = 0; $i < count($menuItemNames); $i++) {
             MenuItem::create([

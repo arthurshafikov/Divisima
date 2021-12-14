@@ -22,7 +22,7 @@ class ProductController extends CRUDController
 
     public function store(Request $request): RedirectResponse
     {
-        $product = app(ProductService::class, ['product' => new Product()])->updateOrFill($this->myValidate($request));
+        $product = app(ProductService::class, ['product' => new Product()])->create($this->myValidate($request));
 
         return redirect()->route($this->routePrefix . '.edit', $product->id)
             ->with('message', $this->title . ' has been created successfully!');
@@ -30,7 +30,7 @@ class ProductController extends CRUDController
 
     public function update(Request $request, int $id): RedirectResponse
     {
-        app(ProductService::class, ['product' => Product::findOrFail($id)])->updateOrFill($this->myValidate($request));
+        app(ProductService::class, ['product' => Product::findOrFail($id)])->update($this->myValidate($request));
 
         return redirect()->back()->with('message', __('admin/crud.updated', ['name' => $this->title]));
     }
