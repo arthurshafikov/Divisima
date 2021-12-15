@@ -4,6 +4,7 @@ namespace App\Reporters;
 
 use App\Models\Category;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CategoryReporter
 {
@@ -13,10 +14,12 @@ class CategoryReporter
             ->select([
                 'categories.id',
                 'categories.name',
+                DB::raw("SUM(products.total_sales) as sales"),
             ])
-            ->join('category_product', 'categories.id', '=', 'category_product.category_id')
+            ->rightJoin('category_product', 'categories.id', '=', 'category_product.category_id')
             ->join('products', 'products.id', '=', 'category_product.product_id')
-            ->orderBy('products.total_sales', 'desc')
+            ->groupBy('categories.id')
+            ->orderBy('sales', 'desc')
             ->take(12)
             ->get();
     }
