@@ -14,12 +14,12 @@ class ProfileFactory extends Factory
     {
         return [
             'user_id'     => self::factoryForModel(User::class),
-            'first_name'  => $this->faker->firstName,
-            'surname'     => $this->faker->lastName,
-            'address'     => $this->faker->address,
-            'country'     => $this->faker->country,
-            'zip'         => $this->faker->postcode,
-            'phone'       => $this->faker->phoneNumber,
+            'first_name'  => $this->faker->firstName(),
+            'surname'     => $this->faker->lastName(),
+            'address'     => $this->faker->address(),
+            'country'     => $this->faker->country(),
+            'zip'         => $this->faker->postcode(),
+            'phone'       => $this->faker->phoneNumber(),
         ];
     }
 }

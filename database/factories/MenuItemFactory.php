@@ -15,8 +15,8 @@ class MenuItemFactory extends Factory
     {
         return [
             'menu_id' => fn() => self::factoryForModel(Menu::class),
-            'name' => $this->faker->word,
-            'path' => $this->faker->domainWord,
+            'name' => $this->faker->word(),
+            'path' => $this->faker->domainWord(),
         ];
     }
 }

@@ -12,7 +12,7 @@ class PromocodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'promocode' => $this->faker->word,
+            'promocode' => $this->faker->word(),
             'discount' => $this->faker->numberBetween(1, 100),
             'expired_at' => $this->faker->dateTimeBetween('now', '+1 year'),
         ];

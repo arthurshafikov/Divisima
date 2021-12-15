@@ -14,7 +14,7 @@ class AttributeVariationFactory extends Factory
     {
         return [
             'attribute_id' => fn() => self::factoryForModel(Attribute::class),
-            'name' => $this->faker->word,
+            'name' => $this->faker->word(),
         ];
     }
 }
