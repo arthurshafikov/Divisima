@@ -63,7 +63,7 @@ class OrderController extends Controller
                 'subtotal' => $order->subtotal,
                 'discount' => $order->discount,
                 'total' => $order->formatted_total,
-                'details' => $order->details,
+                'details' => $order->additional,
             ],
         ]);
     }
